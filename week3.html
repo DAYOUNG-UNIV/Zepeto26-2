@@ -1,0 +1,2472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>아바타와 디지털 정체성 — 메타버스의 세계 3주차</title>
+<meta name="description" content="추구미와 OOTD로 읽는 아바타, 자기표현, 그리고 플랫폼 문화">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: { colors: {
+    meta:  {50:'#f0fdfa',100:'#ccfbf1',200:'#99f6e4',300:'#5eead4',400:'#2dd4bf',500:'#14b8a6',600:'#0d9488',700:'#0f766e',800:'#115e59',900:'#134e4a'},
+    grape: {50:'#faf5ff',100:'#f3e8ff',200:'#e9d5ff',300:'#d8b4fe',400:'#c084fc',500:'#a855f7',600:'#9333ea',700:'#7e22ce',800:'#6b21a8',900:'#581c87'}
+  }, fontFamily: { sans:['Pretendard Variable','Pretendard','-apple-system','BlinkMacSystemFont','system-ui','Apple SD Gothic Neo','sans-serif'] } } }
+}
+</script>
+<style>
+html,body{height:100%}
+body{
+  font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo',sans-serif;
+  background:#f8fafc; color:#0f172a; overflow:hidden; word-break:keep-all; -webkit-font-smoothing:antialiased;
+}
+#slides-container{position:fixed;inset:0}
+.slide{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  padding:clamp(14px,2.6vh,34px) clamp(16px,3vw,48px) clamp(58px,7.5vh,74px);
+  overflow-y:auto; overscroll-behavior:contain;
+  opacity:0; visibility:hidden; transform:translateY(18px);
+  transition:opacity .34s cubic-bezier(.2,.7,.3,1), transform .34s cubic-bezier(.2,.7,.3,1), visibility .34s;
+}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev-slide{opacity:0;visibility:hidden;transform:translateY(-18px)}
+.soft-card{background:#fff;border:1px solid #e9edf3;box-shadow:0 1px 2px rgba(15,23,42,.04),0 10px 24px -14px rgba(15,23,42,.14)}
+.glass-card{background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.9);box-shadow:0 20px 50px -24px rgba(15,23,42,.3)}
+.part-num{
+  font-size:clamp(4rem,13vw,9rem); font-weight:900; line-height:.85; letter-spacing:-.05em;
+  background:linear-gradient(135deg,#2dd4bf,#7e22ce); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.big-number{font-variant-numeric:tabular-nums; letter-spacing:-.035em}
+.src-note{font-size:.86rem;color:#94a3b8;line-height:1.55}
+.flow-line{position:relative}
+@media (min-width:768px){
+  .flow-line::after{
+    content:"";position:absolute;top:50%;right:-15px;width:14px;height:2px;background:#cbd5e1;
+  }
+}
+.photo-slot{position:relative;background:#fff;border:2px dashed #cbd5e1;border-radius:1.25rem}
+.photo-slot__tag{
+  position:absolute;top:8px;right:10px;z-index:2;font-size:10px;font-weight:800;letter-spacing:.02em;
+  background:#0f172a;color:#fff;border-radius:999px;padding:3px 9px;opacity:.82
+}
+.cmp-table{width:100%;border-collapse:collapse;font-size:1.02rem}
+.cmp-table th{
+  text-align:left;padding:11px 14px;font-size:.82rem;font-weight:900;letter-spacing:.06em;
+  color:#64748b;text-transform:uppercase;border-bottom:2px solid #e2e8f0;white-space:nowrap
+}
+.cmp-table td{padding:14px;border-bottom:1px solid #eef2f7;vertical-align:top;line-height:1.5}
+.cmp-table td:first-child{font-weight:800;white-space:nowrap}
+.custom-scrollbar::-webkit-scrollbar{height:8px;width:8px}
+.custom-scrollbar::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:99px}
+.hl-line{background:linear-gradient(transparent 58%,#99f6e4 58%);padding:0 2px}
+.hl-grape{background:linear-gradient(transparent 58%,#e9d5ff 58%);padding:0 2px}
+.tally-input{
+  width:clamp(88px,20vw,150px); text-align:center; font-weight:900; letter-spacing:-.04em;
+  font-size:clamp(2.4rem,5.5vw,3.6rem); line-height:1.1; font-variant-numeric:tabular-nums;
+  background:#fff; border:2px solid #e2e8f0; border-radius:16px; padding:6px 4px;
+  font-family:inherit; outline:none; transition:border-color .15s, box-shadow .15s;
+  -moz-appearance:textfield;
+}
+.tally-input::-webkit-outer-spin-button,.tally-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.tally-input:focus{border-color:#0d9488; box-shadow:0 0 0 4px rgba(13,148,136,.14)}
+.stepper{
+  flex:none; width:40px; height:40px; border-radius:999px; border:1px solid #e2e8f0; background:#fff;
+  color:#64748b; font-size:1.35rem; font-weight:700; line-height:1; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;
+  transition:border-color .15s,color .15s;
+}
+.stepper:hover{border-color:#0d9488;color:#0d9488}
+.stepper:active{background:#f0fdfa}
+/* chrome */
+#bar{position:fixed;left:0;bottom:0;height:3px;background:linear-gradient(90deg,#2dd4bf,#7e22ce);width:0;transition:width .3s;z-index:40}
+#hud{
+  position:fixed;left:0;right:0;bottom:0;height:clamp(44px,6.5vh,56px);z-index:30;
+  display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,3vw,30px);
+  background:linear-gradient(to top,#f8fafc 58%,rgba(248,250,252,0));font-size:.86rem;color:#94a3b8
+}
+#hud .t{font-weight:700;color:#475569;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:50vw}
+#hud .r{display:flex;align-items:center;gap:4px;flex:none}
+.ic{
+  background:none;border:1px solid transparent;color:#94a3b8;border-radius:10px;width:32px;height:32px;
+  cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center
+}
+.ic:hover{color:#0f172a;border-color:#e2e8f0;background:#fff}
+#pg{font-variant-numeric:tabular-nums;font-weight:800;color:#0f172a;margin-left:4px}
+#toc{position:fixed;inset:0;z-index:50;background:rgba(248,250,252,.97);display:none;padding:clamp(26px,5vh,56px) clamp(18px,4vw,56px);overflow-y:auto}
+#toc.open{display:block}
+#toclist{max-width:1180px;margin:0 auto;display:grid;gap:5px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+#toclist button{
+  text-align:left;background:none;border:1px solid transparent;border-radius:11px;padding:9px 12px;color:#64748b;
+  cursor:pointer;font-family:inherit;font-size:.95rem;display:flex;gap:10px;align-items:baseline
+}
+#toclist button:hover{color:#0f172a;background:#fff;border-color:#e2e8f0}
+#toclist button.cur{color:#0f172a;border-color:#2dd4bf;background:#fff}
+#toclist button i{font-style:normal;font-variant-numeric:tabular-nums;color:#0d9488;font-weight:800;min-width:1.7em}
+@media print{
+  body{overflow:visible;background:#fff}
+  #hud,#bar,#toc{display:none!important}
+  .slide{position:relative;inset:auto;opacity:1!important;visibility:visible!important;transform:none!important;
+    page-break-after:always;min-height:95vh;border-bottom:1px solid #e2e8f0}
+}
+</style>
+</head>
+<body>
+
+<main id="slides-container" class="relative w-full h-screen">
+
+<!-- ===== 01 COVER ===== -->
+<section class="slide active">
+  <div class="glass-card max-w-5xl w-full rounded-[2.5rem] overflow-hidden">
+    <div class="h-3 bg-gradient-to-r from-meta-400 via-teal-400 to-grape-500"></div>
+    <div class="p-8 md:p-14 relative overflow-hidden">
+      <div class="absolute -top-24 -right-20 w-72 h-72 rounded-full bg-meta-100 opacity-60"></div>
+      <div class="absolute -bottom-28 -left-20 w-80 h-80 rounded-full bg-grape-100 opacity-50"></div>
+      <div class="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
+        <div class="md:col-span-3">
+          <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-slate-900 text-white text-base font-semibold">
+            <span class="w-2 h-2 bg-lime-300 rounded-full"></span>
+            메타버스의 세계 · 3주차 이론
+          </div>
+          <h1 class="text-4xl md:text-6xl font-black tracking-tight text-slate-900 mb-5 leading-[1.1]">
+            아바타와<br>디지털 정체성
+          </h1>
+          <p class="text-xl md:text-2xl text-slate-500 font-medium mb-7 leading-relaxed">
+            추구미와 OOTD 사이에서 —<br>자기표현, 그리고 플랫폼이 정하는 경계
+          </p>
+          <div class="w-24 h-1.5 rounded-full bg-gradient-to-r from-meta-400 to-grape-500 mb-7"></div>
+          <div class="flex flex-wrap gap-x-7 gap-y-2 text-base text-slate-500">
+            <span><strong class="text-slate-800">과목</strong> 메타버스의세계</span>
+            <span><strong class="text-slate-800">담당</strong> 이다영</span>
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <svg viewBox="0 0 320 300" class="w-full" role="img" aria-label="거울 앞에 선 사람과, 거울 속에 비친 더 화려하고 이상화된 아바타">
+            <defs>
+              <linearGradient id="cv-mirror" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f0fdfa"></stop><stop offset="100%" stop-color="#e9d5ff"></stop>
+              </linearGradient>
+              <linearGradient id="cv-av" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#2dd4bf"></stop><stop offset="100%" stop-color="#7e22ce"></stop>
+              </linearGradient>
+              <filter id="cv-soft" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="5"></feGaussianBlur>
+              </filter>
+            </defs>
+            <!-- 거울 프레임 -->
+            <rect x="150" y="20" width="156" height="252" rx="78" fill="url(#cv-mirror)" stroke="#c084fc" stroke-width="3"></rect>
+            <ellipse cx="228" cy="240" rx="58" ry="8" fill="#a855f7" opacity=".16"></ellipse>
+            <!-- 거울 속 아바타 (이상 자아) -->
+            <g>
+              <circle cx="228" cy="96" r="26" fill="url(#cv-av)"></circle>
+              <path d="M228 66 q-30 4 -32 26 q16 -14 32 -12 q16 -2 32 12 q-2 -22 -32 -26z" fill="#7e22ce"></path>
+              <path d="M200 128 h56 l12 72 h-20 l-4 44 h-32 l-4 -44 h-20 z" fill="url(#cv-av)"></path>
+              <rect x="206" y="146" width="44" height="30" rx="6" fill="#fff" opacity=".35"></rect>
+              <circle cx="272" cy="70" r="5" fill="#fde68a"></circle>
+              <circle cx="186" cy="62" r="3.5" fill="#5eead4"></circle>
+              <circle cx="276" cy="176" r="3.5" fill="#f9a8d4"></circle>
+            </g>
+            <!-- 반사 하이라이트 -->
+            <path d="M166 40 l24 0 l-30 210 l-10 0 z" fill="#fff" opacity=".5"></path>
+            <!-- 현실의 사람 -->
+            <g opacity=".92">
+              <circle cx="72" cy="110" r="22" fill="#94a3b8"></circle>
+              <path d="M48 138 h48 l10 62 h-17 l-4 44 h-26 l-4 -44 h-17 z" fill="#cbd5e1"></path>
+            </g>
+            <ellipse cx="72" cy="248" rx="40" ry="7" fill="#0f172a" opacity=".07"></ellipse>
+            <!-- 시선 -->
+            <path d="M104 130 h38" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="5 5" fill="none" marker-end="url(#cv-a)"></path>
+            <defs><marker id="cv-a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <path d="M0 0 L8 4 L0 8 z" fill="#94a3b8"></path></marker></defs>
+            <text x="72" y="284" text-anchor="middle" font-size="15.5" font-weight="800" fill="#64748b">실제의 나</text>
+            <text x="228" y="290" text-anchor="middle" font-size="15.5" font-weight="800" fill="#7e22ce">되고 싶은 나</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 조별 공유 활동 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-5">
+      <div class="text-blue-600 text-base font-black mb-2">START · 조별 활동</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">먼저, 조별로 모여 앉겠습니다</h2>
+      <p class="text-slate-500">지난주에 만든 아이템을 서로 보여주고 이야기하는 시간입니다.</p>
+    </div>
+    <div class="soft-card rounded-3xl p-5 mb-5">
+      <svg viewBox="0 0 1000 120" class="w-full" role="img" aria-label="활동 순서. 자리 이동 3분, 조별 공유 15분, 우수작 선정 2분, 전체 발표 12분">
+        <defs><marker id="ac-a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+          <path d="M0 0 L9 4.5 L0 9 z" fill="#cbd5e1"></path></marker></defs>
+        <g stroke="#cbd5e1" stroke-width="2.5" fill="none" marker-end="url(#ac-a)">
+          <line x1="238" y1="60" x2="266" y2="60"></line><line x1="480" y1="60" x2="508" y2="60"></line>
+          <line x1="722" y1="60" x2="750" y2="60"></line>
+        </g>
+        <g>
+          <rect x="8" y="26" width="226" height="68" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"></rect>
+          <text x="121" y="54" text-anchor="middle" font-size="20" font-weight="900" fill="#334155">① 자리 이동</text>
+          <text x="121" y="78" text-anchor="middle" font-size="16.5" font-weight="800" fill="#64748b">3분</text>
+
+          <rect x="270" y="26" width="226" height="68" rx="16" fill="#eff6ff" stroke="#93c5fd" stroke-width="2.5"></rect>
+          <text x="383" y="54" text-anchor="middle" font-size="20" font-weight="900" fill="#1e40af">② 조별 공유</text>
+          <text x="383" y="78" text-anchor="middle" font-size="16.5" font-weight="800" fill="#2563eb">15분 · 1인 2분씩</text>
+
+          <rect x="512" y="26" width="226" height="68" rx="16" fill="#fffbeb" stroke="#fcd34d" stroke-width="2"></rect>
+          <text x="625" y="54" text-anchor="middle" font-size="20" font-weight="900" fill="#92400e">③ 우수작 선정</text>
+          <text x="625" y="78" text-anchor="middle" font-size="16.5" font-weight="800" fill="#b45309">조당 1개 · 2분</text>
+
+          <rect x="754" y="26" width="238" height="68" rx="16" fill="#f0fdfa" stroke="#5eead4" stroke-width="2"></rect>
+          <text x="873" y="54" text-anchor="middle" font-size="20" font-weight="900" fill="#0f766e">④ 전체 발표</text>
+          <text x="873" y="78" text-anchor="middle" font-size="16.5" font-weight="800" fill="#0d9488">조당 1분 30초 · 가산점</text>
+        </g>
+        <text x="500" y="114" text-anchor="middle" font-size="14" fill="#94a3b8">총 30분 정도 걸립니다</text>
+      </svg>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="soft-card rounded-2xl p-6">
+        <div class="w-11 h-11 rounded-2xl bg-slate-100 text-slate-600 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-users"></i></div>
+        <h3 class="font-black mb-2">조는 이렇게 만듭니다</h3>
+        <p class="text-base text-slate-500 leading-relaxed"><strong class="text-slate-700">지금 앉은 자리 기준으로 4명씩.</strong> 멀리 이동하지 마시고 앞뒤 사람과 묶이시면 됩니다. 오늘만 쓰는 <strong class="text-slate-700">임시 조</strong>입니다.</p>
+      </div>
+      <div class="soft-card rounded-2xl p-6">
+        <div class="w-11 h-11 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-mobile-screen"></i></div>
+        <h3 class="font-black mb-2">이렇게 공유하세요</h3>
+        <p class="text-base text-slate-500 leading-relaxed">제출한 <strong class="text-slate-700">스크린샷을 폰에 띄워</strong> 돌아가며 보여주세요. 한 사람당 2분이면 충분합니다. 다 만들지 못했어도 괜찮습니다.</p>
+      </div>
+      <div class="bg-slate-900 text-white rounded-2xl p-6">
+        <div class="w-11 h-11 rounded-2xl bg-white/10 text-lime-300 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-circle-check"></i></div>
+        <h3 class="font-black mb-2">아직 제출 못 하셨다면</h3>
+        <p class="text-base text-slate-300 leading-relaxed">작업 중인 화면이나 <strong class="text-white">아이디어 스케치</strong>를 보여주시면 됩니다. 지각 제출은 9월 23일까지 열려 있으니 오늘 조언을 받아 가세요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 논의 거리 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-5">
+      <div class="text-blue-600 text-base font-black mb-2">조별 공유 · 논의 거리</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">이 네 가지를 물어봐 주세요</h2>
+      <p class="text-slate-500">그냥 "잘했다"로 끝나지 않게, 순서대로 물어보시면 됩니다.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
+      <div class="soft-card rounded-2xl p-6 border-t-4 border-t-grape-400">
+        <div class="text-sm font-black text-grape-600 mb-2">Q1 · 무엇을</div>
+        <h3 class="font-black text-lg mb-2">왜 그 주제를 골랐나요?</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">OOTD와 추구미 중 무엇을 골랐고, 그 이유는? 만들고 나서 생각이 바뀌었나요?</p>
+      </div>
+      <div class="soft-card rounded-2xl p-6 border-t-4 border-t-amber-400">
+        <div class="text-sm font-black text-amber-600 mb-2">Q2 · 어디서</div>
+        <h3 class="font-black text-lg mb-2">어디서 가장 오래 막혔나요?</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">포기하거나 바꾼 디자인이 있었나요? 그 이유가 실력 때문이었나요, 도구 때문이었나요?</p>
+      </div>
+      <div class="soft-card rounded-2xl p-6 border-t-4 border-t-meta-400">
+        <div class="text-sm font-black text-meta-600 mb-2">Q3 · 어떻게</div>
+        <h3 class="font-black text-lg mb-2">AI를 썼다면 어떻게 썼나요?</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">어떤 서비스로 무엇을 했는지, 한 번에 원하는 게 나왔는지, 프롬프트를 몇 번 고쳤는지.</p>
+      </div>
+      <div class="soft-card rounded-2xl p-6 border-t-4 border-t-blue-400">
+        <div class="text-sm font-black text-blue-600 mb-2">Q4 · 입혀 보니</div>
+        <h3 class="font-black text-lg mb-2">아바타에 입히니 어땠나요?</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">머릿속 그림과 다른 점이 있었나요? 그 차이가 오늘 강의의 출발점입니다.</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+        <h3 class="font-black text-amber-800 mb-2"><i class="fa-solid fa-star mr-2"></i>우수작은 이렇게 고르세요</h3>
+        <p class="text-base text-amber-900 leading-relaxed"><strong>제일 잘 만든 것이 아니라, 제일 이야기가 있는 것.</strong> 예상 밖의 시도를 했거나, 실패담이 재미있거나, 다른 사람에게 도움이 될 팁이 나온 작업을 골라 주세요.</p>
+      </div>
+      <div class="bg-slate-900 text-white rounded-2xl p-6">
+        <h3 class="font-black text-lime-300 mb-2"><i class="fa-solid fa-microphone mr-2"></i>발표는 1분 30초</h3>
+        <p class="text-base text-slate-300 leading-relaxed">고른 사람이 직접 나와 <strong class="text-white">무엇을 만들었고 어디서 막혔는지</strong>만 말해 주시면 됩니다. 발표하면 <strong class="text-lime-300">가산점</strong>이 있고, 한 학기에 <strong class="text-white">1인 1회</strong>까지 인정합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 AGENDA ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-5">
+      <div class="text-meta-600 font-black text-base mb-2">TODAY'S MAP</div>
+      <h2 class="text-4xl md:text-5xl font-black text-slate-900">오늘의 지도</h2>
+    </div>
+    <div class="soft-card rounded-3xl p-7 mb-5">
+      <svg viewBox="0 0 1000 132" class="w-full" role="img" aria-label="오늘 수업의 질문이 네 단계로 깊어지는 흐름. 왜 다른가, 왜 그런가, 그래서 나는 어떻게 되는가, 그런데 누가 정했는가">
+        <defs><marker id="arc-a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+          <path d="M0 0 L9 4.5 L0 9 z" fill="#cbd5e1"></path></marker></defs>
+        <g stroke="#cbd5e1" stroke-width="2.5" fill="none" marker-end="url(#arc-a)">
+          <line x1="238" y1="70" x2="266" y2="70"></line><line x1="480" y1="70" x2="508" y2="70"></line>
+          <line x1="722" y1="70" x2="750" y2="70"></line>
+        </g>
+        <g>
+          <rect x="8" y="34" width="226" height="72" rx="16" fill="#faf5ff" stroke="#d8b4fe" stroke-width="2"></rect>
+          <text x="24" y="26" font-size="14" font-weight="900" fill="#9333ea">01 추구미와 OOTD</text>
+          <text x="121" y="66" text-anchor="middle" font-size="22.5" font-weight="900" fill="#6b21a8">왜 다른가?</text>
+          <text x="121" y="90" text-anchor="middle" font-size="14" fill="#a855f7">두 개의 자아</text>
+
+          <rect x="270" y="34" width="226" height="72" rx="16" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"></rect>
+          <text x="286" y="26" font-size="14" font-weight="900" fill="#2563eb">02 아바타라는 말</text>
+          <text x="383" y="66" text-anchor="middle" font-size="22.5" font-weight="900" fill="#1e40af">왜 그런가?</text>
+          <text x="383" y="90" text-anchor="middle" font-size="14" fill="#3b82f6">이상 자아 · 무대</text>
+
+          <rect x="512" y="34" width="226" height="72" rx="16" fill="#f0fdfa" stroke="#5eead4" stroke-width="2"></rect>
+          <text x="528" y="26" font-size="14" font-weight="900" fill="#0d9488">03 아바타가 나를 바꾼다</text>
+          <text x="625" y="66" text-anchor="middle" font-size="22.5" font-weight="900" fill="#0f766e">나는 어떻게 되는가?</text>
+          <text x="625" y="90" text-anchor="middle" font-size="14" fill="#14b8a6">되먹임</text>
+
+          <rect x="754" y="34" width="238" height="72" rx="16" fill="#f7fee7" stroke="#bef264" stroke-width="2"></rect>
+          <text x="770" y="26" font-size="14" font-weight="900" fill="#65a30d">04 플랫폼이 정하는 경계</text>
+          <text x="873" y="66" text-anchor="middle" font-size="22.5" font-weight="900" fill="#3f6212">누가 정했는가?</text>
+          <text x="873" y="90" text-anchor="middle" font-size="14" fill="#84cc16">선택지 · 규칙 · 구조</text>
+        </g>
+        <text x="500" y="126" text-anchor="middle" font-size="14" fill="#94a3b8">질문이 한 단계씩 깊어집니다</text>
+      </svg>
+    </div>
+    <div class="bg-slate-900 text-white rounded-3xl p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div>
+        <div class="text-lime-300 text-base font-bold mb-1">오늘의 전제</div>
+        <div class="text-2xl font-black">여러분은 이미 다 겪었습니다.</div>
+      </div>
+      <div class="text-slate-300 max-w-xl text-base leading-relaxed">
+        지난주 과제 안에 오늘 수업 내용이 통째로 들어 있었습니다. 겪어 놓고 아직 <strong class="text-white">이름을 안 붙인 상태</strong>일 뿐입니다. 오늘은 그 이름을 붙이는 시간입니다.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 PART 1 DIVIDER ===== -->
+<section class="slide">
+  <div class="max-w-5xl w-full text-center">
+    <div class="part-num mb-4">01</div>
+    <h2 class="text-4xl md:text-6xl font-black text-slate-900 mb-6">추구미와 OOTD</h2>
+    <p class="text-xl text-slate-500">두 주제는 왜 다른가</p>
+    <svg viewBox="0 0 1000 100" class="w-full max-w-4xl mx-auto mt-8" role="img" aria-label="전체 네 파트 중 현재 1번째 파트 진행 중">
+      <line x1="4" y1="61" x2="996" y2="61" stroke="#e2e8f0" stroke-width="2"></line>
+      <text x="116" y="16" text-anchor="middle" font-size="14" font-weight="900" fill="#7e22ce">지금 여기</text>
+      <path d="M116 30 l-6 -9 h12 z" fill="#7e22ce"></path>
+      <rect x="4" y="34" width="224" height="54" rx="15" fill="#7e22ce"></rect>
+      <text x="116" y="55" text-anchor="middle" font-size="14" font-weight="900" fill="#ffffff" opacity=".75">01</text>
+      <text x="116" y="77" text-anchor="middle" font-size="19" font-weight="900" fill="#ffffff">추구미와 OOTD</text>
+      <rect x="260" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="372" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">02 아바타라는 말</text>
+      <rect x="516" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="628" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">03 아바타가 나를 바꾼다</text>
+      <rect x="772" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="884" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">04 플랫폼이 정하는 경계</text>
+      </svg>
+  </div>
+</section>
+
+<!-- ===== 04 여는 질문 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-6">
+      <div class="text-grape-600 text-base font-black mb-2">여는 질문</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">지난주, 어느 쪽을 고르셨나요</h2>
+      <p class="text-slate-500">같은 과제처럼 보였지만 둘은 완전히 다른 작업이었습니다.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- OOTD -->
+      <div class="soft-card rounded-3xl p-7 border-t-4 border-t-meta-400">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="text-2xl">📷</span>
+          <div><div class="text-sm font-black text-meta-600">OPTION A</div><h3 class="text-2xl font-black">오늘의 OOTD</h3></div>
+        </div>
+        <svg viewBox="0 0 320 170" class="w-full mb-4" role="img" aria-label="오늘 입은 옷을 찍은 폴라로이드 사진 한 장">
+          <rect x="94" y="10" width="132" height="150" rx="6" fill="#fff" stroke="#cbd5e1" stroke-width="2" transform="rotate(-4 160 85)"></rect>
+          <rect x="104" y="20" width="112" height="104" fill="#f0fdfa" transform="rotate(-4 160 85)"></rect>
+          <g transform="rotate(-4 160 85)">
+            <circle cx="160" cy="52" r="15" fill="#0d9488"></circle>
+            <path d="M143 74 h34 l7 44 h-48 z" fill="#14b8a6"></path>
+            <rect x="148" y="94" width="24" height="30" fill="#0f766e"></rect>
+          </g>
+          <text x="158" y="146" text-anchor="middle" font-size="13" font-weight="700" fill="#94a3b8" transform="rotate(-4 160 85)">TODAY</text>
+        </svg>
+        <p class="text-base text-slate-500 leading-relaxed"><strong class="text-slate-800">지금의 나</strong>를 아바타로 옮기는 작업. 오늘 있었던 일의 기록입니다.</p>
+      </div>
+      <!-- 추구미 -->
+      <div class="soft-card rounded-3xl p-7 border-t-4 border-t-grape-400">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="text-2xl">✨</span>
+          <div><div class="text-sm font-black text-grape-600">OPTION B</div><h3 class="text-2xl font-black">내 추구미</h3></div>
+        </div>
+        <svg viewBox="0 0 320 170" class="w-full mb-4" role="img" aria-label="여러 장의 이미지를 모아 붙인 무드보드">
+          <rect x="16" y="12" width="84" height="66" rx="6" fill="#f3e8ff" stroke="#d8b4fe" stroke-width="1.5"></rect>
+          <rect x="108" y="12" width="96" height="44" rx="6" fill="#faf5ff" stroke="#d8b4fe" stroke-width="1.5"></rect>
+          <rect x="212" y="12" width="92" height="82" rx="6" fill="#f3e8ff" stroke="#d8b4fe" stroke-width="1.5"></rect>
+          <rect x="16" y="86" width="84" height="72" rx="6" fill="#faf5ff" stroke="#d8b4fe" stroke-width="1.5"></rect>
+          <rect x="108" y="64" width="96" height="94" rx="6" fill="#f3e8ff" stroke="#c084fc" stroke-width="2"></rect>
+          <rect x="212" y="102" width="92" height="56" rx="6" fill="#faf5ff" stroke="#d8b4fe" stroke-width="1.5"></rect>
+          <g fill="#a855f7" opacity=".55">
+            <circle cx="58" cy="40" r="13"></circle><path d="M32 66 q26 -20 52 0 z"></path>
+            <circle cx="156" cy="96" r="15"></circle><path d="M126 130 q30 -24 60 0 z"></path>
+            <circle cx="258" cy="48" r="12"></circle><path d="M234 78 q24 -18 48 0 z"></path>
+          </g>
+          <g>
+            <rect x="26" y="58" width="52" height="16" rx="8" fill="#fff" opacity=".92"></rect>
+            <rect x="130" y="30" width="52" height="16" rx="8" fill="#fff" opacity=".92"></rect>
+            <rect x="26" y="134" width="60" height="16" rx="8" fill="#fff" opacity=".92"></rect>
+            <rect x="232" y="128" width="52" height="16" rx="8" fill="#fff" opacity=".92"></rect>
+          </g>
+          <g font-size="12" font-weight="800" fill="#7e22ce" text-anchor="middle">
+            <text x="52" y="70">청량한</text><text x="156" y="42">단정한</text>
+            <text x="56" y="146">도시적인</text><text x="258" y="140">무심한</text>
+          </g>
+        </svg>
+        <p class="text-base text-slate-500 leading-relaxed"><strong class="text-slate-800">지금의 내가 아닌 것</strong>을 만드는 작업. 이상의 선언입니다.</p>
+      </div>
+    </div>
+    <div class="mt-6 bg-slate-900 text-white rounded-2xl p-6">
+      <p class="text-2xl md:text-2xl font-black">둘 중 하나를 고르는 순간, 여러분은 이미 <span class="text-lime-300">서로 다른 두 개의 자아</span> 중 하나를 선택한 것입니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 우리 반 집계 ===== -->
+<section class="slide">
+  <div class="max-w-5xl w-full">
+    <div class="mb-6">
+      <div class="text-meta-600 text-base font-black mb-2">OUR CLASS DATA</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">손을 들어볼까요</h2>
+      <p class="text-slate-500">비율보다 <strong class="text-slate-800">왜 그쪽을 골랐는지</strong>가 오늘의 재료입니다.</p>
+    </div>
+    <div class="grid grid-cols-2 gap-5 mb-5">
+      <div class="soft-card rounded-3xl p-7 text-center">
+        <div class="text-3xl mb-2">📷</div>
+        <div class="font-black text-xl mb-4">오늘의 OOTD</div>
+        <div class="flex items-center justify-center gap-3">
+          <button data-step="a-" class="stepper" aria-label="OOTD 1 줄이기">&minus;</button>
+          <input id="ca" type="number" min="0" max="999" step="1" value="0" inputmode="numeric"
+                 class="tally-input text-meta-600" aria-label="오늘의 OOTD 인원 수 입력">
+          <button data-step="a+" class="stepper" aria-label="OOTD 1 늘리기">+</button>
+        </div>
+        <div class="text-sm text-slate-400 mt-3">숫자를 직접 입력하세요</div>
+      </div>
+      <div class="soft-card rounded-3xl p-7 text-center">
+        <div class="text-3xl mb-2">✨</div>
+        <div class="font-black text-xl mb-4">내 추구미</div>
+        <div class="flex items-center justify-center gap-3">
+          <button data-step="b-" class="stepper" aria-label="추구미 1 줄이기">&minus;</button>
+          <input id="cb" type="number" min="0" max="999" step="1" value="0" inputmode="numeric"
+                 class="tally-input text-grape-600" aria-label="내 추구미 인원 수 입력">
+          <button data-step="b+" class="stepper" aria-label="추구미 1 늘리기">+</button>
+        </div>
+        <div class="text-sm text-slate-400 mt-3">숫자를 직접 입력하세요</div>
+      </div>
+    </div>
+    <div class="soft-card rounded-2xl p-5">
+      <div class="h-6 rounded-full overflow-hidden flex bg-slate-100 mb-3">
+        <i id="ba" class="block bg-meta-500 transition-all duration-500" style="width:50%"></i>
+        <i id="bb" class="block bg-grape-500 transition-all duration-500" style="width:50%"></i>
+      </div>
+      <div class="flex justify-between items-center">
+        <p id="tsum" class="text-base text-slate-400">인원 수를 입력하면 막대가 움직입니다</p>
+        <button id="treset" class="text-sm font-bold text-slate-400 border border-slate-200 rounded-full px-4 py-1.5 hover:text-slate-900">초기화</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 시제 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-grape-600 text-base font-black mb-2">개념 지도</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">두 주제는 시제가 다릅니다</h2>
+    </div>
+    <div class="soft-card rounded-3xl p-4 mb-3">
+      <svg viewBox="0 0 1000 192" class="w-full" role="img" aria-label="시간축 위에 현재의 OOTD와 미래의 추구미가 놓여 있고 그 사이의 거리가 강조되어 있다">
+        <defs><marker id="tl-a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#0f172a"></path></marker></defs>
+        <line x1="40" y1="130" x2="950" y2="130" stroke="#0f172a" stroke-width="2.5" marker-end="url(#tl-a)"></line>
+        <text x="960" y="152" text-anchor="end" font-size="15.5" fill="#94a3b8">시간</text>
+        <!-- 과거 -->
+        <circle cx="140" cy="130" r="6" fill="#fff" stroke="#cbd5e1" stroke-width="2.5"></circle>
+        <text x="140" y="160" text-anchor="middle" font-size="15.5" fill="#94a3b8">과거</text>
+        <!-- 현재 · OOTD -->
+        <g>
+          <circle cx="380" cy="130" r="11" fill="#0d9488"></circle>
+          <line x1="380" y1="119" x2="380" y2="74" stroke="#0d9488" stroke-width="2"></line>
+          <rect x="280" y="34" width="200" height="40" rx="12" fill="#f0fdfa" stroke="#5eead4" stroke-width="2"></rect>
+          <text x="380" y="60" text-anchor="middle" font-size="20" font-weight="900" fill="#0f766e">📷 오늘의 OOTD</text>
+          <text x="380" y="162" text-anchor="middle" font-size="16.5" font-weight="800" fill="#0f172a">현재</text>
+          <text x="380" y="182" text-anchor="middle" font-size="14" fill="#94a3b8">실제의 나 · 기록</text>
+        </g>
+        <!-- 미래 · 추구미 -->
+        <g>
+          <circle cx="760" cy="130" r="11" fill="#7e22ce"></circle>
+          <line x1="760" y1="119" x2="760" y2="74" stroke="#7e22ce" stroke-width="2"></line>
+          <rect x="660" y="34" width="200" height="40" rx="12" fill="#faf5ff" stroke="#d8b4fe" stroke-width="2"></rect>
+          <text x="760" y="60" text-anchor="middle" font-size="20" font-weight="900" fill="#6b21a8">✨ 내 추구미</text>
+          <text x="760" y="162" text-anchor="middle" font-size="16.5" font-weight="800" fill="#0f172a">미래</text>
+          <text x="760" y="182" text-anchor="middle" font-size="14" fill="#94a3b8">되고 싶은 나 · 선언</text>
+        </g>
+        <!-- 간극 -->
+        <g>
+          <path d="M392 104 h356" stroke="#a855f7" stroke-width="2" stroke-dasharray="6 5" fill="none"></path>
+          <path d="M392 104 l10 -5 v10 z" fill="#a855f7"></path>
+          <path d="M748 104 l-10 -5 v10 z" fill="#a855f7"></path>
+          <rect x="484" y="88" width="172" height="30" rx="15" fill="#fff" stroke="#d8b4fe" stroke-width="2"></rect>
+          <text x="570" y="108" text-anchor="middle" font-size="16.5" font-weight="800" fill="#7e22ce">이 거리가 핵심</text>
+        </g>
+      </svg>
+      <p class="text-center text-base text-slate-500 mt-1">거리가 0이 되면 추구미는 성립하지 않습니다</p>
+    </div>
+    <div class="glass-card rounded-3xl p-3 md:p-4 overflow-x-auto custom-scrollbar mb-3">
+      <table class="cmp-table">
+        <thead><tr><th></th><th>📷 오늘의 OOTD</th><th>✨ 내 추구미</th></tr></thead>
+        <tbody>
+          <tr><td>시제</td><td>현재 — 오늘 있었던 일</td><td>미래 — 아직 아닌 것</td></tr>
+          <tr><td>행위</td><td>기록하고 전시한다</td><td>선언하고 수집한다</td></tr>
+          <tr class="bg-grape-50"><td>실패 조건</td><td><strong>실제와 다르면</strong> 거짓말</td><td><strong>실제와 같으면</strong> 의미 없음</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bg-slate-900 text-white rounded-2xl p-4">
+      <p class="text-xl md:text-2xl font-black">추구미는 <span class="text-lime-300">지금의 내가 그게 아니라는 사실</span>을 전제로만 성립합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 추구미 정의 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-stretch">
+      <div class="md:col-span-2 bg-gradient-to-br from-grape-600 to-purple-900 rounded-[2.2rem] p-9 text-white flex flex-col justify-between">
+        <div>
+          <div class="inline-block bg-white/15 rounded-full px-3 py-1 text-sm font-black mb-5">CONCEPT 01</div>
+          <svg viewBox="0 0 300 130" class="w-full mb-6" role="img" aria-label="추구미라는 한자어의 구성. 추구할 추, 구할 구, 아름다울 미">
+            <g>
+              <rect x="10" y="20" width="76" height="76" rx="14" fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-opacity=".35" stroke-width="1.5"></rect>
+              <text x="48" y="68" text-anchor="middle" font-size="42.5" font-weight="900" fill="#fff">追</text>
+              <text x="48" y="114" text-anchor="middle" font-size="15.5" font-weight="700" fill="#e9d5ff">쫓을 추</text>
+              <rect x="102" y="20" width="76" height="76" rx="14" fill="#ffffff" fill-opacity=".14" stroke="#ffffff" stroke-opacity=".35" stroke-width="1.5"></rect>
+              <text x="140" y="68" text-anchor="middle" font-size="42.5" font-weight="900" fill="#fff">求</text>
+              <text x="140" y="114" text-anchor="middle" font-size="15.5" font-weight="700" fill="#e9d5ff">구할 구</text>
+              <rect x="194" y="20" width="76" height="76" rx="14" fill="#fde68a" fill-opacity=".9"></rect>
+              <text x="232" y="68" text-anchor="middle" font-size="42.5" font-weight="900" fill="#581c87">美</text>
+              <text x="232" y="114" text-anchor="middle" font-size="15.5" font-weight="700" fill="#fde68a">아름다울 미</text>
+            </g>
+          </svg>
+          <h2 class="text-3xl font-black leading-tight mb-4">추구미</h2>
+          <p class="text-purple-100 leading-relaxed text-base">내가 추구하는 아름다움. 외모만이 아니라 분위기·패션·라이프스타일·가치관까지 포괄합니다.</p>
+        </div>
+        <div class="mt-8 text-base text-purple-200">"내가 원하는 나의 이미지"</div>
+      </div>
+      <div class="md:col-span-3 space-y-4">
+        <div class="soft-card rounded-2xl p-6">
+          <h4 class="font-black mb-2"><i class="fa-solid fa-feather text-grape-500 mr-2"></i>범위가 넓다 — 단위가 얼굴이 아니라 분위기</h4>
+          <p class="text-base text-slate-500 leading-relaxed mb-3">"눈이 크다"가 아니라 <strong class="text-slate-700">형용사</strong>로 말해집니다.</p>
+          <div class="flex flex-wrap gap-2 text-sm">
+            <span class="bg-grape-50 text-grape-800 font-bold rounded-full px-3 py-1.5">청량한</span>
+            <span class="bg-grape-50 text-grape-800 font-bold rounded-full px-3 py-1.5">단정한</span>
+            <span class="bg-grape-50 text-grape-800 font-bold rounded-full px-3 py-1.5">도시적인</span>
+            <span class="bg-grape-50 text-grape-800 font-bold rounded-full px-3 py-1.5">무심한</span>
+            <span class="bg-grape-50 text-grape-800 font-bold rounded-full px-3 py-1.5">다정한</span>
+          </div>
+        </div>
+        <div class="soft-card rounded-2xl p-6">
+          <h4 class="font-black mb-2"><i class="fa-solid fa-layer-group text-amber-500 mr-2"></i>수집으로 만들어진다</h4>
+          <p class="text-base text-slate-500 leading-relaxed">핀터레스트 보드, 스크랩 폴더, 저장한 릴스. 추구미는 하나의 정답 이미지가 아니라 <strong class="text-slate-700">이미지의 더미</strong>로 존재합니다.</p>
+        </div>
+        <div class="bg-slate-900 text-white rounded-2xl p-6">
+          <h4 class="font-black mb-2 text-lime-300"><i class="fa-solid fa-bullhorn mr-2"></i>선언이 곧 실천</h4>
+          <p class="text-base text-slate-300 leading-relaxed">"내 추구미는 ○○야"라고 말하는 행위 자체가 이미 자기표현의 한 형식입니다. <strong class="text-white">실제로 그렇게 되지 않아도요.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 08 추구미 유래 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-6">
+      <div class="text-grape-600 text-base font-black mb-2">WHERE IT CAME FROM</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">팬덤에서 나와 일상어가 되기까지</h2>
+    </div>
+    <div class="soft-card rounded-3xl p-6 mb-5">
+      <svg viewBox="0 0 1000 250" class="w-full" role="img" aria-label="추구미라는 단어의 사용량이 2023년 말부터 늘어 2024년에 급증하는 곡선">
+        <defs>
+          <linearGradient id="cg-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#a855f7" stop-opacity=".3"></stop>
+            <stop offset="100%" stop-color="#a855f7" stop-opacity="0"></stop>
+          </linearGradient>
+        </defs>
+        <line x1="60" y1="196" x2="960" y2="196" stroke="#cbd5e1" stroke-width="2"></line>
+        <text x="30" y="110" font-size="14" fill="#94a3b8" transform="rotate(-90 30 110)">언급량</text>
+        <path d="M70 190 C 160 189, 250 187, 330 184 C 420 181, 500 172, 560 150 C 620 128, 670 80, 730 52 C 790 26, 860 20, 950 24"
+              fill="none" stroke="#7e22ce" stroke-width="3.5" stroke-linecap="round"></path>
+        <path d="M70 190 C 160 189, 250 187, 330 184 C 420 181, 500 172, 560 150 C 620 128, 670 80, 730 52 C 790 26, 860 20, 950 24 L950 196 L70 196 Z" fill="url(#cg-fill)"></path>
+        <!-- 마커 -->
+        <g>
+          <circle cx="180" cy="188" r="6" fill="#fff" stroke="#94a3b8" stroke-width="2.5"></circle>
+          <text x="180" y="220" text-anchor="middle" font-size="15.5" font-weight="800" fill="#64748b">~2023 초</text>
+          <text x="180" y="242" text-anchor="middle" font-size="13" fill="#94a3b8">아이돌 팬덤 내부 용어</text>
+
+          <circle cx="560" cy="150" r="8" fill="#a855f7"></circle>
+          <line x1="560" y1="142" x2="560" y2="102" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3 3"></line>
+          <rect x="452" y="72" width="216" height="30" rx="15" fill="#faf5ff" stroke="#d8b4fe" stroke-width="2"></rect>
+          <text x="560" y="92" text-anchor="middle" font-size="15.5" font-weight="800" fill="#6b21a8">2023.12 — 커뮤니티로 확산</text>
+          <text x="560" y="222" text-anchor="middle" font-size="15.5" font-weight="800" fill="#64748b">2023 말</text>
+
+          <circle cx="838" cy="22" r="8" fill="#7e22ce"></circle>
+          <text x="838" y="220" text-anchor="middle" font-size="15.5" font-weight="800" fill="#64748b">2024</text>
+          <text x="838" y="242" text-anchor="middle" font-size="13" fill="#94a3b8">브랜드 마케팅 용어로 흡수</text>
+          <text x="838" y="14" text-anchor="middle" font-size="15.5" font-weight="900" fill="#7e22ce">급증</text>
+        </g>
+      </svg>
+      <p class="src-note mt-2">※ 곡선은 확산 양상을 나타낸 도식이며 특정 조사기관의 실측 그래프가 아닙니다.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="soft-card rounded-2xl p-6">
+        <h4 class="font-black mb-2">출발점은 아이돌 팬덤</h4>
+        <p class="text-base text-slate-500 leading-relaxed">트위터에서 "○○ 추구미" 형태로 쓰이던 표현. 특정 인물의 분위기를 내 목표 이미지로 삼는다는 뜻이었습니다.</p>
+      </div>
+      <div class="bg-slate-900 text-white rounded-2xl p-6">
+        <div class="text-lime-300 text-base font-black mb-2">주목할 점</div>
+        <p class="text-base text-slate-300 leading-relaxed">모방의 대상이 <strong class="text-white">사람에서 감각으로</strong> 옮겨 갔습니다. 사람은 따라 할 수 없지만, <strong class="text-lime-300">감각은 조립할 수 있습니다.</strong> 아바타 문화와 맞물리는 지점입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 09 롤모델 비교 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-6">
+      <div class="text-slate-500 text-base font-black mb-2">ROLE MODEL vs 추구미</div>
+      <h2 class="text-4xl md:text-5xl font-black">따라 하기와 조립하기</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="soft-card rounded-3xl p-7">
+        <span class="inline-block bg-slate-100 text-slate-600 text-sm font-black rounded-full px-3 py-1.5 mb-4">롤모델</span>
+        <svg viewBox="0 0 320 160" class="w-full mb-4" role="img" aria-label="한 명의 인물에서 나에게로 향하는 하나의 화살표">
+          <defs><marker id="rm-a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#475569"></path></marker></defs>
+          <g>
+            <circle cx="62" cy="62" r="22" fill="#64748b"></circle>
+            <path d="M36 92 h52 l8 46 h-68 z" fill="#94a3b8"></path>
+            <text x="62" y="152" text-anchor="middle" font-size="14" font-weight="800" fill="#475569">한 사람</text>
+          </g>
+          <path d="M116 88 h88" stroke="#475569" stroke-width="3" fill="none" marker-end="url(#rm-a)"></path>
+          <text x="160" y="76" text-anchor="middle" font-size="14" font-weight="700" fill="#64748b">그대로</text>
+          <g>
+            <circle cx="262" cy="62" r="22" fill="#0f172a"></circle>
+            <path d="M236 92 h52 l8 46 h-68 z" fill="#334155"></path>
+            <text x="262" y="152" text-anchor="middle" font-size="14" font-weight="800" fill="#0f172a">나</text>
+          </g>
+        </svg>
+        <h3 class="font-black text-xl mb-2">사람을 목표로 둔다</h3>
+        <p class="text-base text-slate-500 leading-relaxed">대상이 특정되고 삶의 궤적 전체를 참조합니다. <strong class="text-slate-700">도달 여부를 판정할 수 있습니다.</strong></p>
+      </div>
+      <div class="soft-card rounded-3xl p-7 border-2 border-grape-300">
+        <span class="inline-block bg-grape-100 text-grape-700 text-sm font-black rounded-full px-3 py-1.5 mb-4">추구미</span>
+        <svg viewBox="0 0 320 160" class="w-full mb-4" role="img" aria-label="흩어진 여러 조각에서 나에게로 향하는 여러 개의 점선 화살표">
+          <defs><marker id="cm-a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#a855f7"></path></marker></defs>
+          <g fill="#c084fc">
+            <rect x="14" y="16" width="30" height="24" rx="5"></rect>
+            <rect x="12" y="58" width="26" height="30" rx="5"></rect>
+            <rect x="22" y="104" width="34" height="22" rx="5"></rect>
+            <rect x="66" y="30" width="24" height="26" rx="5"></rect>
+            <rect x="60" y="82" width="30" height="24" rx="5"></rect>
+            <rect x="74" y="124" width="26" height="22" rx="5"></rect>
+          </g>
+          <g stroke="#a855f7" stroke-width="1.8" stroke-dasharray="4 4" fill="none" marker-end="url(#cm-a)" opacity=".8">
+            <path d="M48 28 q80 24 148 50"></path><path d="M42 72 q86 12 152 24"></path>
+            <path d="M58 114 q76 -8 140 -18"></path><path d="M94 42 q56 30 102 46"></path>
+            <path d="M94 94 q52 6 100 8"></path><path d="M104 134 q48 -18 94 -32"></path>
+          </g>
+          <g>
+            <circle cx="254" cy="66" r="22" fill="#6b21a8"></circle>
+            <path d="M228 96 h52 l8 46 h-68 z" fill="#7e22ce"></path>
+            <text x="254" y="156" text-anchor="middle" font-size="14" font-weight="800" fill="#6b21a8">나</text>
+          </g>
+        </svg>
+        <h3 class="font-black text-xl mb-2">감각을 목표로 둔다</h3>
+        <p class="text-base text-slate-500 leading-relaxed">대상이 흩어져 있고 조각조각 가져와 조합합니다. <strong class="text-grape-700">도달 여부를 판정할 수 없습니다.</strong></p>
+      </div>
+    </div>
+    <div class="bg-slate-900 text-white rounded-2xl p-6">
+      <p class="text-2xl font-black">판정할 수 없다는 것은 곧, <span class="text-lime-300">끝나지 않는다</span>는 뜻이기도 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10 OOTD 깔때기 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-6">
+      <div class="text-meta-600 text-base font-black mb-2">OOTD</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">기록일까요, 전시일까요</h2>
+      <p class="text-slate-500">Outfit Of The Day — 일기처럼 보이지만, 해시태그와 함께 올라가는 순간 성격이 바뀝니다.</p>
+    </div>
+    <div class="soft-card rounded-3xl p-6 mb-5">
+      <svg viewBox="0 0 1000 220" class="w-full" role="img" aria-label="찍은 사진 수십 장이 고르기와 보정을 거쳐 한 장만 게시되는 깔때기 그림">
+        <defs>
+          <linearGradient id="fn-g" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#99f6e4"></stop><stop offset="100%" stop-color="#0d9488"></stop>
+          </linearGradient>
+        </defs>
+        <path d="M60 30 L400 30 L620 78 L800 100 L940 112 L940 128 L800 140 L620 162 L400 210 L60 210 Z" fill="url(#fn-g)" opacity=".2"></path>
+        <g stroke="#0d9488" stroke-width="2" fill="none">
+          <path d="M60 30 L400 30 L620 78 L800 100 L940 112"></path>
+          <path d="M60 210 L400 210 L620 162 L800 140 L940 128"></path>
+        </g>
+        <g font-size="17.5" font-weight="900" fill="#0f766e" text-anchor="middle">
+          <text x="228" y="116">찍는다</text><text x="510" y="116">고른다</text><text x="710" y="116">보정한다</text><text x="900" y="116">올린다</text>
+        </g>
+        <g font-size="35.5" font-weight="900" fill="#0f172a" text-anchor="middle" class="big-number">
+          <text x="228" y="156">40장</text><text x="510" y="156">6장</text><text x="710" y="156">2장</text>
+          <text x="900" y="156" fill="#0d9488">1장</text>
+        </g>
+        <g stroke="#0f766e" stroke-width="1.5" stroke-dasharray="4 4" opacity=".55">
+          <line x1="400" y1="20" x2="400" y2="220"></line><line x1="620" y1="20" x2="620" y2="220"></line><line x1="800" y1="20" x2="800" y2="220"></line>
+        </g>
+        <text x="500" y="14" text-anchor="middle" font-size="15.5" fill="#94a3b8">보여줄 만한 오늘만 남습니다</text>
+        <text x="228" y="196" text-anchor="middle" font-size="14" fill="#64748b">카메라롤</text>
+        <text x="900" y="196" text-anchor="middle" font-size="14" font-weight="800" fill="#0d9488">피드</text>
+      </svg>
+      <p class="src-note mt-2">※ 숫자는 흔한 경험을 예시로 든 것이며 통계값이 아닙니다.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="soft-card rounded-2xl p-6">
+        <div class="text-2xl mb-3">📒</div>
+        <h4 class="font-black mb-2">기록으로서</h4>
+        <p class="text-base text-slate-500">오늘 무엇을 입었는지 남긴다. 나를 위한 아카이브.</p>
+      </div>
+      <div class="soft-card rounded-2xl p-6 border-2 border-meta-300">
+        <div class="text-2xl mb-3">🖼️</div>
+        <h4 class="font-black mb-2">전시로서</h4>
+        <p class="text-base text-slate-500">누군가 볼 것을 전제로 <strong class="text-slate-700">고르고 찍고 보정하고 올린다.</strong></p>
+      </div>
+      <div class="bg-slate-900 text-white rounded-2xl p-6">
+        <div class="text-lime-300 text-base font-black mb-2">그러므로</div>
+        <p class="text-base text-slate-300 leading-relaxed">두 주제 다 <strong class="text-white">편집된 자아</strong>입니다. 편집의 방향이 다를 뿐입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11 PART 2 DIVIDER ===== -->
+<section class="slide">
+  <div class="max-w-5xl w-full text-center">
+    <div class="part-num mb-4">02</div>
+    <h2 class="text-4xl md:text-6xl font-black text-slate-900 mb-6">아바타라는 말</h2>
+    <p class="text-xl text-slate-500 mb-8">겪은 일에 이름을 붙이면, <strong class="text-slate-800">설명할 수 있게 됩니다.</strong></p>
+    <div class="inline-flex flex-wrap justify-center gap-3">
+      <span class="bg-white border border-slate-200 rounded-full px-5 py-2 text-base font-bold">어원</span>
+      <span class="bg-white border border-slate-200 rounded-full px-5 py-2 text-base font-bold">디지털 아바타의 역사</span>
+      <span class="bg-white border border-slate-200 rounded-full px-5 py-2 text-base font-bold">자기 불일치 이론</span>
+      <span class="bg-white border border-slate-200 rounded-full px-5 py-2 text-base font-bold">무대 앞과 무대 뒤</span>
+    </div>
+    <svg viewBox="0 0 1000 100" class="w-full max-w-4xl mx-auto mt-8" role="img" aria-label="전체 네 파트 중 현재 2번째 파트 진행 중">
+      <line x1="4" y1="61" x2="996" y2="61" stroke="#e2e8f0" stroke-width="2"></line>
+      <rect x="4" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="116" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">01 추구미와 OOTD</text>
+      <text x="372" y="16" text-anchor="middle" font-size="14" font-weight="900" fill="#1d4ed8">지금 여기</text>
+      <path d="M372 30 l-6 -9 h12 z" fill="#1d4ed8"></path>
+      <rect x="260" y="34" width="224" height="54" rx="15" fill="#1d4ed8"></rect>
+      <text x="372" y="55" text-anchor="middle" font-size="14" font-weight="900" fill="#ffffff" opacity=".75">02</text>
+      <text x="372" y="77" text-anchor="middle" font-size="19" font-weight="900" fill="#ffffff">아바타라는 말</text>
+      <rect x="516" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="628" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">03 아바타가 나를 바꾼다</text>
+      <rect x="772" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="884" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">04 플랫폼이 정하는 경계</text>
+      </svg>
+  </div>
+</section>
+
+<!-- ===== 14 아바타 어원 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-7 items-stretch">
+      <div class="md:col-span-2 bg-gradient-to-br from-slate-800 to-slate-900 rounded-[2.2rem] p-8 text-white flex flex-col justify-between">
+        <div>
+          <div class="inline-block bg-white/15 rounded-full px-3 py-1 text-sm font-black mb-5">ETYMOLOGY</div>
+          <svg viewBox="0 0 320 220" class="w-full mb-5" role="img" aria-label="산스크리트 avatara의 구성. 아래로를 뜻하는 ava와 건너다를 뜻하는 어근 tr이 합쳐져 내려옴을 뜻한다">
+            <text x="160" y="30" text-anchor="middle" font-size="30" font-weight="900" fill="#ffffff">avatāra</text>
+            <text x="160" y="54" text-anchor="middle" font-size="17" fill="#94a3b8">अवतार</text>
+            <g stroke="#475569" stroke-width="2" fill="none">
+              <path d="M160 64 v14 h-72 v16"></path><path d="M160 64 v14 h72 v16"></path>
+            </g>
+            <rect x="20" y="94" width="136" height="60" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"></rect>
+            <text x="88" y="120" text-anchor="middle" font-size="21" font-weight="900" fill="#5eead4">ava-</text>
+            <text x="88" y="142" text-anchor="middle" font-size="15" fill="#cbd5e1">아래로</text>
+            <rect x="164" y="94" width="136" height="60" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"></rect>
+            <text x="232" y="120" text-anchor="middle" font-size="21" font-weight="900" fill="#c084fc">√tṛ</text>
+            <text x="232" y="142" text-anchor="middle" font-size="15" fill="#cbd5e1">건너다</text>
+            <g stroke="#475569" stroke-width="2" fill="none">
+              <path d="M88 154 v14 h72 v12"></path><path d="M232 154 v14 h-72 v12"></path>
+            </g>
+            <rect x="60" y="180" width="200" height="34" rx="17" fill="#a3e635"></rect>
+            <text x="160" y="204" text-anchor="middle" font-size="18" font-weight="900" fill="#1a2e05">아래로 건너옴 = 내려옴</text>
+          </svg>
+          <p class="text-slate-300 leading-relaxed text-base">힌두교에서 <strong class="text-white">신이 지상에 내려와 입는 몸</strong>, 곧 화신(化身)을 가리키던 말입니다. 비슈누가 라마로, 크리슈나로 내려올 때 그 몸이 아바타입니다.</p>
+        </div>
+        <div class="mt-7 text-sm text-slate-400">가상세계 용어가 되기 훨씬 전부터 있던 단어입니다</div>
+      </div>
+      <div class="md:col-span-3 space-y-4">
+        <div class="soft-card rounded-2xl p-6">
+          <h4 class="font-black mb-3 text-lg"><i class="fa-solid fa-clock-rotate-left text-meta-500 mr-2"></i>단어가 옮겨 다닌 길</h4>
+          <svg viewBox="0 0 640 118" class="w-full" role="img" aria-label="아바타라는 말의 의미 확장 연표. 1784년 영어 유입, 1815년 일반화, 1985년 게임 제목, 1986년 온라인 가상세계, 1992년 대중화">
+            <line x1="20" y1="58" x2="620" y2="58" stroke="#e2e8f0" stroke-width="3"></line>
+            <g>
+              <circle cx="40" cy="58" r="8" fill="#94a3b8"></circle>
+              <text x="40" y="34" text-anchor="middle" font-size="15" font-weight="900" fill="#334155">1784</text>
+              <text x="40" y="82" text-anchor="middle" font-size="13" fill="#94a3b8">영어 유입</text>
+              <text x="40" y="100" text-anchor="middle" font-size="13" fill="#94a3b8">(힌두 신학)</text>
+
+              <circle cx="180" cy="58" r="8" fill="#94a3b8"></circle>
+              <text x="180" y="34" text-anchor="middle" font-size="15" font-weight="900" fill="#334155">1815</text>
+              <text x="180" y="82" text-anchor="middle" font-size="13" fill="#94a3b8">"추상적인 것의</text>
+              <text x="180" y="100" text-anchor="middle" font-size="13" fill="#94a3b8">구체적 화신"</text>
+
+              <circle cx="330" cy="58" r="9" fill="#0d9488"></circle>
+              <text x="330" y="34" text-anchor="middle" font-size="15" font-weight="900" fill="#0f766e">1985</text>
+              <text x="330" y="82" text-anchor="middle" font-size="13" fill="#0d9488">게임 제목에 등장</text>
+              <text x="330" y="100" text-anchor="middle" font-size="13" fill="#0d9488">Ultima IV</text>
+
+              <circle cx="470" cy="58" r="9" fill="#0d9488"></circle>
+              <text x="470" y="34" text-anchor="middle" font-size="15" font-weight="900" fill="#0f766e">1986</text>
+              <text x="470" y="82" text-anchor="middle" font-size="13" fill="#0d9488">가상세계 속</text>
+              <text x="470" y="100" text-anchor="middle" font-size="13" fill="#0d9488">내 분신 = Habitat</text>
+
+              <circle cx="600" cy="58" r="9" fill="#7e22ce"></circle>
+              <text x="600" y="34" text-anchor="middle" font-size="15" font-weight="900" fill="#6b21a8">1992</text>
+              <text x="600" y="82" text-anchor="middle" font-size="13" fill="#7e22ce">대중화</text>
+              <text x="600" y="100" text-anchor="middle" font-size="13" fill="#7e22ce">스노 크래시</text>
+            </g>
+          </svg>
+          <p class="text-sm text-slate-400 mt-1">※ 1992년은 2주차에서 본 그 소설입니다 — 단어를 <strong class="text-slate-600">만든</strong> 게 아니라 <strong class="text-slate-600">퍼뜨린</strong> 쪽입니다.</p>
+        </div>
+        <div class="soft-card rounded-2xl p-6">
+          <h4 class="font-black mb-3 text-lg"><i class="fa-solid fa-arrow-down-up-across-line text-grape-500 mr-2"></i>그런데 방향이 뒤집혔습니다</h4>
+          <svg viewBox="0 0 640 208" class="w-full" role="img" aria-label="원래 아바타는 완전한 신이 불완전한 지상의 몸으로 내려오는 것이었지만, 디지털 아바타는 현실의 내가 더 이상적인 몸으로 건너가는 것이다">
+            <defs>
+              <marker id="et-d" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto">
+                <path d="M0 0 L10 0 L5 10 z" fill="#f59e0b"></path></marker>
+              <marker id="et-u" markerWidth="10" markerHeight="10" refX="5" refY="1" orient="auto">
+                <path d="M0 10 L10 10 L5 0 z" fill="#0d9488"></path></marker>
+            </defs>
+            <line x1="320" y1="8" x2="320" y2="200" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="5 5"></line>
+            <!-- 원래 -->
+            <text x="150" y="20" text-anchor="middle" font-size="14" font-weight="900" fill="#b45309">원래의 아바타</text>
+            <rect x="46" y="32" width="208" height="46" rx="14" fill="#fffbeb" stroke="#fcd34d" stroke-width="2"></rect>
+            <text x="150" y="54" text-anchor="middle" font-size="16" font-weight="900" fill="#92400e">신 — 완전한 존재</text>
+            <text x="150" y="71" text-anchor="middle" font-size="13" fill="#b45309">하늘에 그대로 있음</text>
+            <line x1="150" y1="84" x2="150" y2="130" stroke="#f59e0b" stroke-width="3.5" marker-end="url(#et-d)"></line>
+            <text x="166" y="112" font-size="14" font-weight="900" fill="#b45309">내려온다</text>
+            <rect x="46" y="140" width="208" height="46" rx="14" fill="#fff7ed" stroke="#fdba74" stroke-width="2"></rect>
+            <text x="150" y="162" text-anchor="middle" font-size="16" font-weight="900" fill="#9a3412">화신 — 지상의 몸</text>
+            <text x="150" y="179" text-anchor="middle" font-size="13" fill="#c2410c">불완전하고 한시적</text>
+            <!-- 지금 -->
+            <text x="490" y="20" text-anchor="middle" font-size="14" font-weight="900" fill="#0f766e">지금의 아바타</text>
+            <rect x="386" y="32" width="208" height="46" rx="14" fill="#f0fdfa" stroke="#5eead4" stroke-width="2"></rect>
+            <text x="490" y="54" text-anchor="middle" font-size="16" font-weight="900" fill="#0f766e">아바타 — 이상적인 몸</text>
+            <text x="490" y="71" text-anchor="middle" font-size="13" fill="#0d9488">키·체형·얼굴 자유</text>
+            <line x1="490" y1="130" x2="490" y2="84" stroke="#0d9488" stroke-width="3.5" marker-end="url(#et-u)"></line>
+            <text x="506" y="112" font-size="14" font-weight="900" fill="#0f766e">건너간다</text>
+            <rect x="386" y="140" width="208" height="46" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"></rect>
+            <text x="490" y="162" text-anchor="middle" font-size="16" font-weight="900" fill="#334155">나 — 현실의 몸</text>
+            <text x="490" y="179" text-anchor="middle" font-size="13" fill="#64748b">바꾸기 어려움</text>
+          </svg>
+        </div>
+        <div class="bg-slate-900 text-white rounded-2xl p-5">
+          <p class="text-lg font-black">공통점은 <span class="text-lime-300">둘이 동시에 존재한다</span>는 것입니다. 본체는 그대로 있고, 다른 몸만 저쪽에 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 15 디지털 아바타의 역사 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-meta-600 text-sm font-black mb-2">A SHORT HISTORY</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">아바타의 몸은 무엇으로 되어 있었나</h2>
+      <p class="text-slate-500">연도를 외울 필요는 없습니다. <strong class="text-slate-800">몸의 재료가 바뀌어 온 순서</strong>만 보세요.</p>
+    </div>
+    <div class="soft-card rounded-3xl p-5 mb-4">
+      <svg viewBox="0 0 1000 250" class="w-full" role="img" aria-label="아바타의 몸이 문장에서 2D 그림, 3D 모델, 내 얼굴 스캔, AI 생성으로 바뀌어 온 다섯 단계 연표">
+        <defs><marker id="hs-a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+          <path d="M0 0 L9 4.5 L0 9 z" fill="#cbd5e1"></path></marker></defs>
+        <line x1="10" y1="120" x2="988" y2="120" stroke="#e2e8f0" stroke-width="3" marker-end="url(#hs-a)"></line>
+        <!-- ① 문장 -->
+        <rect x="8" y="34" width="180" height="76" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"></rect>
+        <text x="98" y="60" text-anchor="middle" font-size="15" font-weight="900" fill="#64748b">① 문장으로 된 몸</text>
+        <text x="98" y="84" text-anchor="middle" font-size="13" fill="#94a3b8">"당신은 검을 들고</text>
+        <text x="98" y="100" text-anchor="middle" font-size="13" fill="#94a3b8">서 있다"</text>
+        <circle cx="98" cy="120" r="8" fill="#94a3b8"></circle>
+        <text x="98" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#334155">1970~80년대</text>
+        <text x="98" y="172" text-anchor="middle" font-size="13" fill="#94a3b8">텍스트 머드(MUD)</text>
+        <!-- ② 2D -->
+        <rect x="204" y="34" width="180" height="76" rx="14" fill="#fff7ed" stroke="#fdba74" stroke-width="2"></rect>
+        <text x="294" y="60" text-anchor="middle" font-size="15" font-weight="900" fill="#9a3412">② 2D 그림으로 된 몸</text>
+        <text x="294" y="84" text-anchor="middle" font-size="13" fill="#c2410c">정면을 보고 서 있는</text>
+        <text x="294" y="100" text-anchor="middle" font-size="13" fill="#c2410c">납작한 캐릭터</text>
+        <circle cx="294" cy="120" r="8" fill="#ea580c"></circle>
+        <text x="294" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#334155">1986 ~ 2000년대 초</text>
+        <text x="294" y="172" text-anchor="middle" font-size="13" fill="#94a3b8">Habitat · 세이클럽</text>
+        <text x="294" y="190" text-anchor="middle" font-size="13" fill="#94a3b8">싸이월드 미니미</text>
+        <!-- ③ 3D -->
+        <rect x="400" y="34" width="180" height="76" rx="14" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"></rect>
+        <text x="490" y="60" text-anchor="middle" font-size="15" font-weight="900" fill="#1e40af">③ 3D 모델로 된 몸</text>
+        <text x="490" y="84" text-anchor="middle" font-size="13" fill="#2563eb">돌려 볼 수 있고</text>
+        <text x="490" y="100" text-anchor="middle" font-size="13" fill="#2563eb">걸어 다니는 몸</text>
+        <circle cx="490" cy="120" r="8" fill="#2563eb"></circle>
+        <text x="490" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#334155">2000년대 중반</text>
+        <text x="490" y="172" text-anchor="middle" font-size="13" fill="#94a3b8">세컨드라이프 · 닌텐도 Mii</text>
+        <!-- ④ 얼굴 -->
+        <rect x="596" y="34" width="180" height="76" rx="14" fill="#faf5ff" stroke="#d8b4fe" stroke-width="2"></rect>
+        <text x="686" y="60" text-anchor="middle" font-size="15" font-weight="900" fill="#6b21a8">④ 내 얼굴로 된 몸</text>
+        <text x="686" y="84" text-anchor="middle" font-size="13" fill="#9333ea">카메라가 내 표정을</text>
+        <text x="686" y="100" text-anchor="middle" font-size="13" fill="#9333ea">그대로 옮긴다</text>
+        <circle cx="686" cy="120" r="8" fill="#9333ea"></circle>
+        <text x="686" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#334155">2018 ~</text>
+        <text x="686" y="172" text-anchor="middle" font-size="13" fill="#94a3b8">미모지 · 제페토</text>
+        <!-- ⑤ AI -->
+        <rect x="792" y="34" width="196" height="76" rx="14" fill="#f0fdfa" stroke="#5eead4" stroke-width="2.5"></rect>
+        <text x="890" y="60" text-anchor="middle" font-size="15" font-weight="900" fill="#0f766e">⑤ AI가 만드는 몸</text>
+        <text x="890" y="84" text-anchor="middle" font-size="13" fill="#0d9488">말로 설명하면</text>
+        <text x="890" y="100" text-anchor="middle" font-size="13" fill="#0d9488">옷이 생겨난다</text>
+        <circle cx="890" cy="120" r="10" fill="#0d9488"></circle>
+        <text x="890" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#0f766e">지금</text>
+        <text x="890" y="172" text-anchor="middle" font-size="13" font-weight="800" fill="#0d9488">여러분이 지난주에 한 것</text>
+        <!-- 하단 화살표 축 -->
+        <rect x="8" y="208" width="980" height="34" rx="17" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"></rect>
+        <text x="30" y="231" font-size="14" font-weight="800" fill="#94a3b8">상상에 맡기는 몸</text>
+        <text x="500" y="231" text-anchor="middle" font-size="14" font-weight="900" fill="#334155">— 만드는 문턱은 계속 낮아지고, 몸은 계속 진짜 같아졌습니다 —</text>
+        <text x="966" y="231" text-anchor="end" font-size="14" font-weight="800" fill="#0f766e">보여주는 몸</text>
+      </svg>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="soft-card rounded-2xl p-6">
+        <h4 class="font-black mb-2 text-lg">40년 동안 변하지 않은 것</h4>
+        <p class="text-base text-slate-500 leading-relaxed">재료는 문장에서 AI까지 바뀌었지만, <strong class="text-slate-800">"본체는 여기 있고 몸은 저기 있다"</strong>는 구조는 1986년 Habitat부터 지금 제페토까지 똑같습니다.</p>
+      </div>
+      <div class="bg-slate-900 text-white rounded-2xl p-6">
+        <div class="text-lime-300 text-sm font-black mb-2">그래서 오늘 물을 것</div>
+        <p class="text-base text-slate-300 leading-relaxed">몸을 만들기가 이렇게까지 쉬워졌을 때, <strong class="text-white">우리는 어떤 몸을 만들기로 선택하는가.</strong> 그리고 그 몸은 우리를 어떻게 바꾸는가.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 16 ① 문장으로 된 몸 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-slate-500 text-sm font-black mb-2">아바타의 몸 ① · 1970~80년대</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">문장으로 된 몸</h2>
+      <p class="text-slate-500">몸을 그리지 않았습니다. <strong class="text-slate-800">적었습니다.</strong></p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div class="md:col-span-3 photo-slot p-4">
+        <svg viewBox="0 0 560 250" class="w-full" role="img" aria-label="검은 화면에 초록색 글씨로 방 묘사와 소지품이 출력된 텍스트 머드 화면">
+          <rect x="4" y="4" width="552" height="242" rx="12" fill="#0a0f0a"></rect>
+          <rect x="4" y="4" width="552" height="26" rx="12" fill="#152015"></rect>
+          <circle cx="24" cy="17" r="5" fill="#334155"></circle><circle cx="42" cy="17" r="5" fill="#334155"></circle><circle cx="60" cy="17" r="5" fill="#334155"></circle>
+          <text x="280" y="22" text-anchor="middle" font-size="12" font-family="monospace" fill="#64748b">MUD — Essex University, 1978</text>
+          <g font-family="ui-monospace,Menlo,Consolas,monospace" font-size="15">
+            <text x="24" y="60" fill="#4ade80">&gt; look</text>
+            <text x="24" y="86" fill="#86efac">You are standing in a dark room.</text>
+            <text x="24" y="108" fill="#86efac">A rusty lantern hangs on the wall.</text>
+            <text x="24" y="138" fill="#4ade80">&gt; inventory</text>
+            <text x="24" y="164" fill="#86efac">You are carrying:</text>
+            <text x="48" y="186" fill="#86efac">a sword, a leather cloak.</text>
+            <text x="24" y="216" fill="#4ade80">&gt; </text>
+            <rect x="44" y="204" width="11" height="17" fill="#4ade80"></rect>
+          </g>
+        </svg>
+        <p class="text-sm text-slate-500 text-center mt-2">화면 재현 도해 — 실제 캡처가 아닙니다</p>
+      </div>
+      <div class="md:col-span-2 space-y-4">
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black mb-2">몸의 재료</h4>
+          <p class="text-base text-slate-500 leading-relaxed">서버가 보내주는 <strong class="text-slate-800">문장</strong>. 나머지는 각자의 머릿속에서 그려졌습니다.</p>
+        </div>
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black mb-2">대표 사례</h4>
+          <p class="text-base text-slate-500 leading-relaxed"><strong class="text-slate-800">MUD</strong> (1978, 영국 에식스대) — 로이 트럽쇼와 리처드 바틀이 만든 최초의 다중 사용자 가상세계.</p>
+        </div>
+        <div class="bg-slate-900 text-white rounded-2xl p-5">
+          <div class="text-lime-300 text-sm font-black mb-2">역설</div>
+          <p class="text-base text-slate-300 leading-relaxed">표현의 자유는 <strong class="text-white">이때가 가장 컸습니다.</strong> 아무 몸이나 적을 수 있었으니까요. 대신 남들은 <strong class="text-white">내가 쓴 몸이 아니라 자기가 상상한 몸</strong>을 봤습니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 17 ② 2D 그림으로 된 몸 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-orange-600 text-sm font-black mb-2">아바타의 몸 ② · 1986 ~ 2000년대 초</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">2D 그림으로 된 몸</h2>
+      <p class="text-slate-500">처음으로 <strong class="text-slate-800">남이 보는 내 몸</strong>이 생겼습니다.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div class="md:col-span-3 photo-slot p-4">
+        <svg viewBox="0 0 560 250" class="w-full" role="img" aria-label="2D 가상세계 화면 재현. 옆에서 본 납작한 캐릭터 두 명이 방 안에 서서 말풍선으로 대화하고, 오른쪽에 머리 교체 목록이 있다">
+          <rect x="4" y="4" width="552" height="242" rx="12" fill="#1e1b4b"></rect>
+          <rect x="18" y="18" width="360" height="184" rx="6" fill="#312e81"></rect>
+          <rect x="18" y="150" width="360" height="52" fill="#4c1d95"></rect>
+          <rect x="40" y="60" width="52" height="66" rx="4" fill="#1e1b4b"></rect>
+          <rect x="300" y="52" width="60" height="74" rx="4" fill="#0f172a"></rect>
+          <g><circle cx="150" cy="118" r="15" fill="#fbbf24"></circle>
+             <rect x="136" y="134" width="28" height="34" rx="4" fill="#f472b6"></rect>
+             <rect x="140" y="168" width="8" height="16" fill="#1e1b4b"></rect><rect x="152" y="168" width="8" height="16" fill="#1e1b4b"></rect></g>
+          <g><circle cx="248" cy="122" r="14" fill="#fcd34d"></circle>
+             <rect x="235" y="137" width="26" height="32" rx="4" fill="#38bdf8"></rect>
+             <rect x="239" y="169" width="8" height="15" fill="#1e1b4b"></rect><rect x="250" y="169" width="8" height="15" fill="#1e1b4b"></rect></g>
+          <g><rect x="118" y="66" width="120" height="30" rx="8" fill="#ffffff"></rect>
+             <path d="M146 96 l8 12 l10 -12 z" fill="#ffffff"></path>
+             <text x="178" y="86" text-anchor="middle" font-size="14" fill="#1e1b4b">안녕!</text></g>
+          <rect x="392" y="18" width="150" height="184" rx="8" fill="#0f172a" stroke="#4338ca" stroke-width="2"></rect>
+          <text x="467" y="40" text-anchor="middle" font-size="13" font-weight="800" fill="#a5b4fc">머리 바꾸기</text>
+          <g>
+            <circle cx="420" cy="70" r="14" fill="#fbbf24" stroke="#4ade80" stroke-width="2.5"></circle>
+            <circle cx="467" cy="70" r="14" fill="#fca5a5"></circle><circle cx="514" cy="70" r="14" fill="#93c5fd"></circle>
+            <circle cx="420" cy="112" r="14" fill="#c4b5fd"></circle><circle cx="467" cy="112" r="14" fill="#5eead4"></circle><circle cx="514" cy="112" r="14" fill="#fdba74"></circle>
+            <circle cx="420" cy="154" r="14" fill="#f9a8d4"></circle><circle cx="467" cy="154" r="14" fill="#a3e635"></circle><circle cx="514" cy="154" r="14" fill="#67e8f9"></circle>
+          </g>
+          <text x="467" y="190" text-anchor="middle" font-size="12" fill="#818cf8">…100가지 이상</text>
+          <text x="280" y="230" text-anchor="middle" font-size="13" fill="#818cf8">Habitat 스타일 화면 — 재현 도해</text>
+        </svg>
+        <p class="text-sm text-slate-500 text-center mt-2">화면 재현 도해 — 실제 캡처가 아닙니다</p>
+      </div>
+      <div class="md:col-span-2 space-y-4">
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black mb-2">대표 사례</h4>
+          <p class="text-base text-slate-500 leading-relaxed mb-2"><strong class="text-slate-800">Habitat</strong> (1986, 루카스필름 게임즈 · 퀀텀링크, 코모도어 64) — 사용자의 분신을 <strong class="text-slate-800">'아바타'라고 부른 초기 사례.</strong></p>
+          <p class="text-base text-slate-500 leading-relaxed">국내는 2000년대 초 <strong class="text-slate-800">세이클럽 아바타</strong>와 <strong class="text-slate-800">싸이월드 미니미</strong>.</p>
+        </div>
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5">
+          <h4 class="font-black text-amber-800 mb-2">여기서 시작된 것</h4>
+          <p class="text-base text-amber-900 leading-relaxed">머리 100가지를 골라 끼우는 방식 — <strong>몸이 부품의 조합이 되었습니다.</strong> 그리고 그 부품은 곧 <strong>파는 물건</strong>이 됩니다.</p>
+        </div>
+        <div class="bg-slate-900 text-white rounded-2xl p-5 text-base">
+          <span class="text-lime-300 font-black">→ 오늘 뒤에서 볼 "파츠로 쪼개진 몸"</span>이 사실 여기서 출발했습니다.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 18 ③ 3D 모델로 된 몸 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-blue-600 text-sm font-black mb-2">아바타의 몸 ③ · 2000년대 중반</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">3D 모델로 된 몸</h2>
+      <p class="text-slate-500">돌려 볼 수 있게 되자 <strong class="text-slate-800">뒤통수가 생겼습니다.</strong></p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div class="md:col-span-3 photo-slot p-4">
+        <svg viewBox="0 0 560 250" class="w-full" role="img" aria-label="3D 아바타를 정면, 측면, 후면 세 각도에서 본 와이어프레임 도해와 회전 화살표">
+          <rect x="4" y="4" width="552" height="242" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"></rect>
+          <g stroke="#cbd5e1" stroke-width="1" opacity=".7">
+            <path d="M40 200 h480"></path><path d="M100 220 h360"></path>
+            <path d="M280 200 v-8"></path>
+          </g>
+          <!-- 정면 -->
+          <g>
+            <ellipse cx="140" cy="70" rx="24" ry="27" fill="#dbeafe" stroke="#2563eb" stroke-width="2"></ellipse>
+            <path d="M140 43 v54 M116 70 h48" stroke="#93c5fd" stroke-width="1"></path>
+            <path d="M116 104 h48 l10 62 h-68 z" fill="#dbeafe" stroke="#2563eb" stroke-width="2"></path>
+            <path d="M116 126 h48 M140 104 v62" stroke="#93c5fd" stroke-width="1"></path>
+            <path d="M122 166 h36 l5 34 h-46 z" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"></path>
+            <text x="140" y="222" text-anchor="middle" font-size="14" font-weight="800" fill="#1e40af">정면</text>
+          </g>
+          <!-- 측면 -->
+          <g>
+            <ellipse cx="280" cy="70" rx="19" ry="27" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"></ellipse>
+            <path d="M297 66 l10 6 l-10 6" fill="none" stroke="#4338ca" stroke-width="2"></path>
+            <path d="M262 104 h36 l8 62 h-52 z" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"></path>
+            <path d="M266 166 h30 l4 34 h-38 z" fill="#c7d2fe" stroke="#4338ca" stroke-width="2"></path>
+            <text x="280" y="222" text-anchor="middle" font-size="14" font-weight="800" fill="#3730a3">측면</text>
+          </g>
+          <!-- 후면 -->
+          <g>
+            <ellipse cx="420" cy="70" rx="24" ry="27" fill="#ede9fe" stroke="#7e22ce" stroke-width="2"></ellipse>
+            <path d="M404 52 q16 -10 32 0 q2 -14 -16 -14 q-18 0 -16 14z" fill="#7e22ce"></path>
+            <path d="M396 104 h48 l10 62 h-68 z" fill="#ede9fe" stroke="#7e22ce" stroke-width="2"></path>
+            <path d="M402 166 h36 l5 34 h-46 z" fill="#ddd6fe" stroke="#7e22ce" stroke-width="2"></path>
+            <text x="420" y="222" text-anchor="middle" font-size="14" font-weight="800" fill="#6b21a8">후면</text>
+          </g>
+          <g>
+            <path d="M180 34 q100 -22 200 0" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#rot3)"></path>
+            <defs><marker id="rot3" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#94a3b8"></path></marker></defs>
+            <text x="280" y="20" text-anchor="middle" font-size="14" font-weight="800" fill="#64748b">360° 회전</text>
+          </g>
+        </svg>
+        <p class="text-sm text-slate-500 text-center mt-2">개념 도해 — 실제 캡처가 아닙니다</p>
+      </div>
+      <div class="md:col-span-2 space-y-4">
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black mb-2">대표 사례</h4>
+          <p class="text-base text-slate-500 leading-relaxed"><strong class="text-slate-800">세컨드라이프</strong>(2003) · <strong class="text-slate-800">닌텐도 Mii</strong>(2006) · <strong class="text-slate-800">Xbox 아바타</strong>(2008). 게임기에까지 아바타가 기본 기능으로 들어옵니다.</p>
+        </div>
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black mb-2">달라진 것</h4>
+          <p class="text-base text-slate-500 leading-relaxed">2D 시절엔 <strong class="text-slate-800">내가 보여주고 싶은 각도</strong>만 있었습니다. 3D가 되자 내가 신경 쓰지 않은 면까지 남에게 보입니다.</p>
+        </div>
+        <div class="bg-slate-900 text-white rounded-2xl p-5">
+          <div class="text-lime-300 text-sm font-black mb-2">그래서</div>
+          <p class="text-base text-slate-300 leading-relaxed">아바타가 <strong class="text-white">그림에서 몸에 가까워졌습니다.</strong> 공간을 차지하고, 걸어 다니고, 남과 거리를 두게 됩니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 19 ④ 내 얼굴로 된 몸 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-grape-600 text-sm font-black mb-2">아바타의 몸 ④ · 2018 ~</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">내 얼굴로 된 몸</h2>
+      <p class="text-slate-500">만들어 놓고 떠나는 게 아니라, <strong class="text-slate-800">실시간으로 연결됩니다.</strong></p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div class="md:col-span-3 photo-slot p-4">
+        <svg viewBox="0 0 560 250" class="w-full" role="img" aria-label="카메라가 얼굴에 격자를 씌워 표정을 읽고, 그 표정이 그대로 아바타 얼굴로 전달되는 도해">
+          <rect x="4" y="4" width="552" height="242" rx="12" fill="#faf5ff" stroke="#e9d5ff" stroke-width="2"></rect>
+          <!-- 사람 얼굴 + 메시 -->
+          <g>
+            <ellipse cx="140" cy="120" rx="62" ry="76" fill="#f5cfa8"></ellipse>
+            <path d="M86 78 q54 -34 108 0 q6 -40 -54 -40 q-60 0 -54 40z" fill="#78350f"></path>
+            <g stroke="#a855f7" stroke-width="1.2" opacity=".85" fill="none">
+              <path d="M82 96 q58 14 116 0 M78 120 q62 16 124 0 M84 146 q56 16 112 0 M92 170 q48 14 96 0"></path>
+              <path d="M104 50 q-12 70 4 138 M140 44 v152 M176 50 q12 70 -4 138"></path>
+            </g>
+            <circle cx="118" cy="114" r="5" fill="#0f172a"></circle><circle cx="162" cy="114" r="5" fill="#0f172a"></circle>
+            <path d="M118 152 q22 18 44 0" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"></path>
+            <text x="140" y="222" text-anchor="middle" font-size="14" font-weight="800" fill="#6b21a8">카메라가 읽는 내 표정</text>
+          </g>
+          <!-- 전송 -->
+          <g>
+            <path d="M216 120 h100" stroke="#a855f7" stroke-width="3.5" fill="none" marker-end="url(#mj-a)"></path>
+            <defs><marker id="mj-a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#a855f7"></path></marker></defs>
+            <text x="266" y="104" text-anchor="middle" font-size="13" font-weight="800" fill="#7e22ce">실시간</text>
+            <text x="266" y="144" text-anchor="middle" font-size="12" fill="#a855f7">52개 표정 값</text>
+          </g>
+          <!-- 아바타 얼굴 -->
+          <g>
+            <ellipse cx="430" cy="120" rx="66" ry="72" fill="#c084fc"></ellipse>
+            <path d="M370 80 q60 -36 120 0 q6 -42 -60 -42 q-66 0 -60 42z" fill="#6b21a8"></path>
+            <circle cx="406" cy="112" r="9" fill="#ffffff"></circle><circle cx="454" cy="112" r="9" fill="#ffffff"></circle>
+            <circle cx="406" cy="113" r="5" fill="#0f172a"></circle><circle cx="454" cy="113" r="5" fill="#0f172a"></circle>
+            <path d="M404 152 q26 22 52 0" fill="none" stroke="#3b0764" stroke-width="4" stroke-linecap="round"></path>
+            <circle cx="380" cy="146" r="8" fill="#f9a8d4" opacity=".7"></circle>
+            <circle cx="480" cy="146" r="8" fill="#f9a8d4" opacity=".7"></circle>
+            <text x="430" y="222" text-anchor="middle" font-size="14" font-weight="800" fill="#6b21a8">똑같이 웃는 아바타</text>
+          </g>
+        </svg>
+        <p class="text-sm text-slate-500 text-center mt-2">개념 도해 — 실제 캡처가 아닙니다</p>
+      </div>
+      <div class="md:col-span-2 space-y-4">
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black mb-2">대표 사례</h4>
+          <p class="text-base text-slate-500 leading-relaxed"><strong class="text-slate-800">애플 미모지</strong>(2018) · <strong class="text-slate-800">제페토</strong>(2018). 얼굴 인식이 표정을 실시간으로 아바타에 옮깁니다.</p>
+        </div>
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black mb-2">결정적 변화</h4>
+          <p class="text-base text-slate-500 leading-relaxed">이전까지 아바타는 <strong class="text-slate-800">만들어 놓고 떠나는</strong> 것이었습니다. 이제는 <strong class="text-slate-800">내 얼굴이 계속 흘러 들어갑니다.</strong></p>
+        </div>
+        <div class="bg-slate-900 text-white rounded-2xl p-5">
+          <div class="text-lime-300 text-sm font-black mb-2">그래서 생긴 질문</div>
+          <p class="text-base text-slate-300 leading-relaxed">내 표정이 들어가 있는데도, 그 얼굴은 <strong class="text-white">내가 아닙니다.</strong> 어디까지가 나일까요?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 20 ⑤ AI가 만드는 몸 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-meta-600 text-sm font-black mb-2">아바타의 몸 ⑤ · 지금</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">AI가 만드는 몸</h2>
+      <p class="text-slate-500">그리지 않고 <strong class="text-slate-800">말로 설명하면</strong> 옷이 생겨납니다 — 여러분이 지난주에 한 것.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div class="md:col-span-3 photo-slot p-4">
+        <svg viewBox="0 0 560 250" class="w-full" role="img" aria-label="프롬프트 입력창에 문장을 쓰면 텍스처 이미지 네 장이 생성되고 그중 하나가 아바타 옷으로 적용되는 흐름">
+          <rect x="4" y="4" width="552" height="242" rx="12" fill="#f0fdfa" stroke="#99f6e4" stroke-width="2"></rect>
+          <!-- 프롬프트 -->
+          <rect x="22" y="26" width="248" height="62" rx="12" fill="#ffffff" stroke="#5eead4" stroke-width="2"></rect>
+          <text x="36" y="46" font-size="12" font-weight="900" fill="#0d9488">PROMPT</text>
+          <text x="36" y="66" font-size="13" fill="#334155">holographic ballet skirt,</text>
+          <text x="36" y="82" font-size="13" fill="#334155">pastel pink, glossy</text>
+          <path d="M146 92 v18" stroke="#0d9488" stroke-width="3" fill="none" marker-end="url(#ai-a)"></path>
+          <defs><marker id="ai-a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#0d9488"></path></marker></defs>
+          <!-- 생성 결과 -->
+          <g>
+            <rect x="22" y="118" width="58" height="58" rx="6" fill="#fbcfe8" stroke="#f472b6" stroke-width="2"></rect>
+            <rect x="86" y="118" width="58" height="58" rx="6" fill="#e9d5ff" stroke="#c084fc" stroke-width="2"></rect>
+            <rect x="150" y="118" width="58" height="58" rx="6" fill="#ccfbf1" stroke="#2dd4bf" stroke-width="3.5"></rect>
+            <rect x="214" y="118" width="58" height="58" rx="6" fill="#fed7aa" stroke="#fb923c" stroke-width="2"></rect>
+            <g stroke="#ffffff" stroke-width="1" opacity=".75">
+              <path d="M22 137 h58 M22 156 h58 M41 118 v58 M60 118 v58"></path>
+              <path d="M86 137 h58 M86 156 h58 M105 118 v58 M124 118 v58"></path>
+              <path d="M150 137 h58 M150 156 h58 M169 118 v58 M188 118 v58"></path>
+              <path d="M214 137 h58 M214 156 h58 M233 118 v58 M252 118 v58"></path>
+            </g>
+            <text x="179" y="192" text-anchor="middle" font-size="12" font-weight="800" fill="#0f766e">이걸로 선택</text>
+          </g>
+          <text x="147" y="216" text-anchor="middle" font-size="13" fill="#94a3b8">AI가 만든 텍스처 후보</text>
+          <!-- 화살표 -->
+          <path d="M292 140 h44" stroke="#0d9488" stroke-width="3.5" fill="none" marker-end="url(#ai-a)"></path>
+          <!-- 아바타 -->
+          <g>
+            <circle cx="430" cy="66" r="26" fill="#f5cfa8"></circle>
+            <path d="M404 54 q26 -18 52 0 q4 -22 -26 -22 q-30 0 -26 22z" fill="#78350f"></path>
+            <path d="M400 96 h60 l10 56 h-80 z" fill="#5eead4"></path>
+            <path d="M386 152 h88 l12 54 h-112 z" fill="#ccfbf1" stroke="#2dd4bf" stroke-width="2.5"></path>
+            <g stroke="#2dd4bf" stroke-width="1" opacity=".8"><path d="M396 170 h74 M392 188 h82"></path></g>
+            <text x="430" y="228" text-anchor="middle" font-size="14" font-weight="800" fill="#0f766e">아바타에 적용</text>
+          </g>
+        </svg>
+        <p class="text-sm text-slate-500 text-center mt-2">개념 도해 — 실제 캡처가 아닙니다</p>
+      </div>
+      <div class="md:col-span-2 space-y-4">
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black mb-2">달라진 것</h4>
+          <p class="text-base text-slate-500 leading-relaxed"><strong class="text-slate-800">기획하는 사람과 그리는 사람이 분리됐습니다.</strong> 그림을 못 그려도 옷을 만들 수 있게 됐죠.</p>
+        </div>
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5">
+          <h4 class="font-black text-amber-800 mb-2">대신 생긴 제약</h4>
+          <p class="text-base text-amber-900 leading-relaxed"><strong>학습 데이터에 없는 것은 나오지 않습니다.</strong> 무엇을 만들 수 있는지를 이제 AI가 정합니다.</p>
+        </div>
+        <div class="bg-slate-900 text-white rounded-2xl p-5 text-base">
+          <span class="text-lime-300 font-black">→ 오늘 뒤의 "선택지의 목록"</span>, 그리고 <span class="text-lime-300 font-black">다음 주 AI 윤리</span>로 이어집니다.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 12 자기 불일치 이론 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-5">
+      <div class="text-blue-600 text-base font-black mb-2">THEORY 01 · HIGGINS 1987</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">우리는 세 개의 자아를 가지고 있다</h2>
+      <p class="text-slate-500">자기 불일치 이론 — 핵심은 <strong class="text-slate-800">셋 사이의 거리가 감정을 만든다</strong>는 것입니다.</p>
+    </div>
+    <div class="soft-card rounded-3xl p-6 mb-5">
+      <svg viewBox="0 0 1000 300" class="w-full" role="img" aria-label="가운데 실제 자아와 양옆의 이상 자아, 당위 자아. 실제와 이상 사이 거리는 낙담을, 실제와 당위 사이 거리는 불안을 만든다">
+        <!-- 원들 -->
+        <circle cx="500" cy="150" r="82" fill="#f1f5f9" stroke="#94a3b8" stroke-width="3"></circle>
+        <text x="500" y="144" text-anchor="middle" font-size="26" font-weight="900" fill="#334155">실제 자아</text>
+        <text x="500" y="170" text-anchor="middle" font-size="15.5" fill="#64748b">Actual Self</text>
+        <text x="500" y="256" text-anchor="middle" font-size="15.5" fill="#94a3b8">지금 내가 가진 속성</text>
+
+        <circle cx="180" cy="150" r="76" fill="#faf5ff" stroke="#c084fc" stroke-width="3"></circle>
+        <text x="180" y="144" text-anchor="middle" font-size="26" font-weight="900" fill="#6b21a8">이상 자아</text>
+        <text x="180" y="170" text-anchor="middle" font-size="15.5" fill="#9333ea">Ideal Self</text>
+        <text x="180" y="252" text-anchor="middle" font-size="15.5" fill="#a855f7">희망 · 열망</text>
+
+        <circle cx="820" cy="150" r="76" fill="#fff7ed" stroke="#fb923c" stroke-width="3"></circle>
+        <text x="820" y="144" text-anchor="middle" font-size="26" font-weight="900" fill="#9a3412">당위 자아</text>
+        <text x="820" y="170" text-anchor="middle" font-size="15.5" fill="#c2410c">Ought Self</text>
+        <text x="820" y="252" text-anchor="middle" font-size="15.5" fill="#ea580c">의무 · 책임</text>
+
+        <!-- 거리 표시 -->
+        <g>
+          <path d="M262 110 h152" stroke="#a855f7" stroke-width="2.5" fill="none"></path>
+          <path d="M262 110 l11 -5.5 v11 z" fill="#a855f7"></path><path d="M414 110 l-11 -5.5 v11 z" fill="#a855f7"></path>
+          <rect x="278" y="62" width="120" height="34" rx="17" fill="#a855f7"></rect>
+          <text x="338" y="85" text-anchor="middle" font-size="19" font-weight="900" fill="#fff">낙담 · 실망</text>
+          <text x="338" y="130" text-anchor="middle" font-size="14" fill="#94a3b8">되고 싶은데 못 되고 있음</text>
+        </g>
+        <g>
+          <path d="M586 110 h152" stroke="#ea580c" stroke-width="2.5" fill="none"></path>
+          <path d="M586 110 l11 -5.5 v11 z" fill="#ea580c"></path><path d="M738 110 l-11 -5.5 v11 z" fill="#ea580c"></path>
+          <rect x="602" y="62" width="120" height="34" rx="17" fill="#ea580c"></rect>
+          <text x="662" y="85" text-anchor="middle" font-size="19" font-weight="900" fill="#fff">불안 · 긴장</text>
+          <text x="662" y="130" text-anchor="middle" font-size="14" fill="#94a3b8">해야 하는데 못 하고 있음</text>
+        </g>
+        <!-- 강조 -->
+        <g>
+          <rect x="60" y="272" width="240" height="26" rx="13" fill="#faf5ff" stroke="#d8b4fe" stroke-width="2"></rect>
+          <text x="180" y="290" text-anchor="middle" font-size="15.5" font-weight="800" fill="#6b21a8">아바타가 다루는 영역</text>
+        </g>
+      </svg>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="soft-card rounded-2xl p-5"><div class="text-sm font-black text-slate-400 mb-1">실제 자아</div><p class="text-base text-slate-600">지금 내가 실제로 가진 속성</p></div>
+      <div class="soft-card rounded-2xl p-5 border-2 border-grape-300"><div class="text-sm font-black text-grape-500 mb-1">이상 자아</div><p class="text-base text-slate-600">내가 되고 싶은 모습. <strong>오늘 이야기의 주인공</strong></p></div>
+      <div class="soft-card rounded-2xl p-5"><div class="text-sm font-black text-orange-500 mb-1">당위 자아</div><p class="text-base text-slate-600">되어야 한다고 여겨지는 모습</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 13 변경 비용 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-6">
+      <div class="text-grape-600 text-base font-black mb-2">THEORY 01-b</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">아바타는 이상 자아를<br>"실행 가능한 형태"로 만든다</h2>
+    </div>
+    <div class="soft-card rounded-3xl p-6 mb-5">
+      <svg viewBox="0 0 1000 260" class="w-full" role="img" aria-label="현실에서 외모를 바꿀 때와 아바타에서 바꿀 때의 시간, 비용, 되돌리기 난이도 비교 막대">
+        <text x="30" y="34" font-size="19" font-weight="900" fill="#0f172a">"머리색을 바꾸고 싶다"</text>
+        <!-- 헤더 -->
+        <g font-size="15.5" font-weight="800" fill="#94a3b8">
+          <text x="330" y="70">시간</text><text x="560" y="70">비용</text><text x="790" y="70">되돌리기</text>
+        </g>
+        <!-- 현실 -->
+        <text x="30" y="118" font-size="20" font-weight="900" fill="#334155">현실의 나</text>
+        <text x="30" y="140" font-size="14" fill="#94a3b8">미용실 · 염색약 · 손상</text>
+        <g>
+          <rect x="300" y="96" width="200" height="30" rx="8" fill="#f1f5f9"></rect>
+          <rect x="300" y="96" width="180" height="30" rx="8" fill="#e11d48"></rect>
+          <text x="390" y="117" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">2~3시간</text>
+          <rect x="530" y="96" width="200" height="30" rx="8" fill="#f1f5f9"></rect>
+          <rect x="530" y="96" width="166" height="30" rx="8" fill="#e11d48"></rect>
+          <text x="620" y="117" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">수만 원</text>
+          <rect x="760" y="96" width="200" height="30" rx="8" fill="#f1f5f9"></rect>
+          <rect x="760" y="96" width="190" height="30" rx="8" fill="#e11d48"></rect>
+          <text x="860" y="117" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">몇 달</text>
+        </g>
+        <!-- 아바타 -->
+        <text x="30" y="196" font-size="20" font-weight="900" fill="#6b21a8">아바타의 나</text>
+        <text x="30" y="218" font-size="14" fill="#a855f7">탭 한 번</text>
+        <g>
+          <rect x="300" y="174" width="200" height="30" rx="8" fill="#f1f5f9"></rect>
+          <rect x="300" y="174" width="16" height="30" rx="8" fill="#0d9488"></rect>
+          <text x="340" y="195" font-size="15.5" font-weight="800" fill="#0f766e">1초</text>
+          <rect x="530" y="174" width="200" height="30" rx="8" fill="#f1f5f9"></rect>
+          <rect x="530" y="174" width="10" height="30" rx="8" fill="#0d9488"></rect>
+          <text x="566" y="195" font-size="15.5" font-weight="800" fill="#0f766e">0원</text>
+          <rect x="760" y="174" width="200" height="30" rx="8" fill="#f1f5f9"></rect>
+          <rect x="760" y="174" width="12" height="30" rx="8" fill="#0d9488"></rect>
+          <text x="796" y="195" font-size="15.5" font-weight="800" fill="#0f766e">즉시</text>
+        </g>
+        <text x="30" y="250" font-size="15.5" fill="#64748b">현실에서 이상 자아는 <tspan font-weight="800" fill="#0f172a">말로만</tspan> 존재하지만, 아바타에서는 <tspan font-weight="800" fill="#0f766e">클릭 몇 번으로 구현</tspan>됩니다.</text>
+      </svg>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="soft-card rounded-2xl p-6">
+        <p class="text-base text-slate-500 leading-relaxed">그래서 아바타 커스터마이징은 단순한 꾸미기가 아니라 <strong class="text-slate-800">이상 자아를 눈앞에 꺼내 보는 실험</strong>입니다.</p>
+      </div>
+      <div class="bg-slate-900 text-white rounded-2xl p-6">
+        <div class="text-lime-300 text-base font-black mb-2">그러니까 지난주 과제는</div>
+        <p class="text-base text-slate-300 leading-relaxed"><strong class="text-white">추구미</strong>를 고른 사람은 이 실험을 한 것이고, <strong class="text-white">OOTD</strong>를 고른 사람은 실제 자아를 가상에 복제해 본 것입니다. — 어느 쪽이 더 어려웠나요?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 14 고프먼 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-5">
+      <div class="text-amber-600 text-base font-black mb-2">THEORY 02 · GOFFMAN 1959</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">무대 앞과 무대 뒤</h2>
+      <p class="text-slate-500">『자아 연출의 사회학』 — 일상생활을 연극에 비유합니다.</p>
+    </div>
+    <div class="soft-card rounded-3xl p-6 mb-5">
+      <svg viewBox="0 0 1000 280" class="w-full" role="img" aria-label="극장 단면도. 객석, 무대 앞, 커튼 뒤 분장실이 있고 아바타는 커튼 경계에 물음표와 함께 놓여 있다">
+        <!-- 객석 -->
+        <rect x="20" y="40" width="200" height="216" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"></rect>
+        <text x="120" y="68" text-anchor="middle" font-size="16.5" font-weight="900" fill="#64748b">관객</text>
+        <g fill="#cbd5e1">
+          <circle cx="66" cy="112" r="11"></circle><path d="M50 128 h32 l4 26 h-40 z"></path>
+          <circle cx="120" cy="112" r="11"></circle><path d="M104 128 h32 l4 26 h-40 z"></path>
+          <circle cx="174" cy="112" r="11"></circle><path d="M158 128 h32 l4 26 h-40 z"></path>
+          <circle cx="93" cy="182" r="11"></circle><path d="M77 198 h32 l4 26 h-40 z"></path>
+          <circle cx="147" cy="182" r="11"></circle><path d="M131 198 h32 l4 26 h-40 z"></path>
+        </g>
+        <!-- 무대 앞 -->
+        <rect x="240" y="40" width="330" height="216" rx="14" fill="#f0fdfa" stroke="#5eead4" stroke-width="3"></rect>
+        <text x="405" y="68" text-anchor="middle" font-size="20" font-weight="900" fill="#0f766e">무대 앞 · FRONT STAGE</text>
+        <text x="405" y="92" text-anchor="middle" font-size="15.5" fill="#0d9488">역할에 맞게 인상을 관리</text>
+        <g>
+          <circle cx="405" cy="146" r="20" fill="#0d9488"></circle>
+          <path d="M381 172 h48 l7 44 h-62 z" fill="#14b8a6"></path>
+          <path d="M385 138 q20 -14 40 0 q-6 -20 -20 -20 q-14 0 -20 20z" fill="#0f766e"></path>
+        </g>
+        <text x="405" y="240" text-anchor="middle" font-size="14" fill="#0f766e">교실의 나 · 알바할 때의 나 · 인스타의 나</text>
+        <!-- 커튼 -->
+        <g>
+          <rect x="578" y="30" width="26" height="236" rx="8" fill="#be123c"></rect>
+          <path d="M584 30 v236 M592 30 v236 M600 30 v236" stroke="#9f1239" stroke-width="1.5"></path>
+        </g>
+        <!-- 무대 뒤 -->
+        <rect x="614" y="40" width="366" height="216" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="3"></rect>
+        <text x="797" y="68" text-anchor="middle" font-size="20" font-weight="900" fill="#475569">무대 뒤 · BACK STAGE</text>
+        <text x="797" y="92" text-anchor="middle" font-size="15.5" fill="#64748b">연기를 준비하고 쉬는 곳</text>
+        <g>
+          <rect x="852" y="120" width="86" height="64" rx="6" fill="#fff" stroke="#cbd5e1" stroke-width="2"></rect>
+          <circle cx="895" cy="146" r="13" fill="#e2e8f0"></circle>
+          <g fill="#fde68a"><circle cx="862" cy="128" r="4"></circle><circle cx="928" cy="128" r="4"></circle><circle cx="862" cy="176" r="4"></circle><circle cx="928" cy="176" r="4"></circle></g>
+          <circle cx="700" cy="146" r="20" fill="#94a3b8"></circle>
+          <path d="M676 172 h48 l7 44 h-62 z" fill="#cbd5e1"></path>
+        </g>
+        <text x="797" y="240" text-anchor="middle" font-size="14" fill="#64748b">혼자 있는 방 · 아무도 모르는 부계정</text>
+        <!-- 아바타 = 커튼 위 -->
+        <g>
+          <circle cx="591" cy="16" r="15" fill="#7e22ce"></circle>
+          <text x="591" y="22" text-anchor="middle" font-size="21" font-weight="900" fill="#fff">?</text>
+          <line x1="591" y1="31" x2="591" y2="28" stroke="#7e22ce" stroke-width="2"></line>
+          <text x="591" y="276" text-anchor="middle" font-size="16.5" font-weight="900" fill="#7e22ce">아바타는 어디일까요?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="bg-slate-900 text-white rounded-3xl p-7">
+      <p class="text-2xl md:text-2xl font-black mb-3">아바타는 <span class="text-lime-300">무대 뒤의 욕망을 무대 앞에 올려도 안전한 형식</span>입니다.</p>
+      <p class="text-slate-300 text-base leading-relaxed">"이게 진짜 나야"라고 말하지 않아도 되고, 언제든 "그냥 게임인데?"라고 빠져나갈 수 있습니다. <strong class="text-white">그래서 오히려 더 솔직해질 수 있습니다.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 15 PART 3 DIVIDER ===== -->
+<section class="slide">
+  <div class="max-w-5xl w-full text-center">
+    <div class="part-num mb-4">03</div>
+    <h2 class="text-4xl md:text-6xl font-black text-slate-900 mb-6">아바타가 나를 바꾼다</h2>
+    <p class="text-xl text-slate-500">여기까지는 "나 → 아바타" 방향이었습니다. 이제 <strong class="text-slate-800">반대 방향</strong>을 봅니다.</p>
+    <svg viewBox="0 0 1000 100" class="w-full max-w-4xl mx-auto mt-8" role="img" aria-label="전체 네 파트 중 현재 3번째 파트 진행 중">
+      <line x1="4" y1="61" x2="996" y2="61" stroke="#e2e8f0" stroke-width="2"></line>
+      <rect x="4" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="116" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">01 추구미와 OOTD</text>
+      <rect x="260" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="372" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">02 아바타라는 말</text>
+      <text x="628" y="16" text-anchor="middle" font-size="14" font-weight="900" fill="#0d9488">지금 여기</text>
+      <path d="M628 30 l-6 -9 h12 z" fill="#0d9488"></path>
+      <rect x="516" y="34" width="224" height="54" rx="15" fill="#0d9488"></rect>
+      <text x="628" y="55" text-anchor="middle" font-size="14" font-weight="900" fill="#ffffff" opacity=".75">03</text>
+      <text x="628" y="77" text-anchor="middle" font-size="19" font-weight="900" fill="#ffffff">아바타가 나를 바꾼다</text>
+      <rect x="772" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="884" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">04 플랫폼이 정하는 경계</text>
+      </svg>
+  </div>
+</section>
+
+<!-- ===== 16 프로테우스 효과 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-stretch">
+      <div class="md:col-span-2 bg-gradient-to-br from-meta-600 to-teal-900 rounded-[2.2rem] p-9 text-white flex flex-col justify-between">
+        <div>
+          <div class="inline-block bg-white/15 rounded-full px-3 py-1 text-sm font-black mb-5">2007 · YEE &amp; BAILENSON</div>
+          <svg viewBox="0 0 300 156" class="w-full mb-5" role="img" aria-label="주사위를 굴려 무작위로 배정된 두 종류의 아바타">
+            <g>
+              <rect x="116" y="8" width="52" height="52" rx="12" fill="#fff" transform="rotate(-10 142 34)"></rect>
+              <g fill="#0f766e" transform="rotate(-10 142 34)">
+                <circle cx="130" cy="22" r="4.5"></circle><circle cx="154" cy="22" r="4.5"></circle>
+                <circle cx="142" cy="34" r="4.5"></circle>
+                <circle cx="130" cy="46" r="4.5"></circle><circle cx="154" cy="46" r="4.5"></circle>
+              </g>
+              <text x="142" y="80" text-anchor="middle" font-size="14" font-weight="800" fill="#99f6e4">무작위 배정</text>
+            </g>
+            <path d="M120 84 q-40 12 -48 26" stroke="#5eead4" stroke-width="2" fill="none" stroke-dasharray="4 4"></path>
+            <path d="M164 84 q40 12 48 26" stroke="#5eead4" stroke-width="2" fill="none" stroke-dasharray="4 4"></path>
+            <g fill="#ffffff" fill-opacity=".5">
+              <circle cx="58" cy="122" r="9"></circle><path d="M47 134 h22 l4 16 h-30 z"></path>
+            </g>
+            <g fill="#ffffff">
+              <circle cx="240" cy="112" r="11"></circle><path d="M227 126 h26 l5 24 h-36 z"></path>
+            </g>
+
+          </svg>
+          <h2 class="text-3xl font-black leading-tight mb-4">프로테우스 효과</h2>
+          <p class="text-teal-100 leading-relaxed text-base">프로테우스는 모습을 자유자재로 바꾸는 그리스 신화의 신입니다. 스탠퍼드 가상인간상호작용연구소 연구.</p>
+        </div>
+        <div class="mt-8 text-base text-teal-200">아바타는 본인이 고른 것이 아니라 <strong class="text-white">주사위처럼 배정</strong>되었습니다.</div>
+      </div>
+      <div class="md:col-span-3 space-y-4">
+        <div class="soft-card rounded-2xl p-6">
+          <h4 class="font-black mb-3"><i class="fa-solid fa-comments text-grape-500 mr-2"></i>실험 1 · 아바타의 매력도</h4>
+          <svg viewBox="0 0 520 96" class="w-full mb-2" role="img" aria-label="덜 매력적인 아바타보다 매력적인 아바타를 배정받은 참가자가 상대에게 더 가까이 다가가고 자기 이야기를 더 많이 했다">
+            <text x="6" y="26" font-size="14" font-weight="700" fill="#94a3b8">덜 매력적</text>
+            <rect x="110" y="10" width="390" height="24" rx="12" fill="#f1f5f9"></rect>
+            <rect x="110" y="10" width="150" height="24" rx="12" fill="#cbd5e1"></rect>
+            <text x="6" y="74" font-size="14" font-weight="700" fill="#7e22ce">매력적</text>
+            <rect x="110" y="58" width="390" height="24" rx="12" fill="#f1f5f9"></rect>
+            <rect x="110" y="58" width="330" height="24" rx="12" fill="#a855f7"></rect>
+            <text x="428" y="75" text-anchor="end" font-size="13.5" font-weight="800" fill="#ffffff">더 가까이</text>
+          </svg>
+          <p class="text-base text-slate-500 leading-relaxed">처음 만난 상대에게 <strong class="text-slate-700">더 가까이 다가가고, 자기 이야기를 더 많이 했습니다.</strong></p>
+        </div>
+        <div class="soft-card rounded-2xl p-6">
+          <h4 class="font-black mb-3"><i class="fa-solid fa-handshake text-meta-500 mr-2"></i>실험 2 · 아바타의 키</h4>
+          <svg viewBox="0 0 520 96" class="w-full mb-2" role="img" aria-label="키가 작은 아바타보다 키가 큰 아바타를 배정받은 참가자가 협상에서 더 공격적인 제안을 했다">
+            <text x="6" y="26" font-size="14" font-weight="700" fill="#94a3b8">키 작음</text>
+            <rect x="110" y="10" width="390" height="24" rx="12" fill="#f1f5f9"></rect>
+            <rect x="110" y="10" width="128" height="24" rx="12" fill="#cbd5e1"></rect>
+            <text x="6" y="74" font-size="14" font-weight="700" fill="#0f766e">키 큼</text>
+            <rect x="110" y="58" width="390" height="24" rx="12" fill="#f1f5f9"></rect>
+            <rect x="110" y="58" width="330" height="24" rx="12" fill="#14b8a6"></rect>
+            <text x="428" y="75" text-anchor="end" font-size="13.5" font-weight="800" fill="#ffffff">더 공격적</text>
+          </svg>
+          <p class="text-base text-slate-500 leading-relaxed">협상 과제에서 <strong class="text-slate-700">더 자신 있고 공격적인 제안</strong>을 했습니다.</p>
+        </div>
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 text-base text-amber-900">
+          <strong>참가자들은 자기가 왜 그러는지 몰랐습니다.</strong> 무작위 배정이라 본인이 고른 것도 아니고, 옆 사람과 비교할 기회도 없었습니다. 그럼에도 행동이 달라졌습니다.
+        </div>
+        <p class="src-note">※ 위 막대는 연구가 보고한 <strong>차이의 방향</strong>을 나타낸 도식이며, 실제 측정값의 눈금이 아닙니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 17 되먹임 루프 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-5">
+      <div class="text-meta-600 text-base font-black mb-2">THE FEEDBACK LOOP</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">아바타는 나의 출력이자,<br>동시에 나의 입력이다</h2>
+    </div>
+    <div class="soft-card rounded-3xl p-6 mb-5">
+      <svg viewBox="0 0 1000 260" class="w-full" role="img" aria-label="나와 아바타 사이를 오가는 순환 고리. 나는 아바타를 만들고, 아바타는 나에게 단서를 돌려주어 행동을 바꾼다">
+        <defs>
+          <marker id="lp-a" markerWidth="11" markerHeight="11" refX="8" refY="5.5" orient="auto">
+            <path d="M0 0 L11 5.5 L0 11 z" fill="#0d9488"></path></marker>
+          <marker id="lp-b" markerWidth="11" markerHeight="11" refX="8" refY="5.5" orient="auto">
+            <path d="M0 0 L11 5.5 L0 11 z" fill="#7e22ce"></path></marker>
+        </defs>
+        <!-- 나 -->
+        <circle cx="200" cy="130" r="72" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"></circle>
+        <circle cx="200" cy="110" r="22" fill="#475569"></circle>
+        <path d="M172 140 h56 l8 32 h-72 z" fill="#94a3b8"></path>
+        <text x="200" y="228" text-anchor="middle" font-size="23.5" font-weight="900" fill="#334155">나</text>
+        <!-- 아바타 -->
+        <circle cx="800" cy="130" r="72" fill="#faf5ff" stroke="#c084fc" stroke-width="3"></circle>
+        <circle cx="800" cy="110" r="22" fill="#7e22ce"></circle>
+        <path d="M772 140 h56 l8 32 h-72 z" fill="#c084fc"></path>
+        <text x="800" y="228" text-anchor="middle" font-size="23.5" font-weight="900" fill="#6b21a8">아바타</text>
+        <!-- 위 화살표 -->
+        <path d="M278 88 q222 -78 444 0" fill="none" stroke="#0d9488" stroke-width="3.5" marker-end="url(#lp-a)"></path>
+        <rect x="378" y="24" width="244" height="34" rx="17" fill="#0d9488"></rect>
+        <text x="500" y="47" text-anchor="middle" font-size="19" font-weight="900" fill="#fff">내가 만든다 — 자기표현</text>
+        <!-- 아래 화살표 -->
+        <path d="M722 172 q-222 78 -444 0" fill="none" stroke="#7e22ce" stroke-width="3.5" marker-end="url(#lp-b)"></path>
+        <rect x="352" y="202" width="296" height="34" rx="17" fill="#7e22ce"></rect>
+        <text x="500" y="225" text-anchor="middle" font-size="19" font-weight="900" fill="#fff">되돌아온다 — 자기조형</text>
+        <text x="500" y="136" text-anchor="middle" font-size="15.5" fill="#94a3b8">"나는 이런 사람"이라는 단서</text>
+      </svg>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="soft-card rounded-2xl p-6"><div class="text-2xl mb-2">🔁</div><p class="text-base text-slate-500">그 단서가 다시 나에게 돌아와 <strong class="text-slate-800">행동을 바꿉니다.</strong> 본인은 이유를 모른 채로요.</p></div>
+      <div class="soft-card rounded-2xl p-6"><div class="text-2xl mb-2">🎭</div><p class="text-base text-slate-500">그래서 아바타 꾸미기는 자기표현이면서 동시에 <strong class="text-slate-800">자기조형</strong>입니다.</p></div>
+      <div class="bg-slate-900 text-white rounded-2xl p-6"><div class="text-2xl mb-2">🌏</div><p class="text-base text-slate-300">그리고 이것은 <strong class="text-lime-300">온라인 안에서만 끝나지 않습니다.</strong></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 18 저울 ===== -->
+<section class="slide">
+  <div class="max-w-5xl w-full">
+    <div class="mb-5 text-center">
+      <div class="text-rose-600 text-base font-black mb-2">생각해 봅시다</div>
+      <h2 class="text-3xl md:text-5xl font-black">추구미 아바타를 만드는 일은<br>자기실현일까요, 자기소외일까요?</h2>
+    </div>
+    <svg viewBox="0 0 900 200" class="w-full mb-5" role="img" aria-label="양팔 저울의 한쪽에는 자기실현, 다른 쪽에는 자기소외가 놓여 균형을 이루고 있다">
+      <!-- 기둥 -->
+      <path d="M430 60 h40 v112 h-40 z" fill="#cbd5e1"></path>
+      <path d="M370 176 h160 l14 18 h-188 z" fill="#94a3b8"></path>
+      <circle cx="450" cy="56" r="12" fill="#475569"></circle>
+      <!-- 빔 -->
+      <rect x="160" y="48" width="580" height="12" rx="6" fill="#64748b"></rect>
+      <!-- 좌 접시 -->
+      <line x1="230" y1="60" x2="230" y2="96" stroke="#94a3b8" stroke-width="2.5"></line>
+      <path d="M150 96 h160 l-24 34 h-112 z" fill="#ccfbf1" stroke="#0d9488" stroke-width="2.5"></path>
+      <text x="230" y="120" text-anchor="middle" font-size="20" font-weight="900" fill="#0f766e">자기실현</text>
+      <text x="230" y="160" text-anchor="middle" font-size="15.5" fill="#0d9488">못 해 본 모습을 안전하게 연습</text>
+      <text x="230" y="180" text-anchor="middle" font-size="15.5" fill="#0d9488">프로테우스 효과를 내 편으로</text>
+      <!-- 우 접시 -->
+      <line x1="670" y1="60" x2="670" y2="96" stroke="#94a3b8" stroke-width="2.5"></line>
+      <path d="M590 96 h160 l-24 34 h-112 z" fill="#ffe4e6" stroke="#e11d48" stroke-width="2.5"></path>
+      <text x="670" y="120" text-anchor="middle" font-size="20" font-weight="900" fill="#9f1239">자기소외</text>
+      <text x="670" y="160" text-anchor="middle" font-size="15.5" fill="#e11d48">이상과 나의 거리를 매일 확인</text>
+      <text x="670" y="180" text-anchor="middle" font-size="15.5" fill="#e11d48">불일치가 커질수록 낙담도 커짐</text>
+      <!-- 중앙 물음표 -->
+      <text x="450" y="32" text-anchor="middle" font-size="30.5" font-weight="900" fill="#94a3b8">?</text>
+    </svg>
+    <div class="bg-slate-900 text-white rounded-3xl p-7 text-center">
+      <p class="text-xl font-black mb-2">정답은 없습니다.</p>
+      <p class="text-slate-300 text-base">다만 여러분이 <strong class="text-lime-300">지금 어느 쪽으로 쓰고 있는지</strong>는 알고 계셔야 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 19 PART 4 DIVIDER ===== -->
+<section class="slide">
+  <div class="max-w-5xl w-full text-center">
+    <div class="part-num mb-4">04</div>
+    <h2 class="text-4xl md:text-6xl font-black text-slate-900 mb-6">플랫폼이 정하는 경계</h2>
+    <p class="text-xl text-slate-500 mb-3">내 아바타를 만드는 건 나일까, 플랫폼일까</p>
+    <div class="inline-block bg-white border border-slate-200 rounded-2xl px-6 py-4 text-slate-600 text-base">
+      선택지 &nbsp;·&nbsp; 가이드라인 &nbsp;·&nbsp; 파츠 구조 &nbsp;·&nbsp; 관객
+    </div>
+    <svg viewBox="0 0 1000 100" class="w-full max-w-4xl mx-auto mt-8" role="img" aria-label="전체 네 파트 중 현재 4번째 파트 진행 중">
+      <line x1="4" y1="61" x2="996" y2="61" stroke="#e2e8f0" stroke-width="2"></line>
+      <rect x="4" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="116" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">01 추구미와 OOTD</text>
+      <rect x="260" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="372" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">02 아바타라는 말</text>
+      <rect x="516" y="46" width="224" height="30" rx="15" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"></rect>
+      <text x="628" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#94a3b8">03 아바타가 나를 바꾼다</text>
+      <text x="884" y="16" text-anchor="middle" font-size="14" font-weight="900" fill="#65a30d">지금 여기</text>
+      <path d="M884 30 l-6 -9 h12 z" fill="#65a30d"></path>
+      <rect x="772" y="34" width="224" height="54" rx="15" fill="#65a30d"></rect>
+      <text x="884" y="55" text-anchor="middle" font-size="14" font-weight="900" fill="#ffffff" opacity=".75">04</text>
+      <text x="884" y="77" text-anchor="middle" font-size="19" font-weight="900" fill="#ffffff">플랫폼이 정하는 경계</text>
+      </svg>
+  </div>
+</section>
+
+<!-- ===== 20 선택지 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-5">
+      <div class="text-meta-600 text-base font-black mb-2">플랫폼 문화 ①</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">선택지의 목록 = 가능한 정체성의 목록</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-5">
+      <div class="md:col-span-3 photo-slot p-4">
+        <svg viewBox="0 0 460 300" class="w-full" role="img" aria-label="아바타 커스터마이징 화면 목업. 슬라이더와 옵션 칩이 있고, 목록에 없는 항목 자리는 비어 있다">
+          <rect x="6" y="6" width="448" height="288" rx="16" fill="#fff" stroke="#e2e8f0" stroke-width="2"></rect>
+          <!-- 미리보기 -->
+          <rect x="20" y="20" width="140" height="260" rx="12" fill="#f0fdfa"></rect>
+          <circle cx="90" cy="96" r="30" fill="#0d9488"></circle>
+          <path d="M90 62 q-34 6 -36 30 q18 -16 36 -14 q18 -2 36 14 q-2 -24 -36 -30z" fill="#0f766e"></path>
+          <path d="M56 136 h68 l12 82 h-22 l-4 42 h-40 l-4 -42 h-22 z" fill="#14b8a6"></path>
+          <text x="90" y="278" text-anchor="middle" font-size="12" font-weight="700" fill="#0d9488">미리보기</text>
+          <!-- 슬라이더 -->
+          <g font-size="13" font-weight="800" fill="#475569">
+            <text x="180" y="42">키</text>
+            <rect x="180" y="52" width="250" height="7" rx="3.5" fill="#e2e8f0"></rect>
+            <rect x="180" y="52" width="140" height="7" rx="3.5" fill="#0d9488"></rect>
+            <circle cx="320" cy="55.5" r="9" fill="#fff" stroke="#0d9488" stroke-width="3"></circle>
+            <text x="180" y="92">얼굴형</text>
+            <rect x="180" y="102" width="250" height="7" rx="3.5" fill="#e2e8f0"></rect>
+            <rect x="180" y="102" width="95" height="7" rx="3.5" fill="#0d9488"></rect>
+            <circle cx="275" cy="105.5" r="9" fill="#fff" stroke="#0d9488" stroke-width="3"></circle>
+          </g>
+          <!-- 기본값 마커 -->
+          <line x1="246" y1="44" x2="246" y2="68" stroke="#e11d48" stroke-width="2" stroke-dasharray="3 3"></line>
+          <text x="246" y="80" text-anchor="middle" font-size="12" font-weight="800" fill="#e11d48">기본값</text>
+          <!-- 옵션 칩 -->
+          <text x="180" y="146" font-size="13" font-weight="800" fill="#475569">피부 톤</text>
+          <g>
+            <circle cx="192" cy="168" r="13" fill="#fde7d3" stroke="#0d9488" stroke-width="3"></circle>
+            <circle cx="226" cy="168" r="13" fill="#f5cfa8"></circle>
+            <circle cx="260" cy="168" r="13" fill="#d9a066"></circle>
+            <circle cx="294" cy="168" r="13" fill="#a9703f"></circle>
+            <circle cx="328" cy="168" r="13" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="3 3"></circle>
+            <circle cx="362" cy="168" r="13" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="3 3"></circle>
+            <circle cx="396" cy="168" r="13" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="3 3"></circle>
+          </g>
+          <!-- 체형 -->
+          <text x="180" y="212" font-size="13" font-weight="800" fill="#475569">체형</text>
+          <g>
+            <rect x="180" y="224" width="52" height="34" rx="8" fill="#ccfbf1" stroke="#0d9488" stroke-width="2.5"></rect>
+            <rect x="242" y="224" width="52" height="34" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"></rect>
+            <rect x="304" y="224" width="52" height="34" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 4"></rect>
+            <rect x="366" y="224" width="52" height="34" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 4"></rect>
+          </g>
+          <text x="392" y="284" text-anchor="end" font-size="12" font-weight="800" fill="#94a3b8">점선 = 목록에 없는 자리</text>
+        </svg>
+      </div>
+      <div class="md:col-span-2 space-y-4">
+        <div class="soft-card rounded-2xl p-6">
+          <h4 class="font-black mb-2"><i class="fa-solid fa-list-ul text-meta-500 mr-2"></i>없는 것은 금지된 것이 아니다</h4>
+          <p class="text-base text-slate-500 leading-relaxed">목록에 없는 체형·피부 톤·신체 조건은 <strong class="text-slate-700">애초에 항목이 없습니다.</strong> 금지는 항의할 수 있지만, 없는 것은 항의할 대상도 없습니다.</p>
+        </div>
+        <div class="soft-card rounded-2xl p-6">
+          <h4 class="font-black mb-2"><i class="fa-solid fa-crosshairs text-rose-500 mr-2"></i>기본값은 언제나 기준점이 된다</h4>
+          <p class="text-base text-slate-500 leading-relaxed">선택지가 늘어도 중립이 되지는 않습니다. 우리는 <strong class="text-slate-700">기본값에서 얼마나 떨어졌는지</strong>로 자기 아바타를 인식합니다.</p>
+        </div>
+        <div class="bg-slate-900 text-white rounded-2xl p-6">
+          <p class="text-base text-slate-300 leading-relaxed">여러분의 아바타는 여러분의 선택입니다. 다만 <strong class="text-lime-300">누군가 미리 만들어 둔 목록 안에서의</strong> 선택입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 21 가이드라인 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-5">
+      <div class="text-amber-600 text-base font-black mb-2">플랫폼 문화 ②</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">가이드라인이라는 경계선</h2>
+      <p class="text-slate-500">지난주 「공식 문서 읽는 법」에서 함께 읽은 그 문서 — 사실 <strong class="text-slate-800">표현의 헌법</strong>입니다.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-5">
+      <div class="md:col-span-2 soft-card rounded-3xl p-5">
+        <svg viewBox="0 0 320 300" class="w-full" role="img" aria-label="표현하고 싶은 것 전체를 나타내는 큰 원 안에서, 네 종류의 규칙이 일부 영역을 잘라내고 남은 부분만 허용된다">
+          <defs>
+            <clipPath id="gd-c"><circle cx="160" cy="150" r="118"></circle></clipPath>
+          </defs>
+          <circle cx="160" cy="150" r="118" fill="#f0fdfa" stroke="#0d9488" stroke-width="3"></circle>
+          <g clip-path="url(#gd-c)">
+            <path d="M42 32 h130 l-130 92 z" fill="#fecaca" opacity=".85"></path>
+            <path d="M278 32 h-110 l110 80 z" fill="#fed7aa" opacity=".85"></path>
+            <path d="M42 268 h120 l-120 -76 z" fill="#fde68a" opacity=".85"></path>
+            <path d="M278 268 h-104 l104 -70 z" fill="#ddd6fe" opacity=".85"></path>
+          </g>
+          <g font-size="13" font-weight="800">
+            <text x="82" y="70" fill="#991b1b">저작권·브랜드</text>
+            <text x="238" y="70" text-anchor="middle" fill="#9a3412">노출 기준</text>
+            <text x="80" y="240" fill="#854d0e">부적절 콘텐츠</text>
+            <text x="238" y="240" text-anchor="middle" fill="#5b21b6">사후 심사</text>
+          </g>
+          <text x="160" y="142" text-anchor="middle" font-size="22.5" font-weight="900" fill="#0f766e">허용되는</text>
+          <text x="160" y="172" text-anchor="middle" font-size="22.5" font-weight="900" fill="#0f766e">표현</text>
+          <text x="160" y="290" text-anchor="middle" font-size="14" fill="#94a3b8">바깥 원 = 표현하고 싶은 것 전체</text>
+        </svg>
+      </div>
+      <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4 content-start">
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black text-base mb-1 text-rose-700">저작권 · 브랜드</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">기존 작품·브랜드 모방은 반려. <em class="text-slate-400">— 현실 패션의 상당 부분이 브랜드인데도.</em></p>
+        </div>
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black text-base mb-1 text-orange-700">노출 기준</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">가려야 할 부위·비침 소재 규정. <em class="text-slate-400">— 무엇이 "과한가"를 플랫폼이 정합니다.</em></p>
+        </div>
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black text-base mb-1 text-amber-700">부적절 콘텐츠</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">무기·담배 등 묘사 제한. <em class="text-slate-400">— 현실에 있는 것이 가상에서 금지됩니다.</em></p>
+        </div>
+        <div class="soft-card rounded-2xl p-5">
+          <h4 class="font-black text-base mb-1 text-violet-700">사후 심사</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">승인 후에도 재검토 가능. <em class="text-slate-400">— 허가는 영구적이지 않습니다.</em></p>
+        </div>
+        <div class="sm:col-span-2 bg-slate-900 text-white rounded-2xl p-6">
+          <p class="text-xl font-black mb-2">규칙이 있다는 것 자체는 문제가 아닙니다.</p>
+          <p class="text-base text-slate-300">미성년 이용자가 많은 플랫폼이니 필요합니다. 물어야 할 것은 <strong class="text-lime-300">"누가, 무엇을 기준으로 정했는가"</strong>입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 22 파츠 분해도 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-5">
+      <div class="text-grape-600 text-base font-black mb-2">플랫폼 문화 ③</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">파츠로 쪼개진 몸</h2>
+      <p class="text-slate-500">템플릿 에디터를 열면 몸은 <strong class="text-slate-800">이미 나뉘어</strong> 있습니다.</p>
+    </div>
+    <div class="soft-card rounded-3xl p-6 mb-5">
+      <svg viewBox="0 0 1000 312" class="w-full" role="img" aria-label="아바타가 모자, 상의, 하의, 신발 파츠로 분해되고 각 파츠가 256픽셀 정사각형 텍스처 이미지와 연결되는 그림">
+        <!-- 왼쪽: 합쳐진 아바타 -->
+        <text x="130" y="28" text-anchor="middle" font-size="16.5" font-weight="900" fill="#0f172a">우리가 보는 것</text>
+        <g>
+          <circle cx="130" cy="90" r="26" fill="#f5cfa8"></circle>
+          <path d="M104 62 q26 -18 52 0 q4 -22 -26 -22 q-30 0 -26 22z" fill="#7e22ce"></path>
+          <path d="M100 116 h60 l10 76 h-80 z" fill="#14b8a6"></path>
+          <path d="M106 192 h48 l6 62 h-20 l-2 -40 h-16 l-2 40 h-20 z" fill="#334155"></path>
+          <rect x="102" y="252" width="26" height="14" rx="5" fill="#0f172a"></rect>
+          <rect x="132" y="252" width="26" height="14" rx="5" fill="#0f172a"></rect>
+        </g>
+        <!-- 화살표 -->
+        <path d="M186 150 h60" stroke="#94a3b8" stroke-width="3" fill="none" marker-end="url(#pt-a)"></path>
+        <defs><marker id="pt-a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+          <path d="M0 0 L9 4.5 L0 9 z" fill="#94a3b8"></path></marker></defs>
+        <text x="216" y="138" text-anchor="middle" font-size="13" font-weight="700" fill="#94a3b8">실제로는</text>
+        <!-- 분해된 파츠 -->
+        <g>
+          <!-- 모자/헤어 -->
+          <rect x="268" y="34" width="150" height="58" rx="12" fill="#faf5ff" stroke="#d8b4fe" stroke-width="2"></rect>
+          <path d="M300 74 q26 -18 52 0 q4 -22 -26 -22 q-30 0 -26 22z" fill="#7e22ce"></path>
+          <text x="378" y="68" text-anchor="middle" font-size="14" font-weight="800" fill="#6b21a8">모자 · 헤어</text>
+          <!-- 상의 -->
+          <rect x="268" y="102" width="150" height="58" rx="12" fill="#f0fdfa" stroke="#5eead4" stroke-width="2"></rect>
+          <path d="M296 118 h44 l8 38 h-60 z" fill="#14b8a6"></path>
+          <text x="378" y="136" text-anchor="middle" font-size="14" font-weight="800" fill="#0f766e">상의</text>
+          <!-- 하의 -->
+          <rect x="268" y="170" width="150" height="58" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"></rect>
+          <path d="M300 182 h38 l4 42 h-14 l-2 -26 h-12 l-2 26 h-14 z" fill="#334155"></path>
+          <text x="378" y="204" text-anchor="middle" font-size="14" font-weight="800" fill="#334155">하의</text>
+          <!-- 신발 -->
+          <rect x="268" y="238" width="150" height="50" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"></rect>
+          <rect x="298" y="256" width="22" height="12" rx="4" fill="#0f172a"></rect>
+          <rect x="326" y="256" width="22" height="12" rx="4" fill="#0f172a"></rect>
+          <text x="378" y="268" text-anchor="middle" font-size="14" font-weight="800" fill="#334155">신발</text>
+        </g>
+        <!-- 연결선 -->
+        <g stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4" fill="none">
+          <path d="M424 62 h96"></path><path d="M424 130 h96"></path><path d="M424 198 h96"></path><path d="M424 262 h96"></path>
+        </g>
+        <!-- 텍스처 -->
+        <text x="640" y="28" text-anchor="middle" font-size="16.5" font-weight="900" fill="#0f172a">각각은 평면 이미지 한 장</text>
+        <g>
+          <rect x="528" y="36" width="56" height="56" rx="4" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"></rect>
+          <rect x="528" y="104" width="56" height="56" rx="4" fill="#ccfbf1" stroke="#14b8a6" stroke-width="2"></rect>
+          <rect x="528" y="172" width="56" height="56" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="2"></rect>
+          <rect x="528" y="236" width="56" height="52" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="2"></rect>
+          <g stroke="#ffffff" stroke-width="1" opacity=".8">
+            <path d="M528 54 h56 M528 74 h56 M546 36 v56 M566 36 v56"></path>
+            <path d="M528 122 h56 M528 142 h56 M546 104 v56 M566 104 v56"></path>
+            <path d="M528 190 h56 M528 210 h56 M546 172 v56 M566 172 v56"></path>
+            <path d="M528 254 h56 M528 272 h56 M546 236 v52 M566 236 v52"></path>
+          </g>
+        </g>
+        <text x="556" y="300" text-anchor="middle" font-size="13" font-weight="800" fill="#94a3b8">256 × 256 px</text>
+        <!-- 오른쪽 설명 -->
+        <g>
+          <rect x="620" y="36" width="356" height="118" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"></rect>
+          <text x="644" y="66" font-size="16.5" font-weight="900" fill="#0f172a">이 분할은 기술적 편의에서 왔습니다</text>
+          <text x="644" y="94" font-size="15.5" fill="#64748b">파츠별로 나눠야 서로 조합하고</text>
+          <text x="644" y="116" font-size="15.5" fill="#64748b">따로 판매할 수 있으니까요.</text>
+          <text x="644" y="140" font-size="14" fill="#94a3b8">→ 구조는 상업적 이유로 정해졌습니다</text>
+
+          <rect x="620" y="166" width="356" height="122" rx="14" fill="#0f172a"></rect>
+          <text x="644" y="196" font-size="16.5" font-weight="900" fill="#a3e635">그런데 그것이 상상력이 됩니다</text>
+          <text x="644" y="224" font-size="15.5" fill="#cbd5e1">"룩"을 떠올릴 때조차 파츠 단위로</text>
+          <text x="644" y="246" font-size="15.5" fill="#cbd5e1">생각하게 됩니다. 옷의 무게, 소재의</text>
+          <text x="644" y="268" font-size="15.5" fill="#cbd5e1">흐름은 처음부터 표현 대상이 아닙니다.</text>
+        </g>
+      </svg>
+    </div>
+    <div class="bg-meta-50 border border-meta-200 rounded-2xl p-5 text-base text-meta-900">
+      <i class="fa-solid fa-screwdriver-wrench mr-2 text-meta-600"></i>
+      <strong>도구는 중립적이지 않습니다.</strong> 잠시 뒤 팀 미션에서 이걸 직접 겪게 됩니다 — 각자 파츠를 맡아 만들었는데 합쳐 놓으면 따로 논다면, 그 이유가 여기 있습니다.
+    </div>
+  </div>
+</section>
+
+<!-- ===== 23 관객 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-5">
+      <div class="text-lime-600 text-base font-black mb-2">플랫폼 문화 ④</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-2">내 추구미의 관객은 누구인가</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-5">
+      <div class="md:col-span-2 soft-card rounded-3xl p-6">
+        <div class="text-sm font-black text-slate-400 mb-3">이용자 100명이라면</div>
+        <svg viewBox="0 0 260 270" class="w-full" role="img" aria-label="점 100개 중 90개는 해외 이용자, 10개는 국내 이용자를 나타낸다">
+          <g id="dots"></g>
+        </svg>
+        <div class="flex gap-4 mt-3 text-sm font-bold">
+          <span class="flex items-center gap-2"><i class="w-3 h-3 rounded-full bg-meta-500 inline-block"></i>해외 90명+</span>
+          <span class="flex items-center gap-2"><i class="w-3 h-3 rounded-full bg-slate-300 inline-block"></i>국내 10명 미만</span>
+        </div>
+        <p class="src-note mt-2">2022년 3월 발표 기준</p>
+      </div>
+      <div class="md:col-span-3 space-y-4">
+        <div class="grid grid-cols-3 gap-3">
+          <div class="bg-gradient-to-br from-meta-600 to-teal-800 text-white rounded-2xl p-5">
+            <div class="text-xs font-black text-teal-200 mb-1">누적 가입자</div>
+            <div class="text-3xl font-black big-number">3억+</div>
+            <div class="text-xs text-teal-200 mt-1">2022.6 기준</div>
+          </div>
+          <div class="soft-card rounded-2xl p-5">
+            <div class="text-xs font-black text-slate-400 mb-1">누적 크리에이터</div>
+            <div class="text-3xl font-black big-number">70만</div>
+            <div class="text-xs text-slate-400 mt-1">2021.6 기준</div>
+          </div>
+          <div class="soft-card rounded-2xl p-5">
+            <div class="text-xs font-black text-slate-400 mb-1">누적 제출 아이템</div>
+            <div class="text-3xl font-black big-number">200만</div>
+            <div class="text-xs text-slate-400 mt-1">2021.6 기준</div>
+          </div>
+        </div>
+        <div class="soft-card rounded-2xl p-6">
+          <h4 class="font-black mb-2"><i class="fa-solid fa-store text-lime-600 mr-2"></i>심사 통과 = 시장 진입 허가</h4>
+          <p class="text-base text-slate-500 leading-relaxed">내 표현이 <strong class="text-slate-700">판매 가능한 형태</strong>가 되었다는 뜻이기도 합니다. 자기표현과 상품이 같은 것이 되는 순간입니다.</p>
+        </div>
+        <div class="bg-slate-900 text-white rounded-2xl p-6">
+          <p class="text-xl font-black mb-2">내 "추구미"를 볼 사람의 대다수는 한국인이 아닙니다.</p>
+          <p class="text-base text-slate-300">내가 생각하는 미감의 기준이 통하지 않을 수 있습니다.</p>
+        </div>
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 text-base text-amber-900">
+          <i class="fa-solid fa-clock-rotate-left mr-2 text-amber-600"></i>
+          <strong>덧붙여 — 이 수치들이 몇 년째 갱신되지 않았다는 사실 자체도 정보입니다.</strong> 플랫폼은 유리한 숫자만 공개합니다. 데이터를 볼 때는 <strong>언제 기준인지</strong>를 항상 확인하세요.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 24 오늘의 세 문장 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-meta-600 text-base font-black mb-2">SUMMARY</div>
+      <h2 class="text-3xl md:text-5xl font-black">오늘의 세 문장, 한 그림으로</h2>
+    </div>
+    <div class="soft-card rounded-3xl p-5 mb-4">
+      <svg viewBox="0 0 1000 300" class="w-full" role="img" aria-label="플랫폼이라는 테두리 안에서 나와 아바타가 서로를 만들고 되돌려주는 순환. 테두리에는 선택지, 가이드라인, 파츠 구조, 시장이 적혀 있다">
+        <defs>
+          <marker id="sy-a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <path d="M0 0 L8 4 L0 8 z" fill="#0d9488"></path></marker>
+          <marker id="sy-b" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <path d="M0 0 L8 4 L0 8 z" fill="#7e22ce"></path></marker>
+        </defs>
+        <!-- 플랫폼 테두리 -->
+        <rect x="64" y="44" width="872" height="232" rx="26" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="8 6"></rect>
+        <rect x="88" y="30" width="122" height="28" rx="14" fill="#0f172a"></rect>
+        <text x="149" y="49" text-anchor="middle" font-size="16.5" font-weight="900" fill="#a3e635">③ 플랫폼</text>
+        <!-- 테두리 라벨 -->
+        <g>
+          <rect x="420" y="30" width="160" height="28" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="2"></rect>
+          <text x="500" y="49" text-anchor="middle" font-size="15.5" font-weight="800" fill="#475569">선택지의 목록</text>
+          <rect x="420" y="262" width="160" height="28" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="2"></rect>
+          <text x="500" y="281" text-anchor="middle" font-size="15.5" font-weight="800" fill="#475569">파츠 구조</text>
+          <rect x="10" y="146" width="122" height="28" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="2"></rect>
+          <text x="71" y="165" text-anchor="middle" font-size="15.5" font-weight="800" fill="#475569">가이드라인</text>
+          <rect x="870" y="146" width="122" height="28" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="2"></rect>
+          <text x="931" y="165" text-anchor="middle" font-size="15.5" font-weight="800" fill="#475569">시장 · 관객</text>
+        </g>
+        <!-- 나 -->
+        <circle cx="330" cy="162" r="50" fill="#fff" stroke="#94a3b8" stroke-width="3"></circle>
+        <circle cx="330" cy="150" r="16" fill="#475569"></circle>
+        <path d="M310 172 h40 l6 24 h-52 z" fill="#94a3b8"></path>
+        <text x="330" y="234" text-anchor="middle" font-size="20" font-weight="900" fill="#334155">나</text>
+        <text x="330" y="252" text-anchor="middle" font-size="13" fill="#94a3b8">실제 자아</text>
+        <!-- 아바타 -->
+        <circle cx="670" cy="162" r="50" fill="#faf5ff" stroke="#c084fc" stroke-width="3"></circle>
+        <circle cx="670" cy="150" r="16" fill="#7e22ce"></circle>
+        <path d="M650 172 h40 l6 24 h-52 z" fill="#c084fc"></path>
+        <text x="670" y="234" text-anchor="middle" font-size="20" font-weight="900" fill="#6b21a8">아바타</text>
+        <text x="670" y="252" text-anchor="middle" font-size="13" fill="#a855f7">① 이상 자아</text>
+        <!-- 위 화살표 -->
+        <path d="M380 130 q120 -40 236 6" fill="none" stroke="#0d9488" stroke-width="3.5" marker-end="url(#sy-a)"></path>
+        <rect x="392" y="80" width="228" height="30" rx="15" fill="#0d9488"></rect>
+        <text x="506" y="101" text-anchor="middle" font-size="16.5" font-weight="900" fill="#fff">① 만든다 — 자기표현</text>
+        <!-- 아래 화살표 -->
+        <path d="M620 194 q-120 40 -236 -6" fill="none" stroke="#7e22ce" stroke-width="3.5" marker-end="url(#sy-b)"></path>
+        <rect x="380" y="204" width="252" height="30" rx="15" fill="#7e22ce"></rect>
+        <text x="506" y="225" text-anchor="middle" font-size="16.5" font-weight="900" fill="#fff">② 되돌아온다 — 자기조형</text>
+      </svg>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="soft-card rounded-2xl p-5 border-t-4 border-t-meta-400">
+        <div class="text-sm font-black text-meta-600 mb-1">문장 ①</div>
+        <h3 class="font-black text-lg mb-1.5">아바타는 이상 자아를 실행 가능하게 만든 도구다</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">OOTD는 실제 자아의 복제, 추구미는 이상 자아의 구현.</p>
+      </div>
+      <div class="soft-card rounded-2xl p-5 border-t-4 border-t-grape-400">
+        <div class="text-sm font-black text-grape-600 mb-1">문장 ②</div>
+        <h3 class="font-black text-lg mb-1.5">아바타는 나의 출력이자 입력이다</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">내가 만든 겉모습이 다시 내 행동을 바꾼다. — 프로테우스 효과</p>
+      </div>
+      <div class="bg-slate-900 text-white rounded-2xl p-5 border-t-4 border-t-lime-400">
+        <div class="text-sm font-black text-lime-300 mb-1">문장 ③</div>
+        <h3 class="font-black text-lg mb-1.5">자기표현은 플랫폼이 허용한 범위 안에서만</h3>
+        <p class="text-sm text-slate-300 leading-relaxed">선택지 · 가이드라인 · 파츠 구조 · 시장이 그 범위를 정한다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 25 토론 질문 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-6">
+      <div class="text-blue-600 text-base font-black mb-2">조별 토론</div>
+      <h2 class="text-4xl md:text-5xl font-black">세 가지 질문</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+      <div class="soft-card rounded-3xl p-7 border-t-4 border-t-meta-400">
+        <div class="w-12 h-12 rounded-2xl bg-meta-100 text-meta-600 flex items-center justify-center text-2xl mb-5"><i class="fa-solid fa-user-pen"></i></div>
+        <div class="text-sm font-black text-meta-600 mb-2">Q1</div>
+        <h3 class="font-black text-xl mb-3">내 아이템을 아바타에게 입혔을 때, 현실의 나와 가장 다른 지점은?</h3>
+        <p class="text-base text-slate-500 leading-relaxed">그 차이는 내가 의도한 것이었나요, 도구가 만든 것이었나요?</p>
+      </div>
+      <div class="soft-card rounded-3xl p-7 border-t-4 border-t-amber-400">
+        <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mb-5"><i class="fa-solid fa-ban"></i></div>
+        <div class="text-sm font-black text-amber-600 mb-2">Q2</div>
+        <h3 class="font-black text-xl mb-3">가이드라인이나 템플릿 때문에 포기하거나 바꾼 디자인이 있었나?</h3>
+        <p class="text-base text-slate-500 leading-relaxed">그 경계는 정당하다고 생각하나요?</p>
+      </div>
+      <div class="soft-card rounded-3xl p-7 border-t-4 border-t-grape-400">
+        <div class="w-12 h-12 rounded-2xl bg-grape-100 text-grape-600 flex items-center justify-center text-2xl mb-5"><i class="fa-solid fa-earth-asia"></i></div>
+        <div class="text-sm font-black text-grape-600 mb-2">Q3</div>
+        <h3 class="font-black text-xl mb-3">관객의 90%가 해외 이용자라면, 나는 디자인을 바꿀 것인가?</h3>
+        <p class="text-base text-slate-500 leading-relaxed">바꾼다면 그것은 여전히 "내 추구미"인가요?</p>
+      </div>
+    </div>
+    <div class="bg-slate-900 text-white rounded-2xl p-6">
+      <p class="text-xl font-black">조에서 나온 이야기 중 <span class="text-lime-300">가장 공유하고 싶은 사례 하나</span>를 골라 전체에 발표해 주세요.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 26 팀 미션 미리보기 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-lime-600 text-base font-black mb-2">NEXT — 팀 미션</div>
+      <h2 class="text-3xl md:text-5xl font-black mb-2">각자 한 파츠씩, 합쳐서 하나의 룩</h2>
+      <p class="text-slate-500">방금 본 <strong class="text-slate-800">"파츠로 쪼개진 몸"</strong>을 직접 겪는 시간입니다.</p>
+    </div>
+    <div class="soft-card rounded-3xl p-5 mb-4">
+      <svg viewBox="0 0 1000 280" class="w-full" role="img" aria-label="팀원 네 명이 각각 모자, 상의, 하의, 신발을 맡아 만들고, 합쳤을 때 약속이 없으면 색과 분위기가 따로 놀지만 약속을 정하면 하나의 룩이 된다">
+        <defs><marker id="tm-a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"></path></marker></defs>
+        <!-- 팀원 4명 -->
+        <text x="180" y="24" text-anchor="middle" font-size="16.5" font-weight="900" fill="#0f172a">팀원 4명 · 인당 파츠 1개</text>
+        <g>
+          <!-- 1 모자 -->
+          <rect x="16" y="40" width="76" height="106" rx="14" fill="#fdf2f8" stroke="#f9a8d4" stroke-width="2"></rect>
+          <path d="M38 78 q16 -12 32 0 q3 -16 -16 -16 q-19 0 -16 16z" fill="#db2777"></path>
+          <circle cx="54" cy="104" r="11" fill="#cbd5e1"></circle>
+          <path d="M42 120 h24 l3 18 h-30 z" fill="#e2e8f0"></path>
+          <text x="54" y="162" text-anchor="middle" font-size="13" font-weight="800" fill="#be185d">헤어·액세서리</text>
+          <!-- 2 상의 -->
+          <rect x="102" y="40" width="76" height="106" rx="14" fill="#f0fdfa" stroke="#5eead4" stroke-width="2"></rect>
+          <path d="M124 66 h32 l6 30 h-44 z" fill="#0d9488"></path>
+          <circle cx="140" cy="110" r="11" fill="#cbd5e1"></circle>
+          <path d="M128 126 h24 l3 12 h-30 z" fill="#e2e8f0"></path>
+          <text x="140" y="162" text-anchor="middle" font-size="14" font-weight="800" fill="#0f766e">상의</text>
+          <!-- 3 하의 -->
+          <rect x="188" y="40" width="76" height="106" rx="14" fill="#fff7ed" stroke="#fdba74" stroke-width="2"></rect>
+          <path d="M210 64 h30 l4 34 h-12 l-2 -20 h-10 l-2 20 h-12 z" fill="#ea580c"></path>
+          <circle cx="226" cy="112" r="11" fill="#cbd5e1"></circle>
+          <path d="M214 128 h24 l3 10 h-30 z" fill="#e2e8f0"></path>
+          <text x="226" y="162" text-anchor="middle" font-size="14" font-weight="800" fill="#c2410c">하의</text>
+          <!-- 4 신발 -->
+          <rect x="274" y="40" width="76" height="106" rx="14" fill="#eef2ff" stroke="#a5b4fc" stroke-width="2"></rect>
+          <rect x="294" y="72" width="22" height="12" rx="4" fill="#4338ca"></rect>
+          <rect x="320" y="72" width="22" height="12" rx="4" fill="#4338ca"></rect>
+          <circle cx="312" cy="112" r="11" fill="#cbd5e1"></circle>
+          <path d="M300 128 h24 l3 10 h-30 z" fill="#e2e8f0"></path>
+          <text x="312" y="162" text-anchor="middle" font-size="13" font-weight="800" fill="#3730a3">아우터·신발</text>
+        </g>
+        <text x="183" y="188" text-anchor="middle" font-size="14" fill="#94a3b8">각자 AI로 텍스처 PNG 1장씩</text>
+        <!-- 진행 순서 -->
+        <g>
+          <rect x="16" y="208" width="334" height="56" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"></rect>
+          <text x="32" y="228" font-size="13.5" font-weight="900" fill="#94a3b8">진행 순서</text>
+          <g font-size="14" font-weight="800">
+            <rect x="32" y="234" width="86" height="22" rx="11" fill="#0f172a"></rect>
+            <text x="75" y="249" text-anchor="middle" fill="#a3e635">① 약속 5분</text>
+            <text x="126" y="249" fill="#cbd5e1">→</text>
+            <rect x="140" y="234" width="92" height="22" rx="11" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"></rect>
+            <text x="186" y="249" text-anchor="middle" fill="#475569">② 제작 12분</text>
+            <text x="240" y="249" fill="#cbd5e1">→</text>
+            <rect x="254" y="234" width="82" height="22" rx="11" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"></rect>
+            <text x="295" y="249" text-anchor="middle" fill="#475569">③ 룩보드</text>
+          </g>
+        </g>
+        <!-- 화살표 -->
+        <path d="M370 96 h56" stroke="#94a3b8" stroke-width="3" fill="none" marker-end="url(#tm-a)"></path>
+        <text x="398" y="84" text-anchor="middle" font-size="14" font-weight="700" fill="#94a3b8">합친다</text>
+        <!-- 결과 A: 약속 없이 -->
+        <rect x="448" y="30" width="232" height="230" rx="18" fill="#fff1f2" stroke="#fda4af" stroke-width="2.5"></rect>
+        <text x="564" y="56" text-anchor="middle" font-size="17.5" font-weight="900" fill="#9f1239">약속 없이 합치면</text>
+        <g>
+          <path d="M548 100 q16 -12 32 0 q3 -16 -16 -16 q-19 0 -16 16z" fill="#db2777"></path>
+          <circle cx="564" cy="118" r="15" fill="#f5cfa8"></circle>
+          <path d="M546 138 h36 l7 44 h-50 z" fill="#0d9488"></path>
+          <path d="M550 182 h28 l4 36 h-11 l-2 -22 h-10 l-2 22 h-11 z" fill="#ea580c"></path>
+          <rect x="544" y="218" width="20" height="11" rx="4" fill="#4338ca"></rect>
+          <rect x="568" y="218" width="20" height="11" rx="4" fill="#4338ca"></rect>
+        </g>
+        <text x="564" y="250" text-anchor="middle" font-size="15" fill="#e11d48">색도 분위기도 따로 논다</text>
+        <!-- 결과 B: 약속을 정하면 -->
+        <rect x="700" y="30" width="286" height="230" rx="18" fill="#f0fdfa" stroke="#5eead4" stroke-width="2.5"></rect>
+        <text x="843" y="56" text-anchor="middle" font-size="17.5" font-weight="900" fill="#0f766e">약속을 정하면</text>
+        <g>
+          <path d="M760 100 q16 -12 32 0 q3 -16 -16 -16 q-19 0 -16 16z" fill="#0f766e"></path>
+          <circle cx="776" cy="118" r="15" fill="#f5cfa8"></circle>
+          <path d="M758 138 h36 l7 44 h-50 z" fill="#14b8a6"></path>
+          <path d="M762 182 h28 l4 36 h-11 l-2 -22 h-10 l-2 22 h-11 z" fill="#0f766e"></path>
+          <rect x="756" y="218" width="20" height="11" rx="4" fill="#115e59"></rect>
+          <rect x="780" y="218" width="20" height="11" rx="4" fill="#115e59"></rect>
+        </g>
+        <g>
+          <text x="900" y="100" text-anchor="middle" font-size="15.5" font-weight="900" fill="#0f766e">만들기 전에</text>
+          <text x="900" y="122" text-anchor="middle" font-size="15.5" font-weight="900" fill="#0f766e">약속 시트부터</text>
+          <text x="900" y="144" text-anchor="middle" font-size="15.5" font-weight="900" fill="#0f766e">채웁니다</text>
+          <rect x="820" y="158" width="160" height="72" rx="14" fill="#fff" stroke="#5eead4" stroke-width="2"></rect>
+          <text x="900" y="180" text-anchor="middle" font-size="14" font-weight="800" fill="#0f766e">메인 컬러</text>
+          <text x="900" y="201" text-anchor="middle" font-size="14" font-weight="800" fill="#0f766e">금지 요소</text>
+          <text x="900" y="222" text-anchor="middle" font-size="14" font-weight="800" fill="#0f766e">공통 프롬프트</text>
+          <text x="900" y="248" text-anchor="middle" font-size="13" fill="#94a3b8">→ 다음 슬라이드</text>
+        </g>
+        <text x="776" y="250" text-anchor="middle" font-size="15" fill="#0d9488">하나의 룩이 된다</text>
+      </svg>
+    </div>
+    <div class="bg-slate-900 text-white rounded-2xl p-6">
+      <p class="text-xl md:text-2xl font-black mb-2">따로 노는 이유는 실력이 아니라 <span class="text-lime-300">구조</span>입니다.</p>
+      <p class="text-slate-300 text-base leading-relaxed">파츠 단위로 나뉜 도구가 각자를 따로 작업하게 만듭니다. 그래서 <strong class="text-white">만들기 전에 약속을 정하는 5분</strong>이 필요합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 29 키워드 뽑기 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-grape-600 text-base font-black mb-2">STEP 1 · 키워드 뽑기</div>
+      <h2 class="text-3xl md:text-5xl font-black mb-2">형용사 2장, 명사 2장 → 각각 1장씩 버리기</h2>
+      <p class="text-slate-500">남은 <strong class="text-slate-800">형용사 1 + 명사 1</strong>이 우리 팀의 콘셉트가 됩니다. 뭘 버릴지 고르는 것부터가 팀 회의입니다.</p>
+    </div>
+    <div class="soft-card rounded-3xl p-6 mb-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <div class="flex items-center gap-3">
+          <button id="drawBtn" class="bg-slate-900 text-white font-black rounded-full px-6 py-3 text-lg hover:bg-slate-700 transition">🎲 뽑기</button>
+          <button id="resetDraw" class="border border-slate-200 text-slate-500 font-bold rounded-full px-5 py-3 text-base hover:text-slate-900">초기화</button>
+        </div>
+        <p class="text-base text-slate-400">카드를 <strong class="text-slate-600">클릭하면 버려집니다</strong> · 그룹당 1장씩 남기세요</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <div class="text-sm font-black text-grape-600 mb-2">🃏 그룹 A · 형용사 (스타일 · 분위기 · 텍스처)</div>
+          <div id="drawA" class="grid grid-cols-2 gap-3"></div>
+        </div>
+        <div>
+          <div class="text-sm font-black text-meta-600 mb-2">🃏 그룹 B · 명사 (콘셉트 · 페르소나 · 테마)</div>
+          <div id="drawB" class="grid grid-cols-2 gap-3"></div>
+        </div>
+      </div>
+      <div id="drawResult" class="mt-5 rounded-2xl px-6 py-5 text-center bg-slate-100 text-slate-400 font-bold">
+        뽑기 버튼을 눌러 시작하세요
+      </div>
+    </div>
+    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 text-base text-amber-900">
+      <i class="fa-solid fa-lightbulb mr-2 text-amber-600"></i>
+      <strong>"고프코어는 살리고 싶은데 수식어가 몽환적인 거랑 레트로밖에 없네, 뭘 버리지?"</strong> — 이렇게 고민하고 타협하는 과정이 이 활동의 핵심입니다. 마음에 안 드는 조합이 나와도 그대로 가세요. 제약이 있을 때 더 재미있는 게 나옵니다.
+    </div>
+  </div>
+</section>
+
+<!-- ===== 30 약속 시트 & 룩보드 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-meta-600 text-base font-black mb-2">STEP 2~4 · 약속 → 제작 → 룩보드</div>
+      <h2 class="text-3xl md:text-5xl font-black mb-2">팀 약속 시트를 먼저 채웁니다</h2>
+      <p class="text-slate-500">구글 슬라이드 링크는 사이버캠퍼스에 올려 두었습니다. 팀당 한 부씩 복사해서 쓰세요.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-4">
+      <div class="soft-card rounded-3xl p-6">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-2xl">🤝</span>
+          <h3 class="font-black text-xl">시트 1 — 우리 팀의 디자인 약속</h3>
+        </div>
+        <div class="space-y-2.5 text-base">
+          <div class="flex gap-3 items-start"><span class="shrink-0 w-6 h-6 rounded-lg bg-slate-100 text-slate-600 text-sm font-black flex items-center justify-center">1</span>
+            <p class="text-slate-600"><strong class="text-slate-900">역할 분담</strong> — 상의 / 하의 / 아우터·신발 / 헤어·액세서리</p></div>
+          <div class="flex gap-3 items-start"><span class="shrink-0 w-6 h-6 rounded-lg bg-slate-100 text-slate-600 text-sm font-black flex items-center justify-center">2</span>
+            <p class="text-slate-600"><strong class="text-slate-900">최종 키워드</strong> — 형용사 1 + 명사 1</p></div>
+          <div class="flex gap-3 items-start"><span class="shrink-0 w-6 h-6 rounded-lg bg-meta-100 text-meta-700 text-sm font-black flex items-center justify-center">3</span>
+            <p class="text-slate-600"><strong class="text-slate-900">메인 컬러 1~2가지</strong> <em class="text-slate-400">예: 쿨톤 핑크 &amp; 실버 메탈릭</em></p></div>
+          <div class="flex gap-3 items-start"><span class="shrink-0 w-6 h-6 rounded-lg bg-meta-100 text-meta-700 text-sm font-black flex items-center justify-center">4</span>
+            <p class="text-slate-600"><strong class="text-slate-900">금지할 요소</strong> <em class="text-slate-400">예: 실사 말고 일러스트 느낌으로</em></p></div>
+          <div class="flex gap-3 items-start"><span class="shrink-0 w-6 h-6 rounded-lg bg-meta-100 text-meta-700 text-sm font-black flex items-center justify-center">5</span>
+            <p class="text-slate-600"><strong class="text-slate-900">공통 프롬프트 키워드</strong> — 각자 프롬프트 끝에 <strong class="text-meta-700">똑같이 복붙</strong>할 단어들</p></div>
+        </div>
+        <div class="mt-4 bg-meta-50 border border-meta-200 rounded-xl p-3 text-sm text-meta-900">
+          3~5번이 빠지면 결과물이 반드시 따로 놉니다. <strong>여기가 진짜 약속입니다.</strong>
+        </div>
+      </div>
+      <div class="soft-card rounded-3xl p-6">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-2xl">👗</span>
+          <h3 class="font-black text-xl">시트 2 — 팀 룩보드</h3>
+        </div>
+        <svg viewBox="0 0 420 200" class="w-full mb-3" role="img" aria-label="룩보드 구성. 네 칸에 각 파츠의 텍스처 이미지를 붙이고 아래에 룩 이름과 기획 의도를 적는다">
+          <rect x="4" y="4" width="412" height="192" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"></rect>
+          <rect x="20" y="18" width="240" height="22" rx="6" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"></rect>
+          <text x="30" y="34" font-size="13" font-weight="800" fill="#94a3b8">우리 팀 룩의 이름은? ______</text>
+          <g>
+            <rect x="20" y="52" width="88" height="62" rx="8" fill="#fff" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3"></rect>
+            <text x="64" y="86" text-anchor="middle" font-size="12" fill="#94a3b8">상의 PNG</text>
+            <rect x="116" y="52" width="88" height="62" rx="8" fill="#fff" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3"></rect>
+            <text x="160" y="86" text-anchor="middle" font-size="12" fill="#94a3b8">하의 PNG</text>
+            <rect x="212" y="52" width="88" height="62" rx="8" fill="#fff" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3"></rect>
+            <text x="256" y="78" text-anchor="middle" font-size="12" fill="#94a3b8">아우터·신발</text>
+            <text x="256" y="96" text-anchor="middle" font-size="12" fill="#94a3b8">PNG</text>
+            <rect x="308" y="52" width="88" height="62" rx="8" fill="#fff" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3"></rect>
+            <text x="352" y="78" text-anchor="middle" font-size="12" fill="#94a3b8">헤어·액세서리</text>
+            <text x="352" y="96" text-anchor="middle" font-size="12" fill="#94a3b8">PNG</text>
+          </g>
+          <text x="20" y="130" font-size="12" fill="#94a3b8">각 칸 아래에 이름 / 사용한 AI 서비스 적기</text>
+          <rect x="20" y="140" width="376" height="44" rx="8" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.5"></rect>
+          <text x="32" y="158" font-size="12.5" font-weight="800" fill="#0f766e">💡 한 줄 기획 의도</text>
+          <text x="32" y="176" font-size="12" fill="#0d9488">"우리 조는 [    ] 느낌을 강조하려고 [    ]에 포인트를 주었습니다."</text>
+        </svg>
+        <div class="bg-slate-900 text-white rounded-xl p-4 text-sm leading-relaxed">
+          <strong class="text-lime-300">오늘의 목표는 텍스처 PNG 4장까지입니다.</strong> 제페토 스튜디오 업로드와 아바타 착용샷은 <strong class="text-white">보너스</strong>예요. 시간 안에 못 해도 전혀 문제없습니다.
+        </div>
+      </div>
+    </div>
+    <div class="soft-card rounded-2xl p-4">
+      <svg viewBox="0 0 1000 60" class="w-full" role="img" aria-label="진행 시간. 뽑기 3분, 약속 시트 5분, 각자 제작 12분, 룩보드 붙이기와 공유 5분">
+        <defs><marker id="tt-a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#cbd5e1"></path></marker></defs>
+        <g stroke="#cbd5e1" stroke-width="2" fill="none" marker-end="url(#tt-a)">
+          <line x1="236" y1="30" x2="258" y2="30"></line><line x1="486" y1="30" x2="508" y2="30"></line><line x1="736" y1="30" x2="758" y2="30"></line>
+        </g>
+        <rect x="6" y="10" width="226" height="40" rx="12" fill="#faf5ff" stroke="#d8b4fe" stroke-width="2"></rect>
+        <text x="119" y="36" text-anchor="middle" font-size="17.5" font-weight="900" fill="#6b21a8">① 뽑기 · 3분</text>
+        <rect x="262" y="10" width="220" height="40" rx="12" fill="#0f172a"></rect>
+        <text x="372" y="36" text-anchor="middle" font-size="17.5" font-weight="900" fill="#a3e635">② 약속 시트 · 5분</text>
+        <rect x="512" y="10" width="220" height="40" rx="12" fill="#f0fdfa" stroke="#5eead4" stroke-width="2"></rect>
+        <text x="622" y="36" text-anchor="middle" font-size="17.5" font-weight="900" fill="#0f766e">③ 각자 제작 · 12분</text>
+        <rect x="762" y="10" width="232" height="40" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"></rect>
+        <text x="878" y="36" text-anchor="middle" font-size="17.5" font-weight="900" fill="#334155">④ 룩보드 · 공유 5분</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 31 키워드 카드 목록 ===== -->
+<section class="slide">
+  <div class="max-w-6xl w-full">
+    <div class="mb-4">
+      <div class="text-slate-500 text-base font-black mb-2">KEYWORD CARDS · 40장</div>
+      <h2 class="text-3xl md:text-4xl font-black mb-1">전체 키워드 목록</h2>
+      <p class="text-base text-slate-500">괄호 안 영문은 <strong class="text-slate-700">AI 프롬프트에 그대로 넣으라고</strong> 적어둔 것입니다.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="soft-card rounded-3xl p-5 border-t-4 border-t-grape-400">
+        <div class="text-sm font-black text-grape-600 mb-3">🃏 그룹 A · 형용사 — 스타일 · 분위기 · 텍스처</div>
+        <div id="listA" class="grid grid-cols-2 gap-x-4 gap-y-1"></div>
+      </div>
+      <div class="soft-card rounded-3xl p-5 border-t-4 border-t-meta-400">
+        <div class="text-sm font-black text-meta-600 mb-3">🃏 그룹 B · 명사 — 콘셉트 · 페르소나 · 테마</div>
+        <div id="listB" class="grid grid-cols-2 gap-x-4 gap-y-1"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 32 END ===== -->
+<section class="slide">
+  <div class="max-w-5xl w-full text-center">
+    <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br from-meta-400 to-grape-500 flex items-center justify-center text-white text-2xl mb-3 shadow-lg">
+      <i class="fa-solid fa-flag-checkered"></i>
+    </div>
+    <div class="text-meta-600 text-base font-black mb-2">CLOSING</div>
+    <h2 class="text-3xl md:text-4xl font-black leading-tight mb-5">
+      여러분이 만든 옷 한 벌은<br>
+      <span class="bg-gradient-to-r from-meta-500 to-grape-600 bg-clip-text text-transparent">이미지 파일이 아닙니다</span>
+    </h2>
+    <p class="text-lg md:text-xl text-slate-500 leading-relaxed max-w-3xl mx-auto mb-4">
+      그 옷을 입은 아바타는 누군가의 행동에 개입하고, 그 아바타는 누군가 미리 정해 둔 목록 안에서 만들어집니다.<br>
+      오늘 배운 것은 <strong class="text-slate-800">꾸미는 법이 아니라, 내가 만든 것을 설명하는 법</strong>입니다.
+    </p>
+    <div class="glass-card rounded-3xl p-5 max-w-2xl mx-auto mb-4">
+      <div class="text-sm font-black text-slate-400 mb-2">다음 주 · 4주차</div>
+      <div class="text-2xl font-black text-slate-900 mb-2">생성형 AI의 개념과 한계, 그리고 윤리</div>
+      <p class="text-base text-slate-500">오늘의 <strong class="text-slate-800">"누가 기준을 정하는가"</strong>라는 질문이 그대로 AI로 이어집니다.</p>
+    </div>
+    <div class="glass-card rounded-2xl p-4 max-w-3xl mx-auto text-left">
+      <div class="text-sm font-black text-slate-400 mb-2">참고 문헌 및 출처</div>
+      <p class="src-note">
+        Higgins, E. T. (1987). Self-discrepancy: A theory relating self and affect. <em>Psychological Review</em>, 94(3).<br>
+        Goffman, E. (1959). <em>The Presentation of Self in Everyday Life</em>. Anchor Books.<br>
+        Yee, N., &amp; Bailenson, J. (2007). The Proteus Effect. <em>Human Communication Research</em>, 33(3) / Yee, Bailenson &amp; Ducheneaut (2009). <em>Communication Research</em>, 36(2).<br>
+        ZEPETO Studio 가이드 — 아이템 가이드라인 / 템플릿 에디터(2D). docs.zepeto.me<br>
+        제페토 수치는 각 슬라이드 표기 시점의 공개 발표 기준 · 추구미 서술은 국내 트렌드 리포트와 언어 사용량 분석 자료 참고.
+      </p>
+    </div>
+    <div class="text-base text-slate-400 mt-3">메타버스의 세계 · 아바타와 디지털 정체성</div>
+  </div>
+</section>
+
+</main>
+
+<div id="bar"></div>
+<div id="hud">
+  <div class="t" id="hudtitle"></div>
+  <div class="r">
+    <button class="ic" id="btoc" title="목차 (O)"><i class="fa-solid fa-bars"></i></button>
+    <button class="ic" id="bfull" title="전체화면 (F)"><i class="fa-solid fa-expand"></i></button>
+    <button class="ic" id="bprev" title="이전 (←)"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="ic" id="bnext" title="다음 (→)"><i class="fa-solid fa-chevron-right"></i></button>
+    <span id="pg">1 / 1</span>
+  </div>
+</div>
+<div id="toc"><h3 class="text-2xl font-black mb-6 max-w-[1180px] mx-auto">목차</h3><div id="toclist"></div></div>
+
+<script>
+const TITLES = ["표지","조별 공유 활동","공유 논의 거리","오늘의 지도","PART 01","여는 질문","우리 반 집계","두 주제의 시제","추구미란","추구미의 유래","롤모델 vs 추구미","OOTD — 기록인가 전시인가","PART 02","아바타의 어원","아바타의 역사 — 개요","① 문장으로 된 몸","② 2D 그림으로 된 몸","③ 3D 모델로 된 몸","④ 내 얼굴로 된 몸","⑤ AI가 만드는 몸","자기 불일치 이론","변경 비용","고프먼 — 무대 앞과 뒤","PART 03","프로테우스 효과","되먹임 루프","자기실현 vs 자기소외","PART 04","선택지의 목록","가이드라인이라는 경계","파츠로 쪼개진 몸","관객은 누구인가","오늘의 세 문장","조별 토론 질문","팀 미션 미리보기","키워드 뽑기","약속 시트 · 룩보드","키워드 카드 목록","마무리 · 출처"];
+const els = [...document.querySelectorAll('.slide')];
+let cur = 0;
+const bar=document.getElementById('bar'), pg=document.getElementById('pg'), ht=document.getElementById('hudtitle');
+const tocEl=document.getElementById('toc'), tocList=document.getElementById('toclist');
+
+els.forEach((_,i)=>{
+  const b=document.createElement('button');
+  b.innerHTML='<i>'+String(i+1).padStart(2,'0')+'</i><span>'+(TITLES[i]||('슬라이드 '+(i+1)))+'</span>';
+  b.onclick=()=>{go(i);tocEl.classList.remove('open')};
+  tocList.appendChild(b);
+});
+const tocBtns=[...tocList.querySelectorAll('button')];
+
+function go(n){
+  cur=Math.max(0,Math.min(els.length-1,n));
+  els.forEach((e,i)=>{
+    e.classList.toggle('active',i===cur);
+    e.classList.toggle('prev-slide',i<cur);
+  });
+  els[cur].scrollTop=0;
+  bar.style.width=((cur+1)/els.length*100)+'%';
+  pg.textContent=(cur+1)+' / '+els.length;
+  ht.textContent=TITLES[cur]||'';
+  tocBtns.forEach((b,i)=>b.classList.toggle('cur',i===cur));
+  if(location.hash!=='#'+(cur+1)) history.replaceState(null,'','#'+(cur+1));
+}
+const next=()=>go(cur+1), prev=()=>go(cur-1);
+
+document.addEventListener('keydown',e=>{
+  const t=e.target;
+  if(t && (t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable)){
+    if(e.key==='Escape'||e.key==='Enter') t.blur();
+    return;
+  }
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();next()}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev()}
+  else if(e.key==='Home'){go(0)} else if(e.key==='End'){go(els.length-1)}
+  else if(e.key==='Escape'){tocEl.classList.remove('open')}
+  else if(e.key==='o'||e.key==='O'){tocEl.classList.toggle('open')}
+  else if(e.key==='f'||e.key==='F'){toggleFull()}
+});
+document.getElementById('slides-container').addEventListener('click',e=>{
+  if(e.target.closest('button,input,select,textarea,label,[data-nonav]')) return;
+  (e.clientX < window.innerWidth*0.28) ? prev() : next();
+});
+let tx=null;
+addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX},{passive:true});
+addEventListener('touchend',e=>{
+  if(tx===null)return; const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>55){dx<0?next():prev()} tx=null;
+},{passive:true});
+
+document.getElementById('bnext').onclick=e=>{e.stopPropagation();next()};
+document.getElementById('bprev').onclick=e=>{e.stopPropagation();prev()};
+document.getElementById('btoc').onclick=e=>{e.stopPropagation();tocEl.classList.toggle('open')};
+tocEl.onclick=e=>{if(e.target===tocEl)tocEl.classList.remove('open')};
+function toggleFull(){
+  if(!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+  else document.exitFullscreen?.();
+}
+document.getElementById('bfull').onclick=e=>{e.stopPropagation();toggleFull()};
+addEventListener('hashchange',()=>{
+  const n=parseInt((location.hash||'').slice(1),10);
+  if(Number.isFinite(n)&&n>0&&n-1!==cur) go(n-1);
+});
+
+/* 100-dot grid */
+(function(){
+  const g=document.getElementById('dots'); if(!g) return;
+  const NS='http://www.w3.org/2000/svg';
+  for(let i=0;i<100;i++){
+    const r=Math.floor(i/10), c=i%10;
+    const el=document.createElementNS(NS,'circle');
+    el.setAttribute('cx', 18+c*25); el.setAttribute('cy', 18+r*25); el.setAttribute('r', 9.5);
+    el.setAttribute('fill', i<90 ? '#14b8a6' : '#cbd5e1');
+    g.appendChild(el);
+  }
+})();
+
+/* tally — 직접 입력 */
+const inA=document.getElementById('ca'), inB=document.getElementById('cb');
+const clampN=v=>{const n=parseInt(v,10); return Number.isFinite(n)?Math.min(999,Math.max(0,n)):0};
+function paint(){
+  if(!inA) return;
+  const A=clampN(inA.value), B=clampN(inB.value), tot=A+B, pa=tot?A/tot*100:50;
+  document.getElementById('ba').style.width=pa+'%';
+  document.getElementById('bb').style.width=(100-pa)+'%';
+  document.getElementById('tsum').textContent = tot
+    ? '총 '+tot+'명 · OOTD '+Math.round(pa)+'% / 추구미 '+Math.round(100-pa)+'%'
+    : '인원 수를 입력하면 막대가 움직입니다';
+}
+function bump(el,d){ el.value=clampN(clampN(el.value)+d); paint() }
+if(inA){
+  [inA,inB].forEach(el=>{
+    el.addEventListener('input',paint);
+    el.addEventListener('blur',()=>{el.value=clampN(el.value); paint()});
+    el.addEventListener('keydown',e=>{
+      if(e.key==='ArrowUp'){e.preventDefault();bump(el,1)}
+      else if(e.key==='ArrowDown'){e.preventDefault();bump(el,-1)}
+    });
+    el.addEventListener('focus',()=>el.select());
+  });
+}
+document.addEventListener('click',e=>{
+  const st=e.target.closest('[data-step]');
+  if(st){e.stopPropagation(); const [k,op]=[st.dataset.step[0],st.dataset.step[1]];
+    bump(k==='a'?inA:inB, op==='+'?1:-1); return}
+  if(e.target.closest('#treset')){e.stopPropagation(); if(inA){inA.value=0;inB.value=0;paint()}}
+});
+
+/* ── 키워드 카드 ── */
+const CARD_A=[["힙하고 스트릿한","Hip & Street"],["몽환적인","Dreamy"],["너디한","Nerdy"],["사이버네틱한","Cybernetic / Y3K"],["빈티지한","Vintage"],["글리치 효과가 들어간","Glitch"],["다크하고 고딕스러운","Dark & Gothic"],["홀로그램 빛이 나는","Holographic"],["청량하고 맑은","Refreshing"],["로맨틱한","Romantic"],["투명한 / 시스루 소재의","See-through"],["메탈릭한","Metallic"],["그런지한","Grunge"],["자연 친화적인","Eco-friendly"],["아방가르드한","Avant-garde"],["파스텔톤의","Pastel-toned"],["네온 컬러가 포인트인","Neon-colored"],["픽셀아트 스타일의","Pixel-art style"],["벨벳·실크처럼 광택이 나는","Glossy texture"],["털이 몽글몽글한","Fluffy"]];
+const CARD_B=[["발레코어","Balletcore"],["긱시크 룩","Geek Chic"],["고프코어 / 아웃도어 룩","Gorpcore"],["올드머니 룩","Old money"],["아이돌 무대의상","Idol Stage Outfit"],["블록코어 / 축구 유니폼","Blokecore"],["요정 / 페어리코어","Fairycore"],["하이틴 여주인공","High-teen Protagonist"],["록스타 / 밴드부 보컬","Rockstar"],["코케트 룩","Coquette Look"],["마법학교 학생","Magic School Student"],["사이버펑크 해커","Cyberpunk Hacker"],["스케이트 보더","Skateboarder"],["게임 속 히든 NPC","In-game Hidden NPC"],["우주 여행자","Space Traveler"],["뱀파이어 귀족","Vampire Noble"],["로맨스 판타지 웹툰 주인공","Rom-Fan Heroine"],["캠퍼스 축제 룩","Campus Festival Look"],["디스토피아 생존자","Dystopian Survivor"],["프레피 룩 / 명문 사립학교 학생","Preppy Look"]];
+
+/* 전체 목록 렌더 */
+(function(){
+  const mk=(el,arr,col)=>{ if(!el)return;
+    el.innerHTML=arr.map((c,i)=>
+      '<div class="flex gap-2 items-baseline py-0.5"><span class="shrink-0 text-xs font-black '+col+' tabular-nums">'+String(i+1).padStart(2,'0')+'</span>'+
+      '<span class="text-sm font-bold text-slate-700 leading-snug">'+c[0]+' <span class="font-medium text-slate-400">('+c[1]+')</span></span></div>').join('');
+  };
+  mk(document.getElementById('listA'),CARD_A,'text-grape-500');
+  mk(document.getElementById('listB'),CARD_B,'text-meta-500');
+})();
+
+/* 뽑기 */
+(function(){
+  const bA=document.getElementById('drawA'), bB=document.getElementById('drawB');
+  const res=document.getElementById('drawResult'), btn=document.getElementById('drawBtn');
+  if(!bA) return;
+  let picked={A:[],B:[]}, dropped={A:new Set(),B:new Set()};
+  const two=arr=>{ const i=Math.floor(Math.random()*arr.length); let j;
+    do{ j=Math.floor(Math.random()*arr.length) }while(j===i); return [arr[i],arr[j]] };
+  function card(g,idx,c){
+    const dead=dropped[g].has(idx);
+    const tone = g==='A' ? 'border-grape-300 bg-grape-50' : 'border-meta-300 bg-meta-50';
+    return '<button data-g="'+g+'" data-i="'+idx+'" class="text-left rounded-2xl border-2 px-4 py-3 transition '+
+      (dead?'border-slate-200 bg-slate-50 opacity-50':tone)+'">'+
+      '<div class="text-[13px] font-black '+(dead?'text-slate-400 line-through':'text-slate-900')+' leading-snug">'+c[0]+'</div>'+
+      '<div class="text-xs '+(dead?'text-slate-300':'text-slate-500')+' mt-0.5">'+c[1]+'</div>'+
+      '<div class="text-xs font-black mt-1 '+(dead?'text-slate-400':'text-slate-300')+'">'+(dead?'버림':'클릭하면 버리기')+'</div></button>';
+  }
+  function paintCards(){
+    bA.innerHTML=picked.A.map((c,i)=>card('A',i,c)).join('');
+    bB.innerHTML=picked.B.map((c,i)=>card('B',i,c)).join('');
+    const aLeft=picked.A.filter((_,i)=>!dropped.A.has(i)), bLeft=picked.B.filter((_,i)=>!dropped.B.has(i));
+    if(!picked.A.length){
+      const ph='<div class="rounded-2xl border-2 border-dashed border-slate-200 px-4 py-3 h-[84px] flex items-center justify-center text-[13px] font-bold text-slate-300">?</div>';
+      bA.innerHTML=ph+ph; bB.innerHTML=ph+ph;
+      res.className='mt-5 rounded-2xl px-6 py-5 text-center bg-slate-100 text-slate-400 font-bold';
+      res.textContent='뽑기 버튼을 눌러 시작하세요'; return }
+    if(aLeft.length===1 && bLeft.length===1){
+      res.className='mt-5 rounded-2xl px-6 py-5 text-center bg-slate-900 text-white';
+      res.innerHTML='<div class="text-sm font-black text-lime-300 mb-2">우리 팀의 콘셉트</div>'+
+        '<div class="text-2xl md:text-3xl font-black">'+aLeft[0][0]+' <span class="text-lime-300">+</span> '+bLeft[0][0]+'</div>'+
+        '<div class="text-sm text-slate-400 mt-2">프롬프트용 · '+aLeft[0][1]+' + '+bLeft[0][1]+'</div>';
+    } else {
+      res.className='mt-5 rounded-2xl px-6 py-5 text-center bg-amber-50 border border-amber-200 text-amber-900 font-bold';
+      res.textContent='그룹마다 1장씩만 남기세요 — 형용사 '+aLeft.length+'장, 명사 '+bLeft.length+'장 남음';
+    }
+  }
+  btn.onclick=e=>{ e.stopPropagation(); picked={A:two(CARD_A),B:two(CARD_B)}; dropped={A:new Set(),B:new Set()}; paintCards() };
+  document.getElementById('resetDraw').onclick=e=>{ e.stopPropagation(); picked={A:[],B:[]}; dropped={A:new Set(),B:new Set()}; paintCards() };
+  document.addEventListener('click',e=>{
+    const c=e.target.closest('[data-g][data-i]'); if(!c) return;
+    e.stopPropagation(); const g=c.dataset.g, i=+c.dataset.i;
+    dropped[g].has(i) ? dropped[g].delete(i) : dropped[g].add(i);
+    paintCards();
+  });
+  paintCards();
+})();
+
+const s0=parseInt((location.hash||'').slice(1),10);
+go(Number.isFinite(s0)&&s0>0 ? s0-1 : 0);
+paint();
+</script>
+</body>
+</html>
