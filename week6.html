@@ -36,6 +36,23 @@ body{
 .soft-card{background:#fff;border:1px solid #e9edf3;box-shadow:0 1px 2px rgba(15,23,42,.04),0 10px 24px -14px rgba(15,23,42,.14)}
 .glass-card{background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.9);box-shadow:0 20px 50px -24px rgba(15,23,42,.3)}
 .src-note{font-size:.86rem;color:#94a3b8;line-height:1.55}
+.lnk{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;font-weight:800;padding:.35rem .75rem;border-radius:999px;border:1px solid #e2e8f0;background:#fff;color:#334155;text-decoration:none;white-space:nowrap}
+.lnk:hover{background:#f8fafc}
+.lnk.vid{background:#fff1f2;border-color:#fecdd3;color:#e11d48}
+.lnk.vid:hover{background:#ffe4e6}
+.ref{display:block;text-decoration:none;color:inherit}
+.ref-th{position:relative;aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:linear-gradient(160deg,#1e293b,#475569)}
+.ref-th.z{background:linear-gradient(160deg,#a855f7,#ec4899)}
+.ref-th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .25s}
+.ref:hover .ref-th img{transform:scale(1.05)}
+.ref-fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px;color:#fff;font-weight:900;font-size:.8rem;letter-spacing:.04em}
+.ref-play{position:absolute;right:6px;bottom:6px;width:24px;height:24px;border-radius:999px;background:rgba(255,255,255,.92);color:#e11d48;display:flex;align-items:center;justify-content:center;font-size:.75rem}
+.ref-b{font-weight:900;font-size:.8rem;margin-top:.4rem;color:#0f172a;line-height:1.2}
+.ref-t{font-size:.72rem;color:#64748b;line-height:1.3;margin-top:.1rem}
+.qa{border-radius:1rem;padding:1rem 1.15rem;background:#fff;border:1px solid #e2e8f0}
+.qa h4{font-weight:900;font-size:1.02rem;color:#0f172a;margin-bottom:.35rem}
+.qa h4:before{content:"Q";display:inline-flex;align-items:center;justify-content:center;width:1.45rem;height:1.45rem;border-radius:999px;background:#0f172a;color:#a3e635;font-size:.8rem;margin-right:.5rem;vertical-align:.08em}
+.qa p{font-size:.95rem;color:#475569;line-height:1.6}
 .cmp-table{width:100%;border-collapse:collapse;font-size:1.02rem}
 .cmp-table th{
   text-align:left;padding:11px 14px;font-size:.82rem;font-weight:900;letter-spacing:.06em;
@@ -241,14 +258,13 @@ body.clean #hud, body.clean #bar{display:none}
         <thead><tr><th>순서</th><th>무엇을</th><th>누구와</th><th>오늘</th><th>끝나면 남는 것</th></tr></thead>
         <tbody>
           <tr><td>1</td><td>자리 잡기 · 역할 정하기 · 양식 열기</td><td><span class="who team">조</span></td><td><span class="must">꼭</span></td><td>내 양식, 오늘 쓸 조 패널</td></tr>
-          <tr><td>2</td><td>다음 주 발표와 11/12 룩북 · 브랜드 사례</td><td><span class="who all">반 전체</span></td><td><span class="must">꼭</span></td><td>네 질문, 룩북에서 보는 것</td></tr>
+          <tr><td>2</td><td>다음 주 발표와 11/12 룩북 · 브랜드 사례 · 레퍼런스 영상</td><td><span class="who all">반 전체</span></td><td><span class="must">꼭</span></td><td>발표에서 답할 질문, 룩북에서 보는 것</td></tr>
           <tr><td>3</td><td>① 한 문장 · 무드보드 다섯 장</td><td><span class="who solo">혼자</span></td><td><span class="must">꼭</span></td><td>처음 쓴 한 문장, 무드보드</td></tr>
           <tr><td>4</td><td><strong class="text-slate-900">라운드 1 · 무드보드만 보고 맞히기</strong></td><td><span class="who team">조</span></td><td><span class="must">꼭</span></td><td>고친 한 문장 (초록 스티키)</td></tr>
           <tr><td>5</td><td>① 찍을 곳 · 룩마다 파츠와 ★ · ② 배울 것</td><td><span class="who solo">혼자</span></td><td><span class="must">꼭</span></td><td>★ 하나, 질문 보라 스티키</td></tr>
           <tr><td>6</td><td><strong class="text-slate-900">라운드 2 · 배울 것과 자료 공유</strong></td><td><span class="who team">조</span></td><td><span class="must">꼭</span></td><td>조 튜토리얼 목록</td></tr>
           <tr><td>7</td><td>① 범위 세 칸 · ③ 주마다 할 일 · 컷 순서</td><td><span class="who solo">혼자</span></td><td><span class="opt">집에서 마무리 가능</span></td><td>범위 세 칸, 주간 계획</td></tr>
           <tr><td>8</td><td><strong class="text-slate-900">라운드 3 · 다음 주 발표 미리 해 보기</strong></td><td><span class="who team">조</span></td><td><span class="must">꼭</span></td><td>받은 카드, 고친 계획 한 줄</td></tr>
-          <tr><td>9</td><td>④ 월드 키워드 모으기</td><td><span class="who all">반 전체</span></td><td><span class="opt">여유 되면</span></td><td>월드 키워드 세 개</td></tr>
         </tbody>
       </table>
     </div>
@@ -259,10 +275,10 @@ body.clean #hud, body.clean #bar{display:none}
       </div>
       <div class="bg-slate-900 text-white rounded-2xl p-4">
         <h3 class="font-black text-lime-300 mb-1.5"><i class="fa-solid fa-forward mr-2"></i>시간이 모자라면</h3>
-        <p class="text-base text-slate-300 leading-relaxed">7번과 9번은 집에서. 라운드 3은 <strong class="text-white">짧게</strong>(한 문장, ★ 하나, 듣고 싶은 의견)라도 꼭 합니다.</p>
+        <p class="text-base text-slate-300 leading-relaxed">7번은 집에서. 라운드 3은 <strong class="text-white">짧게</strong>(한 문장, ★ 하나, 듣고 싶은 의견)라도 꼭 합니다.</p>
       </div>
       <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
-        <h3 class="font-black text-amber-800 mb-1.5"><i class="fa-solid fa-hand mr-2"></i>과제 3에서 막혔다면</h3>
+        <h3 class="font-black text-amber-800 mb-1.5"><i class="fa-solid fa-hand mr-2"></i>과제 3-1에서 막혔다면</h3>
         <p class="text-base text-amber-900 leading-relaxed">막힌 점도 <strong>보라 스티키 질문</strong>으로 적어 라운드 2에 냅니다. 아는 조원이 그 자리에서 알려 주고, 남은 건 강사가 모아서 답합니다.</p>
       </div>
     </div>
@@ -286,7 +302,7 @@ body.clean #hud, body.clean #bar{display:none}
             <li>· 3주차 팀 룩 조대로 앉습니다. <strong class="text-slate-900">오늘 토의용</strong>이라 수업이 끝나면 따로 모이지 않습니다.</li>
             <li>· 오늘 모인 조원이 <strong class="text-slate-900">둘 이하면</strong> 옆 조와 합쳐 서너 명으로.</li>
             <li>· 3주차에 없었던 분은 <strong class="text-slate-900">사람이 적은 조</strong>에 한 명씩 들어가 빈 줄에 이름을 씁니다.</li>
-            <li>· 합친 조는 <strong class="text-slate-900">한 패널을 같이</strong> 씁니다. 줄이 모자라면 한 줄을 골라 <span class="kbd">Ctrl</span> + <span class="kbd">D</span>.</li>
+            <li>· 합친 조는 <strong class="text-slate-900">한 패널을 같이</strong> 씁니다. 패널마다 여섯 줄이 있고, 더 필요하면 강사에게 말합니다.</li>
           </ul>
         </div>
         <div class="soft-card rounded-2xl p-5">
@@ -370,7 +386,7 @@ body.clean #hud, body.clean #bar{display:none}
       <div class="md:col-span-2 space-y-3">
         <div class="bg-slate-900 text-white rounded-3xl p-5">
           <h3 class="font-black text-lg mb-1.5"><span class="place-no !bg-lime-300 !text-slate-900">2</span>WIP 준비 양식 <span class="text-slate-400 text-sm font-bold">말할 원고 · 모두</span></h3>
-          <p class="text-sm text-slate-300 leading-relaxed mb-3">칸 순서가 다음 주 네 질문 순서입니다. 공용 컴퓨터라 <strong class="text-white">처음부터 메일 임시 보관함, 노션, 구글 문서에</strong> 붙여 넣고 쓰세요.</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-3">칸 순서가 다음 주 발표 순서입니다. 공용 컴퓨터라 <strong class="text-white">처음부터 메일 임시 보관함, 노션, 구글 문서에</strong> 붙여 넣고 쓰세요.</p>
           <div class="flex flex-wrap gap-2" data-nonav>
             <button class="btn-dk !bg-lime-300 !text-slate-900 !py-2" id="w6-md-dl"><i class="fa-solid fa-download"></i>내려받기</button>
             <button class="btn-ln !bg-transparent !text-white !border-slate-600 !py-2" id="w6-md-cp"><i class="fa-regular fa-copy"></i>복사</button>
@@ -394,6 +410,8 @@ body.clean #hud, body.clean #bar{display:none}
 조:
 
 > 다음 주 WIP 발표의 원고가 되는 양식입니다. 오늘 다 채우지 않아도 됩니다. 비어 있는 칸이 다음 주까지 할 일입니다.
+> 오늘 쓰는 건 연습입니다. 다음 주 발표 때도, 그 뒤 만들면서도 바뀌어도 됩니다. 바뀐 것과 이유만 적어 두세요.
+> 발표는 한 사람당 3분이고, 말하는 건 2분 남짓입니다. 질문마다 한두 문장이면 됩니다. ④ 월드는 선택입니다.
 > 보여 줄 것(무드보드, 스케치)은 피그잼 조 패널에, 말할 것은 여기에 적습니다.
 > 강의실 컴퓨터는 공용입니다. 메일 임시 보관함, 노션, 구글 문서에 붙여 넣고 쓰세요. 이 파일은 제출 파일이 아닙니다.
 
@@ -407,6 +425,8 @@ body.clean #hud, body.clean #bar{display:none}
 - 처음 쓴 문장:
 - 라운드 1 뒤에 고친 문장:
 - 컬렉션 이름 (있으면):
+- 내 브랜드 무드 (멋진 · 고급스러운 / 귀여운 · 캐주얼 / 그 밖에):
+- 참고할 레퍼런스 영상 하나 (강의자료 링크 중에서, 또는 직접 찾은 것):
 
 ### 룩 개수
 - [ ] 한 룩
@@ -486,9 +506,10 @@ body.clean #hud, body.clean #bar{display:none}
 ## ③ 어떻게 만들까
 
 이미 정해진 날
-- 10/15(목) 수업 시작 전 - 과제 3, WIP 발표 자료 제출
+- 10/15(목) 수업 시작 전 - WIP 발표 자료 제출
+- 10/15(목) 23:59 - 과제 3-1 (모자 형태 만들기)
 - 10/18(일) 23:59 - 월드 조 매칭 설문
-- 10/29(목) 수업 시작 전 - 과제 4
+- 10/29(목) 수업 시작 전 - 과제 3-2 (모자 펼치고 그림 입히기)
 - 11/12(목) 수업 시작 전 - 룩북 숏폼 제출
 
 | 주 | 할 일 | 끝나면 남는 것 (눈으로 확인할 수 있는 것) |
@@ -505,9 +526,11 @@ body.clean #hud, body.clean #bar{display:none}
 
 ---
 
-## ④ 만들고 싶은 월드
+## ④ 만들고 싶은 월드 (선택)
 
-- 키워드 세 개 (장소 / 시간이나 날씨 / 분위기):
+> 하고 싶은 사람만 씁니다. 있으면 발표 마지막에 그림만 보여 주고, 없으면 비워 둡니다.
+
+- 떠오르는 장소, 시간이나 날씨, 분위기:
 - AI에 넣을 문장:
 - 사용할 AI 도구:
 - 월드 제목 한 줄:
@@ -531,9 +554,9 @@ body.clean #hud, body.clean #bar{display:none}
 - [ ] 무드보드 한 장으로 정리하고 출처 적기
 - [ ] 배울 것 두세 가지의 자료 찾고 언제 볼지 정하기
 - [ ] 7~10주차 칸 채우기
-- [ ] 월드 이미지 한 장 만들고 제목, 도구, 프롬프트 적기
+- [ ] (선택) 월드 이미지 한 장 만들고 제목, 도구, 프롬프트 적기
 - [ ] 발표 모양 정하기 (슬라이드, 보드, 세로 스토리보드, 짧은 영상, 틀 파일 중 아무거나)
-- [ ] 10/15(목) 수업 시작 전에 학번_이름_WIP 올리기 (과제 3도 같은 날)
+- [ ] 10/15(목) 수업 시작 전에 학번_이름_WIP 올리기 (과제 3-1은 같은 날 23:59까지)
 </script>
 </section>
 
@@ -545,7 +568,7 @@ body.clean #hud, body.clean #bar{display:none}
       <h2 class="text-3xl md:text-5xl font-black mb-3">WIP 발표는 계획을 말하는 자리입니다</h2>
       <p class="text-lg text-slate-500 leading-relaxed">WIP는 Work In Progress, 만드는 중이라는 뜻입니다. 11/12 룩북 숏폼을 <strong class="text-slate-900">무엇으로, 무엇을 배워서, 어떤 순서로</strong> 만들지 말합니다.</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
       <div class="soft-card rounded-2xl p-5 border-t-4 border-t-meta-400">
         <span class="inline-flex w-8 h-8 rounded-full bg-meta-100 text-meta-700 font-black items-center justify-center mb-2">1</span>
         <h3 class="font-black text-xl mb-2">무엇을 만들까</h3>
@@ -566,10 +589,14 @@ body.clean #hud, body.clean #bar{display:none}
       </div>
       <div class="soft-card rounded-2xl p-5 border-t-4 border-t-rose-400">
         <span class="inline-flex w-8 h-8 rounded-full bg-rose-100 text-rose-700 font-black items-center justify-center mb-2">4</span>
-        <h3 class="font-black text-xl mb-2">만들고 싶은 월드</h3>
-        <p class="text-base text-slate-500 leading-relaxed">AI로 만든 이미지 한 장. 아래에 제목, 사용한 도구, 프롬프트.</p>
-        <p class="text-xs font-black text-rose-700 mt-3">오늘 순서 9 · 나머지는 집에서</p>
+        <h3 class="font-black text-xl mb-2">만들고 싶은 월드 <span class="opt align-middle">선택</span></h3>
+        <p class="text-base text-slate-500 leading-relaxed">AI로 만든 이미지 한 장. 있으면 마지막에 보여 주고, 없어도 됩니다.</p>
+        <p class="text-xs font-black text-rose-700 mt-3">집에서 · 하고 싶은 사람만</p>
       </div>
+    </div>
+    <div class="bg-slate-900 text-white rounded-2xl px-5 py-3 mb-4 flex flex-wrap items-center gap-x-6 gap-y-1">
+      <p class="text-lg font-black whitespace-nowrap"><i class="fa-solid fa-microphone text-lime-300 mr-2"></i>한 사람당 3분</p>
+      <p class="text-base text-slate-300 leading-relaxed">반 전체 앞에서 한 사람씩 합니다. 말하는 건 <strong class="text-white">2분 남짓</strong>, 질문마다 한두 문장씩이면 됩니다. 남는 시간에 다음 사람이 파일을 열고, 듣는 사람은 카드를 씁니다.</p>
     </div>
     <div class="glass-card rounded-2xl p-5">
       <div class="text-sm font-black text-slate-400 mb-3">부담을 줄이려고 정한 것</div>
@@ -579,7 +606,7 @@ body.clean #hud, body.clean #bar{display:none}
         <p class="font-black text-slate-700"><i class="fa-solid fa-check text-meta-500 mr-2"></i>계획은 바뀌어도 됩니다</p>
         <p class="font-black text-slate-700"><i class="fa-solid fa-check text-meta-500 mr-2"></i>모양은 자유입니다</p>
       </div>
-      <p class="text-sm text-slate-400 mt-3" data-nonav>네 질문에 답했는지를 봅니다. 슬라이드, 보드 한 장, 세로 스토리보드, 짧은 영상, 공지의 틀 파일, <a href="https://www.figma.com/board/g88pUDU4nxE1SUnwyAyf24" target="_blank" rel="noopener" class="font-bold text-meta-600 underline">피그잼 룩북 설계 양식</a> 모두 괜찮습니다.</p>
+      <p class="text-sm text-slate-400 mt-3" data-nonav>앞의 세 질문에 답했는지를 봅니다. 월드는 선택입니다. 슬라이드, 보드 한 장, 세로 스토리보드, 짧은 영상, 공지의 틀 파일, <a href="https://www.figma.com/board/g88pUDU4nxE1SUnwyAyf24" target="_blank" rel="noopener" class="font-bold text-meta-600 underline">피그잼 룩북 설계 양식</a> 모두 괜찮습니다.</p>
     </div>
   </div>
 </section>
@@ -590,7 +617,7 @@ body.clean #hud, body.clean #bar{display:none}
     <div class="mb-4">
       <div class="inline-block bg-grape-600 text-white text-sm font-black px-4 py-1.5 rounded-full mb-3"><i class="fa-solid fa-film mr-1"></i>11/12 룩북</div>
       <h2 class="text-3xl md:text-5xl font-black mb-2">룩북은 이 네 가지를 봅니다</h2>
-      <p class="text-lg text-slate-500">WIP는 네 질문에 답했는지만, <strong class="text-slate-900">완성도는 11/12 룩북</strong>에서 봅니다. 오늘 하는 일이 어디로 이어지는지 먼저 봅니다.</p>
+      <p class="text-lg text-slate-500">WIP는 세 질문에 답했는지만, <strong class="text-slate-900">완성도는 11/12 룩북</strong>에서 봅니다. 오늘 하는 일이 어디로 이어지는지 먼저 봅니다.</p>
     </div>
     <div class="soft-card rounded-3xl p-5 mb-4 overflow-x-auto custom-scrollbar">
       <table class="cmp-table tight">
@@ -604,7 +631,7 @@ body.clean #hud, body.clean #bar{display:none}
       </table>
     </div>
     <div class="flex flex-wrap gap-2 mb-4">
-      <span class="chip !py-1.5">세로 9:16 mp4</span><span class="chip !py-1.5">15~60초</span><span class="chip !py-1.5 !border-grape-400 !text-grape-700">룩마다 직접 만든 아이템 하나 이상</span><span class="chip !py-1.5">나머지는 기본 · 상점 아이템도 됨</span><span class="chip !py-1.5">크레딧에 이름, AI 도구와 쓴 곳</span><span class="chip !py-1.5">11/12(목) 수업 시작 전</span>
+      <span class="chip !py-1.5">세로 9:16 mp4</span><span class="chip !py-1.5">30초~2분</span><span class="chip !py-1.5 !border-grape-400 !text-grape-700">룩마다 직접 만든 아이템 하나 이상</span><span class="chip !py-1.5">나머지는 기본 · 상점 아이템도 됨</span><span class="chip !py-1.5">크레딧에 이름, AI 도구와 쓴 곳</span><span class="chip !py-1.5">11/12(목) 수업 시작 전</span>
     </div>
     <div class="glass-card rounded-2xl p-4">
       <p class="text-base text-slate-600 leading-relaxed"><i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i>룩 개수는 점수와 상관없습니다. 많이 만드는 것보다 <strong class="text-slate-900">한 룩을 잘 보여 주는 쪽</strong>이 낫습니다. 만든 과정은 영상이 아니라 제출 코멘트에 적습니다.</p>
@@ -617,46 +644,130 @@ body.clean #hud, body.clean #bar{display:none}
   <div class="max-w-6xl mx-auto w-full">
     <div class="mb-4">
       <div class="inline-block bg-grape-600 text-white text-sm font-black px-4 py-1.5 rounded-full mb-3"><i class="fa-solid fa-store mr-1"></i>실제 사례</div>
-      <h2 class="text-3xl md:text-5xl font-black mb-2">제페토 속 브랜드는 룩과 장면을 같이 냈습니다</h2>
-      <p class="text-lg text-slate-500">카드마다 <strong class="text-slate-900">가져올 점</strong> 하나만 보세요.</p>
+      <h2 class="text-3xl md:text-5xl font-black mb-2">브랜드도 제페토에 컬렉션을 냈습니다</h2>
+      <p class="text-lg text-slate-500">아이템만 판 게 아니라, 그 옷을 입고 둘러볼 <strong class="text-slate-900">공간(월드)</strong>까지 같이 만들었습니다. 영상을 먼저 보고, 카드마다 <strong class="text-slate-900">가져올 점</strong> 하나만 챙기세요.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
       <div class="soft-card rounded-2xl p-5 flex flex-col">
         <div class="text-xs font-black text-slate-400 mb-1">2020년 10월</div>
         <h3 class="font-black text-xl mb-2">크리스찬 루부탱</h3>
-        <p class="text-sm text-slate-500 leading-relaxed mb-3">SS21 신발 60여 개 디자인을 재현하고, 회전목마가 있는 광장과 매장, 디스코 공간에서 공개했습니다.</p>
-        <p class="mt-auto text-base font-bold text-grape-800 bg-grape-50 rounded-xl p-3">신발 한 종류로도 컬렉션이 됩니다. ★ 하나에 집중하는 룩북.</p>
+        <div class="text-sm text-slate-500 leading-relaxed space-y-1 mb-3">
+          <p><strong class="text-slate-700">낸 것</strong> · SS21 신발 60여 개</p>
+          <p><strong class="text-slate-700">공간</strong> · 회전목마가 있는 광장, 매장, 디스코</p>
+        </div>
+        <p class="mt-auto text-base font-bold text-grape-800 bg-grape-50 rounded-xl p-3 mb-3">신발 한 종류로도 컬렉션이 됩니다. ★ 하나에 집중하는 룩북.</p>
+        <div class="flex flex-wrap gap-2" data-nonav>
+          <a class="lnk vid" href="https://www.youtube.com/watch?v=GaSgGatxBl4" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i>공식 영상</a>
+          <a class="lnk" href="https://vogue.sg/christian-louboutin-ss21-zepeto/" target="_blank" rel="noopener"><i class="fa-regular fa-newspaper"></i>기사 · 영어</a>
+        </div>
       </div>
       <div class="soft-card rounded-2xl p-5 flex flex-col">
         <div class="text-xs font-black text-slate-400 mb-1">2021년 2월</div>
         <h3 class="font-black text-xl mb-2">구찌</h3>
-        <p class="text-sm text-slate-500 leading-relaxed mb-3">의류, 가방, 액세서리 약 60개와 이탈리아 피렌체를 배경으로 한 "구찌 빌라" 월드를 열었습니다.</p>
-        <p class="mt-auto text-base font-bold text-grape-800 bg-grape-50 rounded-xl p-3">아이템과 배경을 같이 설계합니다. 컷의 배경은 한 문장의 "어디서"에서.</p>
+        <div class="text-sm text-slate-500 leading-relaxed space-y-1 mb-3">
+          <p><strong class="text-slate-700">낸 것</strong> · 옷, 가방, 액세서리 60개 정도</p>
+          <p><strong class="text-slate-700">공간</strong> · 피렌체를 본뜬 "구찌 빌라", 정원과 유럽식 건물</p>
+        </div>
+        <p class="mt-auto text-base font-bold text-grape-800 bg-grape-50 rounded-xl p-3 mb-3">아이템과 배경을 같이 정합니다. 배경은 한 문장의 "어디서"에서.</p>
+        <div class="flex flex-wrap gap-2" data-nonav>
+          <a class="lnk" href="https://view.asiae.co.kr/article/2021020510041682529" target="_blank" rel="noopener"><i class="fa-regular fa-newspaper"></i>기사</a>
+          <a class="lnk vid" href="https://www.youtube.com/results?search_query=%EC%A0%9C%ED%8E%98%ED%86%A0+%EA%B5%AC%EC%B0%8C+%EB%B9%8C%EB%9D%BC" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i>영상 찾기</a>
+        </div>
       </div>
       <div class="soft-card rounded-2xl p-5 flex flex-col">
         <div class="text-xs font-black text-slate-400 mb-1">2021년 7월</div>
         <h3 class="font-black text-xl mb-2">디올 뷰티</h3>
-        <p class="text-sm text-slate-500 leading-relaxed mb-3">제페토의 첫 뷰티 협업. 메이크업 룩 9개를 냈습니다.</p>
-        <p class="mt-auto text-base font-bold text-grape-800 bg-grape-50 rounded-xl p-3">옷만 파츠가 아닙니다. 얼굴도 룩의 분위기를 바꿉니다.</p>
+        <div class="text-sm text-slate-500 leading-relaxed space-y-1 mb-3">
+          <p><strong class="text-slate-700">낸 것</strong> · 메이크업 룩 9개</p>
+          <p><strong class="text-slate-700">특징</strong> · 제페토의 첫 뷰티 협업. 디올 뷰티의 피터 필립스가 디자인</p>
+        </div>
+        <p class="mt-auto text-base font-bold text-grape-800 bg-grape-50 rounded-xl p-3 mb-3">옷만 파츠가 아닙니다. 얼굴도 룩의 분위기를 바꿉니다.</p>
+        <div class="flex flex-wrap gap-2" data-nonav>
+          <a class="lnk" href="https://www.marieclairekorea.com/beauty/2021/08/virtual-beauty/" target="_blank" rel="noopener"><i class="fa-regular fa-newspaper"></i>기사</a>
+          <a class="lnk vid" href="https://www.youtube.com/watch?v=DrR7AEKijlM" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i>사용자 영상</a>
+        </div>
       </div>
       <div class="soft-card rounded-2xl p-5 flex flex-col">
         <div class="text-xs font-black text-slate-400 mb-1">2021년 8월</div>
         <h3 class="font-black text-xl mb-2">랄프 로렌</h3>
-        <p class="text-sm text-slate-500 leading-relaxed mb-3">12개 룩, 50개가 넘는 아이템. 한정 스케이트보드와 매장, 커피숍 공간도 만들었습니다.</p>
-        <p class="mt-auto text-base font-bold text-grape-800 bg-grape-50 rounded-xl p-3">낱개가 아니라 "룩" 단위로 묶었습니다. 소품도 룩의 일부.</p>
+        <div class="text-sm text-slate-500 leading-relaxed space-y-1 mb-3">
+          <p><strong class="text-slate-700">낸 것</strong> · 룩 12개, 아이템 50개 정도, 한정 스케이트보드</p>
+          <p><strong class="text-slate-700">공간</strong> · 뉴욕 매장, 랄프스 커피, 센트럴 파크</p>
+        </div>
+        <p class="mt-auto text-base font-bold text-grape-800 bg-grape-50 rounded-xl p-3 mb-3">낱개가 아니라 "룩" 단위로 묶었습니다. 소품도 룩의 일부.</p>
+        <div class="flex flex-wrap gap-2" data-nonav>
+          <a class="lnk vid" href="https://www.youtube.com/watch?v=F-Ixqt4bPpQ" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i>공식 영상</a>
+          <a class="lnk" href="https://www.marieclairekorea.com/fashion/2021/08/fashion-news-ralphlauren/" target="_blank" rel="noopener"><i class="fa-regular fa-newspaper"></i>기사</a>
+        </div>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
-        <p class="text-base text-amber-900 leading-relaxed"><i class="fa-solid fa-ban mr-2"></i>브랜드 로고와 디자인은 <strong>참고만</strong> 합니다. 내 룩북에 그대로 옮겨 만들지 않습니다.</p>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+      <div class="md:col-span-3 bg-slate-900 text-white rounded-2xl p-4">
+        <p class="text-base text-slate-300 leading-relaxed"><i class="fa-solid fa-arrow-right text-lime-300 mr-2"></i><strong class="text-white">내 룩북에 가져오면</strong> · 룩만 정하지 말고 그 룩을 찍을 <strong class="text-white">배경</strong>도 같이 정합니다. 한 문장의 "어디서"가 컷의 배경이 됩니다.</p>
       </div>
-      <div class="glass-card rounded-2xl p-4">
-        <p class="src-note">출처 · Vogue Singapore(2020.10), 아시아경제(2021.2.5), Cosmetics Business(2021.7), FashionUnited(2021.8.26). 더 자세한 내용은 룩북 설계 양식에 있습니다.</p>
+      <div class="md:col-span-2 bg-amber-50 border border-amber-200 rounded-2xl p-4">
+        <p class="text-base text-amber-900 leading-relaxed"><i class="fa-solid fa-ban mr-2"></i>브랜드 로고와 디자인은 <strong>참고만</strong> 합니다. 그대로 옮겨 만들지 않습니다.</p>
       </div>
     </div>
+    <p class="src-note mt-3">출처 · Vogue Singapore(2020.10.3), 아시아경제(2021.2.5), 마리끌레르 코리아(2021.8.9, 2021.8.26), Christian Louboutin · Ralph Lauren 공식 유튜브. 몇 년 전 협업이라 지금 앱에서는 월드가 보이지 않을 수 있습니다.</p>
   </div>
 </section>
-
+<!-- 5d 11/12 룩북 레퍼런스 -->
+<section class="slide" data-step="2">
+  <div class="max-w-6xl mx-auto w-full">
+    <div class="mb-3">
+      <div class="inline-block bg-grape-600 text-white text-sm font-black px-4 py-1.5 rounded-full mb-3"><i class="fa-brands fa-youtube mr-1"></i>11/12 룩북 레퍼런스</div>
+      <h2 class="text-3xl md:text-5xl font-black mb-2">내 브랜드 무드에 맞는 영상을 골라 봅니다</h2>
+      <p class="text-lg text-slate-500">멋진 쪽인지 귀여운 쪽인지에 따라 영상의 모양도 달라집니다. 무드가 맞는 영상 하나를 골라 <strong class="text-slate-900">한 컷 길이, 카메라, 음악</strong>을 따라 해 봅니다.</p>
+    </div>
+    <div class="soft-card rounded-3xl p-4 mb-3 flex flex-col md:flex-row gap-4" data-nonav>
+      <div class="md:w-44 flex-none">
+        <div class="inline-block bg-slate-900 text-white text-sm font-black px-3 py-1 rounded-full mb-2">멋진 · 고급스러운</div>
+        <p class="text-sm text-slate-500 leading-relaxed">시크한, 클래식한, 우아한 룩이라면.</p>
+        <p class="text-xs font-black text-slate-400 mt-2">실제 패션 브랜드 공식 영상</p>
+      </div>
+      <div class="flex-1 grid grid-cols-4 md:grid-cols-7 gap-3" id="w6-ref-a"></div>
+    </div>
+    <div class="soft-card rounded-3xl p-4 mb-2 flex flex-col md:flex-row gap-4" data-nonav>
+      <div class="md:w-44 flex-none">
+        <div class="inline-block bg-grape-600 text-white text-sm font-black px-3 py-1 rounded-full mb-2">귀여운 · 캐주얼</div>
+        <p class="text-sm text-slate-500 leading-relaxed">발랄한, 일상적인, 아바타다운 룩이라면.</p>
+        <p class="text-xs font-black text-slate-400 mt-2">제페토 공식 영상</p>
+      </div>
+      <div class="flex-1 grid grid-cols-4 md:grid-cols-7 gap-3" id="w6-ref-b">
+      </div>
+    </div>
+    <p class="src-note">무드는 나눠 본 예입니다. 섞어 써도 됩니다. 로고, 음악, 장면은 가져오지 않고 형식과 리듬만 참고합니다. 썸네일이 안 보이면 카드를 눌러 바로 여세요.</p>
+  </div>
+  <script>
+  (function(){
+    function card(v,z){
+      var url=v.w?('https://www.youtube.com/watch?v='+v.id):('https://www.youtube.com/shorts/'+v.id);
+      return '<a class="ref" href="'+url+'" target="_blank" rel="noopener"><div class="ref-th'+(z?' z':'')+'"><span class="ref-fb">'+v.b+'</span><img src="https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="ref-play"><i class="fa-solid fa-play"></i></span></div><div class="ref-b">'+v.b+'</div><div class="ref-t">'+v.t+'</div></a>';
+    }
+    var A=[
+      {id:'FeXFwNOyLqw',b:'Prada',t:'SS25 런웨이 룩'},
+      {id:'mgCRkNxScuw',b:'Prada',t:'FW24 컬렉션'},
+      {id:'8KL2A0Zs12E',b:'Louis Vuitton',t:'SS25 컬렉션'},
+      {id:'l7sGZc5v7RY',b:'Gucci',t:'SS25 순간들'},
+      {id:'Z67305cWLnA',b:'Hermès',t:'SS25 여성 컬렉션'},
+      {id:'oNAKndllECA',b:'CHANEL',t:'아이웨어 캠페인 필름'},
+      {id:'D70UmulNy_w',b:'Burberry',t:'Summer 2025'}
+    ];
+    var B=[
+      {id:'QpPu00EWXlU',b:'ZEPETO',t:'컬렉션 출시 · belle x S-club',w:1},
+      {id:'IyZvoasx5Gk',b:'ZEPETO',t:'메이크업 GRWM · 프레피'},
+      {id:'RcVX4OEgHY0',b:'ZEPETO',t:'남자 아바타 액세서리 스타일링'},
+      {id:'gXAGR8iu_FQ',b:'ZEPETO',t:'시티팝 애니 아바타'},
+      {id:'_o5gscemv0g',b:'ZEPETO',t:'3D 공간 오픈'}
+    ];
+    document.getElementById('w6-ref-a').innerHTML=A.map(function(v){return card(v,0)}).join('');
+    document.getElementById('w6-ref-b').innerHTML=B.map(function(v){return card(v,1)}).join('')+
+      '<div class="col-span-2 rounded-2xl bg-slate-900 text-white p-4 flex flex-col justify-center"><div class="font-black text-lime-300 mb-2"><i class="fa-solid fa-eye mr-2"></i>보면서 세어 볼 것</div><ul class="text-sm text-slate-300 leading-relaxed space-y-0.5"><li>· 한 컷이 몇 초인지</li><li>· 카메라가 움직이는지, 멈춰 있는지</li><li>· 음악이 빠른지, 느린지</li><li>· 글자가 나오는지, 어디에</li></ul></div>';
+    document.querySelectorAll('#w6-ref-a a, #w6-ref-b a').forEach(function(a){a.addEventListener('click',function(e){e.stopPropagation()})});
+  })();
+  </script>
+</section>
 <!-- 6 ① 한 문장 -->
 <section class="slide" data-step="3">
   <div class="max-w-6xl mx-auto w-full">
@@ -694,7 +805,7 @@ body.clean #hud, body.clean #bar{display:none}
       </div>
       <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5">
         <h3 class="font-black text-amber-800 mb-2"><i class="fa-solid fa-lightbulb mr-2"></i>무엇을 만들지 모르겠다면</h3>
-        <p class="text-base text-amber-900 leading-relaxed">과제 1 상의, 과제 2 파츠, 과제 3 모자를 <strong>한 아바타에 입혀 본다</strong>고 생각해 보세요. 어울리지 않는 곳을 바꾸거나 하나를 더 만들면 한 룩이 됩니다.</p>
+        <p class="text-base text-amber-900 leading-relaxed">과제 1 상의, 과제 2 파츠, 과제 3-1 모자를 <strong>한 아바타에 입혀 본다</strong>고 생각해 보세요. 어울리지 않는 곳을 바꾸거나 하나를 더 만들면 한 룩이 됩니다.</p>
       </div>
     </div>
   </div>
@@ -743,7 +854,7 @@ body.clean #hud, body.clean #bar{display:none}
             <tr><td>단어</td><td>분위기를 말로 적은 키워드 세 개 안팎</td></tr>
           </tbody>
         </table>
-        <p class="text-sm text-slate-500 mt-3 leading-relaxed"><strong class="text-slate-700">오늘은 다섯 장</strong>, 모자라면 세 장으로도 라운드 1을 할 수 있습니다. 열 장 안팎으로 늘리고 고르는 건 집에서. 이미지는 수업 보드 내 줄 무드보드 칸에 끌어다 놓거나 <span class="kbd">Ctrl</span> + <span class="kbd">V</span>.</p>
+        <p class="text-sm text-slate-500 mt-3 leading-relaxed"><strong class="text-slate-700">오늘은 다섯 장</strong>, 모자라면 세 장으로도 라운드 1을 할 수 있습니다. 열 장 안팎으로 늘리고 고르는 건 집에서. 이미지는 수업 보드 내 줄 무드보드 칸에 끌어다 놓거나 <span class="kbd">Ctrl</span> + <span class="kbd">V</span>. 붙인 뒤 모서리를 끌어 회색 칸 크기로 줄입니다.</p>
       </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -752,7 +863,7 @@ body.clean #hud, body.clean #bar{display:none}
         <p class="text-base text-amber-900 leading-relaxed">다음 라운드에서 조원이 <strong>보드만 보고</strong> 어떤 룩인지 맞혀 봅니다. 한 문장은 양식에만 적어 둡니다.</p>
       </div>
       <div class="glass-card rounded-2xl p-5">
-        <h3 class="font-black mb-2"><i class="fa-solid fa-quote-left text-meta-500 mr-2"></i>출처는 보드 아래에</h3>
+        <h3 class="font-black mb-2"><i class="fa-solid fa-quote-left text-meta-500 mr-2"></i>단어와 출처는 회색 스티키에</h3>
         <p class="text-base text-slate-500 leading-relaxed">사이트 이름이나 링크를 적고, 직접 찍었으면 "직접 촬영". 무드보드는 참고용이라 <strong class="text-slate-700">남의 작품이나 브랜드 디자인을 그대로 옮겨 만들지 않습니다.</strong></p>
       </div>
     </div>
@@ -933,7 +1044,7 @@ body.clean #hud, body.clean #bar{display:none}
       <div class="md:col-span-3 grid grid-cols-2 gap-3">
         <div class="soft-card rounded-2xl p-4"><span class="inline-block rounded-lg px-3 py-1 font-black text-sm mb-2" style="background:#D9D9D9">그대로</span><p class="text-base text-slate-600 leading-relaxed">제페토 기본 아이템이나 상점 아이템. 만들지 않고 룩을 채웁니다. 앱에서 찍을 때 씁니다.</p></div>
         <div class="soft-card rounded-2xl p-4"><span class="inline-block rounded-lg px-3 py-1 font-black text-sm mb-2" style="background:#C2E5FF">템플릿</span><p class="text-base text-slate-600 leading-relaxed">스튜디오 템플릿에 색, 무늬, 그래픽을 입힙니다. 과제 1·2 방법.</p></div>
-        <div class="soft-card rounded-2xl p-4"><span class="inline-block rounded-lg px-3 py-1 font-black text-sm mb-2" style="background:#DCCCFF">모델링</span><p class="text-base text-slate-600 leading-relaxed">템플릿에 없는 형태를 블렌더로. 과제 3 방법. 모양이 주인공일 때.</p></div>
+        <div class="soft-card rounded-2xl p-4"><span class="inline-block rounded-lg px-3 py-1 font-black text-sm mb-2" style="background:#DCCCFF">모델링</span><p class="text-base text-slate-600 leading-relaxed">템플릿에 없는 형태를 블렌더로. 과제 3-1 방법. 모양이 주인공일 때.</p></div>
         <div class="soft-card rounded-2xl p-4"><span class="inline-block rounded-lg px-3 py-1 font-black text-sm mb-2" style="background:#FFE0C2">AI 3D</span><p class="text-base text-slate-600 leading-relaxed">AI로 받은 3D를 줄이고 다듬어 얹습니다. 다듬었다면 직접 만든 것으로 세고, 크레딧에 도구를 적습니다.</p></div>
         <div class="col-span-2 bg-amber-50 border border-amber-200 rounded-2xl p-4"><p class="text-base text-amber-900 leading-relaxed"><span class="inline-block rounded-lg px-3 py-1 font-black text-sm mr-2" style="background:#FFC943">★ 강조</span>룩마다 가까이 보여 줄 아이템 하나. 디테일 컷의 주인공이고, 시간을 가장 많이 쓸 곳입니다.</p></div>
       </div>
@@ -942,7 +1053,7 @@ body.clean #hud, body.clean #bar{display:none}
         <table class="w-full text-[.95rem]">
           <tbody class="divide-y divide-slate-100">
             <tr><td class="py-1.5 font-bold">헤어</td><td><span class="rounded px-2 py-0.5 text-xs font-black" style="background:#D9D9D9">그대로</span></td><td class="text-slate-500">기본 단발</td></tr>
-            <tr><td class="py-1.5 font-bold">머리 위 ★</td><td><span class="rounded px-2 py-0.5 text-xs font-black" style="background:#DCCCFF">모델링</span></td><td class="text-slate-500">과제 3 모자 + 별 장식</td></tr>
+            <tr><td class="py-1.5 font-bold">머리 위 ★</td><td><span class="rounded px-2 py-0.5 text-xs font-black" style="background:#DCCCFF">모델링</span></td><td class="text-slate-500">과제 3-1 모자 + 별 장식</td></tr>
             <tr><td class="py-1.5 font-bold">상의</td><td><span class="rounded px-2 py-0.5 text-xs font-black" style="background:#C2E5FF">템플릿</span></td><td class="text-slate-500">남색 니트, 작은 별 무늬</td></tr>
             <tr><td class="py-1.5 font-bold">하의</td><td><span class="rounded px-2 py-0.5 text-xs font-black" style="background:#D9D9D9">그대로</span></td><td class="text-slate-500">검정 바지</td></tr>
             <tr><td class="py-1.5 font-bold">아우터</td><td><span class="rounded px-2 py-0.5 text-xs font-black" style="background:#C2E5FF">템플릿</span></td><td class="text-slate-500">긴 아우터, 별자리 무늬</td></tr>
@@ -996,7 +1107,7 @@ body.clean #hud, body.clean #bar{display:none}
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="bg-grape-50 border border-grape-200 rounded-2xl p-4">
-        <p class="text-base text-grape-900 leading-relaxed"><i class="fa-solid fa-note-sticky mr-2"></i>질문 하나를 <strong>보라 스티키 한 장</strong>에 써서 수업 보드 내 줄의 ② 배울 것 칸에 붙입니다. 라운드 2에서 그대로 씁니다. 과제 3에서 막힌 점도 질문으로.</p>
+        <p class="text-base text-grape-900 leading-relaxed"><i class="fa-solid fa-note-sticky mr-2"></i>질문 하나를 <strong>보라 스티키 한 장</strong>에 써서 수업 보드 내 줄의 ② 배울 것 칸에 붙입니다. 라운드 2에서 그대로 씁니다. 과제 3-1에서 막힌 점도 질문으로.</p>
       </div>
       <div class="glass-card rounded-2xl p-4">
         <p class="text-base text-slate-600 leading-relaxed"><i class="fa-solid fa-language text-meta-500 mr-2"></i><strong class="text-slate-900">영어로 한 번, 한국어로 한 번.</strong> 영상 편집이 처음이라면 편집 앱 사용법도 배울 것입니다. 흔들리는 파츠처럼 어려운 건 여유 칸으로.</p>
@@ -1176,7 +1287,7 @@ body.clean #hud, body.clean #bar{display:none}
   <script>
   (function(){
     var D=[
-      ['과제 3 모자를 우비 모자로 바꾸고 노란 텍스처, 블렌더에서 돌려 보는 컷','장화도 템플릿으로 만들어 미리보기 캡처 컷 추가','제페토에 올려 앱에서 비 오는 장면 촬영'],
+      ['과제 3-1 모자를 우비 모자로 바꾸고 노란 텍스처, 블렌더에서 돌려 보는 컷','장화도 템플릿으로 만들어 미리보기 캡처 컷 추가','제페토에 올려 앱에서 비 오는 장면 촬영'],
       ['별 장식 하나를 만들어 세 룩의 모자에 각각 얹기','AI 이미지로 만든 별 무늬를 망토에 입히기','걸을 때 별 장식이 흔들리게'],
       ['뜨개 무늬 텍스처 하나로 조끼 두 벌, 색만 바꾸기','같은 무늬로 모자까지 만들기','이음매 없는 패턴으로 다시 그리기']
     ];
@@ -1214,9 +1325,9 @@ body.clean #hud, body.clean #bar{display:none}
 
         <div class="text-xs font-black text-rose-600 self-center">정해진 날</div>
         <div></div>
-        <div class="space-y-1"><div class="rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs font-black px-2 py-1 text-center">과제 3 · WIP 자료<br><span class="font-bold">수업 시작 전</span></div><div class="rounded-lg bg-grape-50 border border-grape-200 text-grape-800 text-xs font-black px-2 py-1 text-center">10/18 월드 조 설문</div></div>
+        <div class="space-y-1"><div class="rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs font-black px-2 py-1 text-center">WIP 자료 · 수업 시작 전<br><span class="font-bold">과제 3-1 · 23:59</span></div><div class="rounded-lg bg-grape-50 border border-grape-200 text-grape-800 text-xs font-black px-2 py-1 text-center">10/18 월드 조 설문</div></div>
         <div></div>
-        <div class="self-start rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs font-black px-2 py-1 text-center">과제 4<br><span class="font-bold">수업 시작 전</span></div>
+        <div class="self-start rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs font-black px-2 py-1 text-center">과제 3-2<br><span class="font-bold">수업 시작 전</span></div>
         <div></div>
         <div class="self-start rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs font-black px-2 py-1 text-center">룩북 숏폼<br><span class="font-bold">수업 시작 전</span></div>
 
@@ -1241,7 +1352,7 @@ body.clean #hud, body.clean #bar{display:none}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="soft-card rounded-2xl p-5">
         <h3 class="font-black mb-1.5"><span class="text-rose-500 mr-1">1</span>과제를 룩북에 겹치기</h3>
-        <p class="text-base text-slate-500 leading-relaxed">과제 3 모자, 과제 4 텍스처를 <strong class="text-slate-700">룩북의 ★로</strong> 쓰면 일이 줄어듭니다. 정해진 날은 양식 ③에 있습니다.</p>
+        <p class="text-base text-slate-500 leading-relaxed">과제 3-1 모자, 과제 3-2 텍스처를 <strong class="text-slate-700">룩북의 ★로</strong> 쓰면 일이 줄어듭니다. 정해진 날은 양식 ③에 있습니다.</p>
       </div>
       <div class="soft-card rounded-2xl p-5">
         <h3 class="font-black mb-1.5"><span class="text-rose-500 mr-1">2</span>끝에서부터 채우기</h3>
@@ -1275,7 +1386,7 @@ body.clean #hud, body.clean #bar{display:none}
           <tbody>
             <tr><td>7주차</td><td>별 장식 만들기, 유니티 내보내기 자료 보기</td><td>별 장식 FBX</td></tr>
             <tr><td>8주차</td><td>세 모자에 얹기, 유니티에서 변환해 심사 신청</td><td>.zepeto 파일 세 개, 심사 신청 캡처</td></tr>
-            <tr><td>9주차</td><td>망토 무늬 만들기 <span class="text-slate-400">(과제 4 주)</span></td><td>망토 PNG 512 × 512</td></tr>
+            <tr><td>9주차</td><td>망토 무늬 만들기 <span class="text-slate-400">(과제 3-2 주)</span></td><td>망토 PNG 512 × 512</td></tr>
             <tr><td>10주차</td><td>촬영과 편집</td><td>컷 원본</td></tr>
             <tr><td>11/12 전</td><td>룩북 제출</td><td>룩북 숏폼 mp4</td></tr>
           </tbody>
@@ -1327,7 +1438,7 @@ body.clean #hud, body.clean #bar{display:none}
       </div>
       <div class="flex flex-wrap gap-2" data-nonav>
         <div class="seg" id="w6-cut-n"><button data-v="1" class="on">한 룩</button><button data-v="2">두 룩</button><button data-v="3">세 룩</button></div>
-        <div class="seg" id="w6-cut-s"><button data-v="15">15초</button><button data-v="30" class="on">30초</button><button data-v="60">60초</button></div>
+        <div class="seg" id="w6-cut-s"><button data-v="30" class="on">30초</button><button data-v="60">1분</button><button data-v="120">2분</button></div>
       </div>
     </div>
     <div class="soft-card rounded-3xl p-5 mb-4" data-nonav>
@@ -1341,11 +1452,11 @@ body.clean #hud, body.clean #bar{display:none}
       </div>
       <div class="soft-card rounded-2xl p-5">
         <h3 class="font-black mb-1.5"><i class="fa-solid fa-film text-grape-500 mr-2"></i>처음과 끝</h3>
-        <p class="text-base text-slate-500 leading-relaxed">첫 컷은 컬렉션 이름, 마지막 컷은 이름, 사용한 AI 도구와 쓴 곳, 음악 출처. 배경과 음악, 자막 글꼴은 끝까지 하나로.</p>
+        <p class="text-base text-slate-500 leading-relaxed">첫 컷은 컬렉션 이름, 마지막 컷은 이름, 사용한 AI 도구와 쓴 곳, 음악 출처. 콘셉트를 말하고 싶으면 표지 다음에 한 컷. 음악과 자막 글꼴은 끝까지 하나로.</p>
       </div>
       <div class="glass-card rounded-2xl p-5">
         <h3 class="font-black mb-1.5"><i class="fa-solid fa-pencil text-amber-500 mr-2"></i>그리는 법</h3>
-        <p class="text-base text-slate-500 leading-relaxed">종이에 세로 칸을 그리고 <strong class="text-slate-700">막대 인형</strong>이면 충분합니다. 사진을 찍어 조 패널 내 줄에 올리세요. 길이와 형식은 「중간 과제」 공지를 따릅니다.</p>
+        <p class="text-base text-slate-500 leading-relaxed">종이에 세로 칸을 그리고 <strong class="text-slate-700">막대 인형</strong>이면 충분합니다. 사진을 찍어 내 줄의 <strong class="text-slate-700">컷 순서 칸</strong>에 올리거나, 그 칸에 바로 그려도 됩니다. 길이와 형식은 「중간 과제」 공지를 따릅니다.</p>
       </div>
     </div>
   </div>
@@ -1366,7 +1477,8 @@ body.clean #hud, body.clean #bar{display:none}
         return '<div class="cut '+(dk?'!bg-slate-900 !border-slate-900':'')+'" style="height:100%"><span class="k" style="'+(dk?'color:'+c[3]:'')+'">'+c[0]+'</span><span class="v" style="'+(dk?'color:#fff':'')+'">'+c[1]+'</span><span class="s">약 '+r+'초</span></div>';
       }).join('');
       var m=document.getElementById('w6-cut-msg');
-      if(per<2.5){m.className='text-base font-bold mt-3 text-rose-600';m.innerHTML='<i class="fa-solid fa-triangle-exclamation mr-2"></i>컷 '+cuts.length+'개에 한 컷 약 '+r+'초. 너무 짧으면 룩이 눈에 들어오지 않습니다. 길이를 늘리거나 룩마다 컷을 줄여 보세요.';}
+      if(per<3){m.className='text-base font-bold mt-3 text-rose-600';m.innerHTML='<i class="fa-solid fa-triangle-exclamation mr-2"></i>컷 '+cuts.length+'개에 한 컷 약 '+r+'초. 너무 짧으면 룩이 눈에 들어오지 않습니다. 길이를 늘리거나 룩마다 컷을 줄여 보세요.';}
+      else if(per>12){m.className='text-base font-bold mt-3 text-amber-700';m.innerHTML='<i class="fa-solid fa-hourglass-half mr-2"></i>컷 '+cuts.length+'개에 한 컷 약 '+r+'초. 한 컷이 길면 늘어질 수 있습니다. 각도나 장면으로 컷을 나누거나, 표지 다음에 콘셉트 컷을 넣어 보세요.';}
       else{m.className='text-base font-bold mt-3 text-meta-700';m.innerHTML='<i class="fa-solid fa-check mr-2"></i>컷 '+cuts.length+'개, 한 컷 약 '+r+'초. 세로(9:16) 칸으로 그려 봅니다.';}
       nb.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',+b.dataset.v===n)});
       sb.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',+b.dataset.v===s)});
@@ -1378,12 +1490,51 @@ body.clean #hud, body.clean #bar{display:none}
   </script>
 </section>
 
+<!-- 16b 11/12 영상 만들 때 -->
+<section class="slide" data-step="7">
+  <div class="max-w-6xl mx-auto w-full">
+    <div class="mb-4">
+      <div class="flex items-center gap-2 mb-3"><span class="who solo"><i class="fa-solid fa-pen"></i>혼자 · 집에서 읽어 둘 것</span><span class="text-sm font-black text-meta-600">11/12 룩북 숏폼</span></div>
+      <h2 class="text-3xl md:text-5xl font-black mb-2">영상을 만들 때 챙길 것</h2>
+      <p class="text-lg text-slate-500">내가 만든 것이 돋보이게 정리하고, 보는 사람에게 <strong class="text-slate-900">어떻게 전해질지</strong>까지 생각합니다.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+      <div class="soft-card rounded-2xl p-4">
+        <h3 class="font-black mb-1.5"><i class="fa-solid fa-mobile-screen text-meta-500 mr-2"></i>길이와 담을 것</h3>
+        <p class="text-[.95rem] text-slate-500 leading-relaxed">세로 9:16, <strong class="text-slate-800">30초~2분</strong>. 영상은 룩 중심으로. 콘셉트나 기획 의도를 넣고 싶으면 넣어도 되지만, 짧아서 다 담기는 어렵습니다. 나머지는 제출 코멘트에.</p>
+      </div>
+      <div class="soft-card rounded-2xl p-4">
+        <h3 class="font-black mb-1.5"><i class="fa-solid fa-magnifying-glass-plus text-meta-500 mr-2"></i>포인트는 확대해서</h3>
+        <p class="text-[.95rem] text-slate-500 leading-relaxed">의상 디테일이나 ★ 포인트는 가까이 찍어 보여 줍니다. 영상 분위기는 내 브랜드 무드에 맞추고, 캐주얼해도 괜찮습니다.</p>
+      </div>
+      <div class="soft-card rounded-2xl p-4">
+        <h3 class="font-black mb-1.5"><i class="fa-solid fa-scissors text-meta-500 mr-2"></i>만드는 도구는 자유</h3>
+        <p class="text-[.95rem] text-slate-500 leading-relaxed">컴퓨터 편집 프로그램, 인스타그램 릴스 템플릿, 휴대폰 앱, 휴대폰 기본 영상 기능 모두 됩니다. 수업에서 안 배운 기능은 스스로 찾아보며 해 봅니다.</p>
+      </div>
+      <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4">
+        <h3 class="font-black text-rose-700 mb-1.5"><i class="fa-solid fa-triangle-exclamation mr-2"></i>자주 하는 실수 · 워터마크</h3>
+        <p class="text-[.95rem] text-rose-900 leading-relaxed">본 작업 전에 <strong>아무 영상이나 한 번 내보내</strong> 워터마크가 찍히는지 먼저 확인합니다. 다 만든 뒤에 알면 처음부터 다시 해야 합니다.</p>
+      </div>
+      <div class="soft-card rounded-2xl p-4">
+        <h3 class="font-black mb-1.5"><i class="fa-solid fa-music text-meta-500 mr-2"></i>음악은 저작권 문제 없게</h3>
+        <p class="text-[.95rem] text-slate-500 leading-relaxed">무료 음원(유튜브 오디오 보관함 등)이나 AI로 만든 음악(SUNO 등). AI 음악은 무료 플랜이면 비상업적으로만 쓰고 크레딧에 표시합니다. 포트폴리오로 쓸 거면 약관을 한 번 확인하세요.</p>
+      </div>
+      <div class="soft-card rounded-2xl p-4">
+        <h3 class="font-black mb-1.5"><i class="fa-solid fa-cloud-arrow-up text-meta-500 mr-2"></i>제출은 일찍</h3>
+        <p class="text-[.95rem] text-slate-500 leading-relaxed">업로드가 오래 걸릴 수 있습니다. 용량 때문에 과제란에 안 올라가면 구글 드라이브 링크를 내고, 그 링크는 <strong class="text-slate-800">학기말 성적이 나올 때까지 공개</strong>로 둡니다.</p>
+      </div>
+    </div>
+    <div class="bg-slate-900 text-white rounded-2xl p-4">
+      <p class="text-base text-slate-300 leading-relaxed"><i class="fa-solid fa-clapperboard text-lime-300 mr-2"></i><strong class="text-white">선택</strong> · 만든 과정을 보여 주고 싶다면 메이킹 영상을 따로 내도 되고(수업에서 같이 볼 수 있습니다), 과정을 짧게 발표해도 됩니다.</p>
+    </div>
+  </div>
+</section>
 <!-- 17 라운드 3 -->
 <section class="slide" data-step="8">
   <div class="max-w-6xl mx-auto w-full">
     <div class="flex flex-wrap items-end justify-between gap-3 mb-4">
       <div>
-        <div class="flex items-center gap-2 mb-3"><span class="who team"><i class="fa-solid fa-people-group"></i>조 라운드 3</span><span class="text-sm font-black text-amber-600">네 질문</span></div>
+        <div class="flex items-center gap-2 mb-3"><span class="who team"><i class="fa-solid fa-people-group"></i>조 라운드 3</span><span class="text-sm font-black text-amber-600">다음 주 발표 연습</span></div>
         <h2 class="text-3xl md:text-5xl font-black mb-2">다음 주 발표, 조에서 먼저 해 봅니다</h2>
         <p class="text-lg text-slate-500">다음 주와 <strong class="text-slate-900">같은 방식</strong>입니다. 오늘 해 보면 다음 주가 두 번째가 됩니다.</p>
       </div>
@@ -1392,7 +1543,7 @@ body.clean #hud, body.clean #bar{display:none}
     <div class="grid grid-cols-1 md:grid-cols-5 gap-5">
       <div class="md:col-span-3 soft-card rounded-3xl p-5 space-y-3">
         <div class="rstep"><span class="n">1</span><div><h4>말하기</h4>
-          <p data-r3="full">발표자는 양식을 보면서 네 질문에 <strong class="text-slate-700">한두 문장씩</strong> 답합니다. 문형을 읽어도 됩니다. 월드가 아직이면 건너뜁니다.</p>
+          <p data-r3="full">발표자는 양식을 보면서 질문마다 <strong class="text-slate-700">한두 문장씩</strong> 답합니다. 다음 주처럼 <strong class="text-slate-700">2분 남짓</strong>에 맞춰 봅니다. 문형을 읽어도 되고, 월드가 아직이면 건너뜁니다.</p>
           <p data-r3="short" style="display:none">발표자는 <strong class="text-slate-700">한 문장, ★ 하나, 듣고 싶은 의견</strong> 세 가지만 말합니다. 나머지는 다음 주에.</p></div></div>
         <div class="rstep"><span class="n">2</span><div><h4>질문 하나로 닫기</h4><p>양식에 적은 <strong class="text-slate-700">듣고 싶은 의견</strong>을 고를 수 있는 질문으로 던집니다.</p></div></div>
         <div class="rstep"><span class="n">3</span><div><h4>카드 쓰기</h4><p>듣는 사람은 발표자 줄의 <strong class="text-slate-700">받은 카드 칸에 주황 스티키</strong> 한 장. 좋았던 점 하나, 해 보면 좋을 것 하나, 아는 자료, 그리고 이름.</p></div></div>
@@ -1499,10 +1650,10 @@ body.clean #hud, body.clean #bar{display:none}
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="glass-card rounded-2xl p-5">
-        <p class="text-base text-slate-500 leading-relaxed"><i class="fa-solid fa-file-lines text-meta-500 mr-2"></i>괄호 안은 전부 <strong class="text-slate-700">양식에 이미 적은 것</strong>입니다. 양식을 위에서부터 읽으면 발표가 됩니다.</p>
+        <p class="text-base text-slate-500 leading-relaxed"><i class="fa-solid fa-file-lines text-meta-500 mr-2"></i>괄호 안은 전부 <strong class="text-slate-700">양식에 이미 적은 것</strong>입니다. 양식을 위에서부터 읽으면 발표가 되고, 문형대로 읽으면 <strong class="text-slate-700">2분 안에</strong> 들어옵니다.</p>
       </div>
       <div class="bg-slate-900 text-white rounded-2xl p-5">
-        <p class="text-base text-slate-300 leading-relaxed"><i class="fa-solid fa-image text-lime-300 mr-2"></i>월드 그림은 <strong class="text-white">설명하지 않고 보여 주기만</strong> 합니다.</p>
+        <p class="text-base text-slate-300 leading-relaxed"><i class="fa-solid fa-image text-lime-300 mr-2"></i>월드 그림은 선택입니다. 있으면 <strong class="text-white">설명하지 않고 보여 주기만</strong> 합니다.</p>
       </div>
     </div>
   </div>
@@ -1516,7 +1667,7 @@ body.clean #hud, body.clean #bar{display:none}
       ['1','bg-meta-500 text-white','룩은 {looks}이고, {keep}{이/가} 이어집니다. 꼭 할 것은 {must}, 계획대로 되면 {goal}, 여유가 되면 {extra}까지 해 보려고 합니다.'],
       ['2','bg-grape-600 text-white','이걸 만들려면 {learn}{을/를} 새로 배워야 해서, {src}{을/를} {when} 보려고 합니다.'],
       ['3','bg-amber-500 text-white','{w1}까지 {o1}, {w2}까지 {o2}{을/를} 만들고, 11월 12일에 룩북으로 내겠습니다. 듣고 싶은 의견은 {ask}'],
-      ['4','bg-rose-500 text-white','마지막은 제가 만들고 싶은 월드입니다. 감사합니다.']
+      ['4 · 선택','bg-rose-500 text-white','(월드 그림이 있으면) 마지막은 제가 만들고 싶은 월드입니다. 감사합니다.']
     ];
     var box=document.getElementById('w6-lines');
     function render(fill){
@@ -1538,53 +1689,24 @@ body.clean #hud, body.clean #bar{display:none}
   </script>
 </section>
 
-<!-- 20 ④ 월드 키워드 -->
-<section class="slide" data-step="9">
+<!-- 20b 자주 묻는 질문 -->
+<section class="slide">
   <div class="max-w-6xl mx-auto w-full">
     <div class="mb-4">
-      <div class="flex items-center gap-2 mb-3"><span class="who all"><i class="fa-solid fa-users"></i>반 전체 · 여유 되면</span><span class="text-sm font-black text-rose-600">④ 만들고 싶은 월드</span></div>
-      <h2 class="text-3xl md:text-5xl font-black mb-2">만들고 싶은 월드, 키워드 세 개만 먼저</h2>
-      <p class="text-lg text-slate-500">피그잼 보드 맨 아래 <strong class="text-slate-900">월드 키워드</strong> 칸에 스티키 한 장. 장소, 시간이나 날씨, 분위기를 적고 이름을 작게 씁니다.</p>
+      <div class="text-meta-600 font-black text-base mb-2">FAQ</div>
+      <h2 class="text-3xl md:text-5xl font-black mb-2">오늘 정한 건 연습입니다</h2>
+      <p class="text-lg text-slate-500">계획은 다음 주에도, 그 뒤 만들면서도 바뀝니다. <strong class="text-slate-900">바뀐 것과 그 이유를 적어 두면</strong> 그것도 과정입니다.</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-5 mb-4">
-      <div class="md:col-span-3 soft-card rounded-3xl p-5" data-nonav>
-        <div class="space-y-2.5" id="w6-wd"></div>
-        <div class="rounded-xl bg-slate-900 text-white px-4 py-3 mt-4"><span class="text-xs font-black text-lime-300 mr-2">AI에 넣을 문장</span><span id="w6-wd-en" class="font-mono font-bold"></span></div>
-        <p class="text-sm text-slate-500 mt-2"><strong class="text-slate-700">wide view</strong>는 장소 전체가 보이게, <strong class="text-slate-700">no people</strong>은 아바타가 들어갈 자리를 비워 두는 말입니다. 글자는 잘 안 나오니 <strong class="text-slate-700">no text</strong>.</p>
-      </div>
-      <div class="md:col-span-2 space-y-3">
-        <div class="soft-card rounded-2xl p-5">
-          <h3 class="font-black mb-2"><i class="fa-solid fa-image text-rose-500 mr-2"></i>이미지 아래 세 줄</h3>
-          <p class="text-base text-slate-500 leading-relaxed">월드 제목 한 줄, 사용한 AI 도구, 넣은 프롬프트. AI로 만든 그림이라는 표시이기도 합니다.</p>
-        </div>
-        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5">
-          <p class="text-base text-amber-900 leading-relaxed"><i class="fa-solid fa-ban mr-2"></i>실존 브랜드 로고, 유명 캐릭터, 실존 인물은 넣지 않습니다.</p>
-        </div>
-        <div class="bg-grape-50 border border-grape-200 rounded-2xl p-5">
-          <p class="text-base text-grape-900 leading-relaxed"><i class="fa-solid fa-people-arrows mr-2"></i>비슷한 키워드끼리 모아 보면 누가 비슷한 장소를 떠올렸는지 보입니다. 다음 주 발표 뒤 <strong>10/18(일) 23:59까지</strong> 월드 조 설문을 쓸 때 참고하세요.</p>
-        </div>
-      </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div class="qa"><h4>오늘 정한 걸 다음 주 발표 때 바꿔도 되나요?</h4><p>됩니다. 오늘 아이디어는 연습이고, 조원 의견을 듣고 고치라고 하는 시간입니다. 다음 주에 달라져 있는 게 자연스럽습니다.</p></div>
+      <div class="qa"><h4>WIP 발표가 끝난 뒤에도 바꿔도 되나요?</h4><p>됩니다. 만들면서 바뀌는 게 보통입니다. 11/12 제출 코멘트에 무엇을 왜 바꿨는지 한두 줄만 적어 주세요.</p></div>
+      <div class="qa"><h4>만들다 막히거나 계획대로 안 되면요?</h4><p>그럴 거라고 알고 있습니다. 직접 만들다 보면 막히는 곳, 안 되는 기능이 꼭 나옵니다. 그래서 범위를 꼭 · 목표 · 여유로 나눠 둡니다. 막히면 "꼭" 칸으로 돌아가고, 막힌 화면을 캡처해 쪽지로 보내 주세요.</p></div>
+      <div class="qa"><h4>아예 다른 걸 만들고 싶어지면요?</h4><p>바꿔도 됩니다. 다만 늦게 바꿀수록 만들 시간이 줄어드니, 바꾸려면 일찍 바꾸는 게 편합니다. 지금까지 만든 것을 다시 쓸 수 있는지도 같이 봅니다.</p></div>
+      <div class="qa"><h4>수업에서 안 배운 기능이 필요하면요?</h4><p>스스로 찾아보면서 해 보세요. ② 배울 것에 질문으로 적고, 조 튜토리얼 목록부터 봅니다. 그래도 막히면 질의응답 게시판이나 쪽지로.</p></div>
+      <div class="qa"><h4>11/12 영상은 얼마나, 어떻게 만드나요?</h4><p>세로 9:16, 30초~2분. 룩 중심으로 만들고, 콘셉트 설명은 원하면 넣습니다. 형식은 레퍼런스 영상 중 내 무드에 맞는 것을 참고하세요.</p></div>
     </div>
   </div>
-  <script>
-  (function(){
-    var R=[
-      ['장소','text-rose-600',[['옥상 정원','rooftop garden'],['좁은 골목','narrow alley'],['바닷가 산책로','seaside boardwalk'],['도서관 홀','grand library hall'],['숲속 오두막','cabin in the forest']]],
-      ['시간 · 날씨','text-grape-600',[['별이 내리는 밤','starry night'],['비 오는 저녁','rainy evening'],['해 질 녘','sunset'],['안개 낀 아침','foggy morning'],['눈 오는 겨울','snowy winter']]],
-      ['분위기','text-meta-600',[['포근한 파스텔','cozy pastel colors'],['레트로 네온','retro neon'],['꿈같은 수채화','dreamy watercolor'],['밝은 만화풍','bright cartoon style'],['차분한 미니멀','calm minimal']]]
-    ], sel=[0,0,0], box=document.getElementById('w6-wd');
-    function render(){
-      box.innerHTML=R.map(function(r,i){
-        return '<div class="flex flex-wrap items-center gap-1.5"><span class="w-24 text-sm font-black '+r[1]+'">'+r[0]+'</span>'+r[2].map(function(c,j){return '<button class="chip '+(sel[i]===j?'on':'')+'" data-r="'+i+'" data-c="'+j+'">'+c[0]+'</button>'}).join('')+'</div>';
-      }).join('');
-      document.getElementById('w6-wd-en').textContent=R.map(function(r,i){return r[2][sel[i]][1]}).join(', ')+', wide view, no people, no text';
-      box.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();sel[+b.dataset.r]=+b.dataset.c;render()})});
-    }
-    render();
-  })();
-  </script>
 </section>
-
 <!-- 21 나가기 전에 -->
 <section class="slide">
   <div class="max-w-6xl mx-auto w-full">
@@ -1603,7 +1725,7 @@ body.clean #hud, body.clean #bar{display:none}
       </div>
     </div>
     <div class="bg-slate-900 text-white rounded-2xl p-5">
-      <p class="text-lg leading-relaxed text-slate-300"><i class="fa-solid fa-upload text-lime-300 mr-2"></i>10/15(목) <strong class="text-white">수업 시작 전</strong>까지 과제란 「중간 과제 ① WIP 발표 자료」에 <span class="kbd !bg-slate-800 !text-lime-300 !border-slate-600">학번_이름_WIP</span> 하나. PPT, PDF, 이미지, 짧은 mp4 중 하나로 내고, 피그잼은 PDF나 이미지로 내보냅니다. 양식(.md)은 원고라서 내지 않습니다. 과제 3도 같은 날 마감입니다.</p>
+      <p class="text-lg leading-relaxed text-slate-300"><i class="fa-solid fa-upload text-lime-300 mr-2"></i>10/15(목) <strong class="text-white">수업 시작 전</strong>까지 과제란 「중간 과제 ① WIP 발표 자료」에 <span class="kbd !bg-slate-800 !text-lime-300 !border-slate-600">학번_이름_WIP</span> 하나. PPT, PDF, 이미지, 짧은 mp4 중 하나로 내고, 피그잼은 PDF나 이미지로 내보냅니다. 양식(.md)은 원고라서 내지 않습니다. 과제 3-1(모자 형태)은 같은 날 23:59 마감입니다.</p>
     </div>
   </div>
   <script>
@@ -1617,8 +1739,8 @@ body.clean #hud, body.clean #bar{display:none}
         b.querySelector('span:last-child').style.color=on?'#94a3b8':'';
       })});
     }
-    mk('w6-ck1',['쓴 양식이 <strong>메일 임시 보관함, 노션, 구글 문서</strong> 같은 곳에 있다','내 줄에 무드보드, 초록 스티키, 주황 카드가 남아 있다','받은 카드를 보고 계획에서 <strong>한 줄</strong>을 고쳤다','과제 3에서 막힌 곳이 있으면 <strong>그 화면을 캡처</strong>해 두었다']);
-    mk('w6-ck2',['무드보드를 열 장 안팎으로 늘려 한 장으로 정리하고 출처를 적는다','배울 것 두세 가지의 자료를 찾고 <strong>언제 볼지</strong> 정한다','범위 세 칸과 7~10주차 칸을 채운다 (오늘 못 했다면)','월드 이미지 한 장을 만들고 제목, 도구, 프롬프트를 적는다','발표 자료 하나로 묶는다 (슬라이드, 보드, 스토리보드, 짧은 영상, 틀 파일, 룩북 설계 양식)']);
+    mk('w6-ck1',['쓴 양식이 <strong>메일 임시 보관함, 노션, 구글 문서</strong> 같은 곳에 있다','내 줄에 무드보드, 초록 스티키, 주황 카드가 남아 있다','받은 카드를 보고 계획에서 <strong>한 줄</strong>을 고쳤다','과제 3-1에서 막힌 곳이 있으면 <strong>그 화면을 캡처</strong>해 두었다']);
+    mk('w6-ck2',['무드보드를 열 장 안팎으로 늘려 한 장으로 정리하고 출처를 적는다','배울 것 두세 가지의 자료를 찾고 <strong>언제 볼지</strong> 정한다','범위 세 칸과 7~10주차 칸을 채운다 (오늘 못 했다면)','(선택) 월드 이미지 한 장을 만들고 제목, 도구, 프롬프트를 적는다','발표 자료 하나로 묶는다 (슬라이드, 보드, 스토리보드, 짧은 영상, 틀 파일, 룩북 설계 양식)','소리 내어 한 번 읽어 보고 <strong>2분 남짓</strong>에 끝나는지 확인한다']);
   })();
   </script>
 </section>
@@ -1654,7 +1776,7 @@ body.clean #hud, body.clean #bar{display:none}
       </div>
       <div class="soft-card rounded-2xl p-4">
         <h3 class="font-black mb-1"><i class="fa-solid fa-scale-balanced text-meta-500 mr-2"></i>WIP는 계획, 완성도는 룩북에서</h3>
-        <p class="text-base text-slate-500 leading-relaxed">다음 주는 네 질문에 답했는지를 봅니다. 계획 중 어디까지 했는지, 무엇을 배워 적용했는지는 <strong class="text-slate-700">룩북 제출 코멘트</strong>에 적습니다.</p>
+        <p class="text-base text-slate-500 leading-relaxed">다음 주는 세 질문에 답했는지를 봅니다. 계획 중 어디까지 했는지, 무엇을 배워 적용했는지는 <strong class="text-slate-700">룩북 제출 코멘트</strong>에 적습니다.</p>
       </div>
     </div>
   </div>
@@ -1662,13 +1784,13 @@ body.clean #hud, body.clean #bar{display:none}
   (function(){
     var W=[
       {wk:'6주차',dt:'10/8',ic:'fa-location-dot',cls:'today',tag:['오늘','bg-meta-100 text-meta-800'],
-       c:'WIP 준비 작업실 · 조 라운드 세 번',y:'양식 챙겨 가기 · 비어 있는 칸 채우기 · 월드 이미지 한 장',d:'-'},
+       c:'WIP 준비 작업실 · 조 라운드 세 번',y:'양식 챙겨 가기 · 비어 있는 칸 채우기 · 월드 이미지는 선택',d:'-'},
       {wk:'7주차',dt:'10/15',ic:'fa-comments',cls:'due',tag:['마감 둘','bg-rose-100 text-rose-700'],
-       c:'<b>WIP 발표</b> · 피드백 카드 · 모두의 월드 그림 모아 보기',y:'발표 뒤 <b>10/18(일) 23:59까지</b> 월드 조 설문',d:'<b>수업 시작 전</b> · 과제 3 · WIP 발표 자료'},
+       c:'<b>WIP 발표</b> · 피드백 카드 · 월드 그림 모아 보기',y:'발표 뒤 <b>10/18(일) 23:59까지</b> 월드 조 설문',d:'<b>수업 시작 전</b> · WIP 발표 자료<br><b>23:59</b> · 과제 3-1'},
       {wk:'8주차',dt:'10/22',ic:'fa-earth-asia',cls:'',tag:['',''],
        c:'월드 조 발표 · 월드 만들기 시작',y:'계획대로 진행 · 제페토에 올려 찍을 거면 <b>이번 주 안에 심사 신청</b>',d:'-'},
-      {wk:'9주차',dt:'10/29',ic:'fa-earth-asia',cls:'due',tag:['과제 4','bg-rose-100 text-rose-700'],
-       c:'월드 만들기 이어서',y:'계획대로 진행',d:'<b>수업 시작 전</b> · 과제 4'},
+      {wk:'9주차',dt:'10/29',ic:'fa-earth-asia',cls:'due',tag:['과제 3-2','bg-rose-100 text-rose-700'],
+       c:'월드 만들기 이어서',y:'계획대로 진행',d:'<b>수업 시작 전</b> · 과제 3-2'},
       {wk:'10주차',dt:'11/5',ic:'fa-video',cls:'',tag:['',''],
        c:'대면 수업',y:'룩북 촬영과 편집',d:'-'},
       {wk:'11주차',dt:'11/12',ic:'fa-film',cls:'due',tag:['룩북','bg-rose-100 text-rose-700'],
@@ -1756,10 +1878,10 @@ body.clean #hud, body.clean #bar{display:none}
 <div id="notes" data-nonav><h4>진행 메모 · 학생 화면에 띄울 때는 N으로 닫기</h4><ul id="noteslist"></ul></div>
 
 <script>
-const TITLES = ["표지 · 내 룩북의 첫 시안", "오늘 진행 순서", "자리 잡기 · 조와 역할", "오늘 쓰는 세 곳", "다음 주 WIP 발표는", "11/12 룩북은 이것을 봅니다", "제페토 브랜드 사례", "① 만들 것을 한 문장으로", "① 무드보드 다섯 장", "라운드 1 · 무드보드만 보고 맞히기", "라운드 1 · 예시", "① 어디서 찍을지", "① 룩마다 파츠 정하기", "② 모르는 것을 질문으로", "② 자료 고르기 · 처음 찾아볼 곳", "라운드 2 · 배울 것과 자료 공유", "① 범위 세 칸", "③ 마감에서 거꾸로", "③ 끝나면 남는 것 · 듣고 싶은 의견", "① 컷 순서 (집에서 해도 됨)", "라운드 3 · 다음 주 발표 미리 해 보기", "라운드 3 · 피드백 카드", "라운드 3 · 막막할 때 쓰는 문형", "④ 월드 키워드 모으기", "나가기 전에", "룩북까지의 지도", "마무리 · 출처"];
-const STEPS = ["자리 잡기", "다음 주 발표", "한 문장 · 무드보드", "라운드 1", "파츠 · 배울 것", "라운드 2", "범위 · 계획", "라운드 3", "월드 키워드"];
+const TITLES = ["표지 · 내 룩북의 첫 시안", "오늘 진행 순서", "자리 잡기 · 조와 역할", "오늘 쓰는 세 곳", "다음 주 WIP 발표는", "11/12 룩북은 이것을 봅니다", "제페토 브랜드 사례", "11/12 룩북 레퍼런스 영상", "① 만들 것을 한 문장으로", "① 무드보드 다섯 장", "라운드 1 · 무드보드만 보고 맞히기", "라운드 1 · 예시", "① 어디서 찍을지", "① 룩마다 파츠 정하기", "② 모르는 것을 질문으로", "② 자료 고르기 · 처음 찾아볼 곳", "라운드 2 · 배울 것과 자료 공유", "① 범위 세 칸", "③ 마감에서 거꾸로", "③ 끝나면 남는 것 · 듣고 싶은 의견", "① 컷 순서 (집에서 해도 됨)", "11/12 영상 만들 때 챙길 것", "라운드 3 · 다음 주 발표 미리 해 보기", "라운드 3 · 피드백 카드", "라운드 3 · 막막할 때 쓰는 문형", "자주 묻는 질문 · 오늘은 연습", "나가기 전에", "룩북까지의 지도", "마무리 · 출처"];
+const STEPS = ["자리 잡기", "다음 주 발표", "한 문장 · 무드보드", "라운드 1", "파츠 · 배울 것", "라운드 2", "범위 · 계획", "라운드 3"];
 const TEAM_STEPS = [4,6,8];
-const NOTES = [["수업 전 확인: 6주차 수업 보드는 링크 권한 \"편집 가능\", 룩북 설계 양식은 \"보기 가능\". 두 링크와 이 자료를 사이버캠퍼스에 올려 둡니다.", "강의실 컴퓨터 한 자리에서 피그잼 로그인과 보드 편집이 되는지 먼저 해 봅니다.", "여는 말: \"오늘은 다음 주 발표 자료를 교실에서 절반 넘게 만들어 갑니다. 혼자 쓰고, 조원에게 보여 주고, 들은 대로 고칩니다.\""], ["\"꼭\"만 해도 다음 주 발표가 된다고 먼저 말합니다. 7번과 9번은 집에서 마무리해도 됩니다.", "라운드 3이 잘리지 않게 합니다. 6번이 끝나면 바로 8번으로 가고, 시간이 남으면 7번으로 돌아옵니다.", "과제 3 질문은 그 자리에서 받지 말고 보라 스티키로 적게 합니다. 라운드 2에서 조원이 아는 건 바로 풀리고, 남은 \"?\"만 모아서 한 번에 답합니다."], ["3주차 조대로 앉힙니다. 3주차 결석자는 사람이 적은 조로, 합친 조는 한 패널을 같이 씁니다.", "오늘 조는 토의용이라 수업이 끝나면 따로 모이지 않는다고 다시 말해 둡니다. 라운드 2도 수업 시간 안에서 끝납니다.", "첫 진행은 이름이 가나다순으로 가장 앞인 사람. 라운드 버튼을 눌러 역할이 시계 방향으로 넘어가는 것을 보여 줍니다.", "기록은 라운드 2의 조 튜토리얼 목록만 맡는다고 짧게 말합니다. 내 줄은 각자 씁니다."], ["오늘의 첫 관문은 세 곳을 헷갈리지 않는 것입니다. 보드는 조원에게 보여 줄 것, 양식은 내가 말할 원고, 룩북 설계 양식은 원하는 사람만 집에서.", "공용 컴퓨터라 메모장에 쓰지 말고 처음부터 메일 임시 보관함, 노션, 구글 문서에 붙여 쓰게 합니다.", "다음 주에 내는 건 발표 자료 하나이고 .md는 내지 않는다는 점을 아래 노란 칸으로 짚습니다."], ["네 질문만 필수, 모양은 자유, 만든 게 없어도 된다는 세 가지를 짚습니다.", "카드 아래 \"오늘 순서\" 번호로 오늘 어디서 무엇을 채우는지 연결합니다."], ["완성도는 11/12 룩북에서 본다는 점, 그리고 오늘 하는 일이 네 가지로 어떻게 이어지는지 오른쪽 열을 읽어 줍니다.", "\"룩마다 직접 만든 아이템 하나 이상\"을 한 번 더 강조합니다.", "AI로 받은 3D를 다듬어 얹은 것을 직접 만든 것으로 칠지 기준을 여기서 한 번 말해 줍니다. 자료에는 \"다듬었다면 직접 만든 것, 크레딧에 도구 표시\"로 적혀 있습니다."], ["카드마다 \"가져올 점\"만 읽습니다. 루부탱은 한 종류, 구찌는 배경, 디올은 얼굴, 랄프 로렌은 룩 단위.", "브랜드 로고와 디자인은 참고만 하고 그대로 옮기지 않는다는 점을 짚습니다."], ["\"다른 예\"를 눌러 세 예시를 보여 줍니다. 누가, 어디서, 언제, 어떤 룩, 무엇으로.", "한 문장은 양식에만 적고 보드에는 아직 붙이지 않게 합니다. 라운드 1에서 맞히기를 하기 때문입니다.", "막막한 학생에게는 과제 1 상의, 과제 2 파츠, 과제 3 모자를 한 아바타에 입혀 보라고 권합니다."], ["오늘은 다섯 가지에서 한 장씩 다섯 장. 검색에 오래 걸리면 직접 찍은 사진이나 AI 이미지도 됩니다.", "이미지는 수업 보드 내 줄 무드보드 칸에 끌어다 놓거나 Ctrl + V. 출처는 이미지 아래 작게.", "위 버튼으로 종류별로 보여 주면 한쪽으로 치우친 보드가 금방 보입니다."], ["핵심은 추측 스티키를 패널 밖에 써 두었다가 진행이 \"붙여 주세요\" 할 때 한꺼번에 옮기는 것입니다.", "같은 점, 다른 점은 하나씩만. 조를 돌며 길어지는 조에는 \"다음 사람\"이라고 말해 줍니다.", "차례가 끝나면 발표자가 내 줄 초록 스티키에 고친 한 문장, 뺄 것, 더할 것을 적습니다."], ["\"다음 단계\"를 눌러 한 사람 차례를 끝까지 보여 준 뒤 시작합니다.", "텐트 사진 때문에 캠핑으로 읽힌 예처럼, 틀리게 읽힌 것이 고칠 거리라는 점을 짚습니다."], ["찍는 곳이 보여 줄 수 있는 것을 정합니다. 기본·상점 아이템은 앱에서만, 아바타가 움직이는 모습은 앱이나 유니티에서 찍습니다. 블렌더는 아이템 하나씩 돌려 보는 컷에 좋습니다.", "유니티로 찍을 학생은 아이템을 유니티로 가져가 아바타에 입히는 법을 ② 배울 것에 넣게 합니다.", "\"꼭\" 칸은 심사를 기다리지 않아도 되는 방법으로 정하게 합니다.", "수업 전에 한 번 확인해 두면 좋습니다: 스튜디오 \"휴대폰에서 미리보기\" 화면을 캡처하거나 녹화해 룩북 컷으로 쓸 수 있는지. 되면 심사 없이 앱 화면을 쓸 수 있다고 안내합니다."], ["방법 넷과 ★ 하나를 짚고, 오른쪽 예시 표를 읽어 줍니다.", "블렌더가 아직 낯선 학생은 모델링을 목표 칸에 두고 꼭 칸은 템플릿으로.", "파츠 표 전체를 오늘 다 채울 필요는 없습니다. ★ 하나와 직접 만들 것만 정해도 됩니다."], ["도구와 할 일 버튼을 눌러 검색어가 만들어지는 것을 보여 줍니다.", "질문은 보라 스티키 한 장에 하나, 수업 보드 내 줄 ② 칸에. 라운드 2가 이 스티키로 시작합니다."], ["링크 네 개를 짧게 소개합니다. 공식 가이드 한국어판에 블렌더 아이템, 유니티 내보내기, 심사가 다 있습니다.", "영상은 강의실 블렌더와 버전 숫자가 가까운 것부터 고르게 합니다."], ["\"묶어 보기\"로 예시를 보여 주고 시작합니다.", "아는 자료는 그 자리에서 붙이고, 모르는 묶음은 같이 검색해서 하나씩 붙여 보게 합니다. 누가 대신 찾아 오는 식으로 수업 뒤까지 일을 나누지 않습니다.", "\"?\"가 붙은 묶음을 돌며 모아 두었다가 라운드 2가 끝날 때 반 전체에 한 번에 답합니다. 과제 3 질문도 여기서.", "조 튜토리얼 목록은 기록이 적습니다. 목록은 보드에 남으니 다른 조 것도 참고해도 된다고 알려 줍니다."], ["시간이 모자라면 집에서 하게 하고 바로 라운드 3으로 넘어갑니다.", "라운드 1, 2에서 들은 것으로 칸을 나눕니다. 해 본 사람이 없던 일, 심사를 기다리는 일은 목표나 여유로."], ["8~10주차 수업은 월드 작업이라 룩북은 수업 밖에서 한다는 점을 꼭 말합니다.", "과제 3 모자, 과제 4 텍스처를 룩북의 ★로 겹치면 일이 줄어듭니다.", "앱에서 찍을 학생은 늦어도 8주차 안에 심사 신청."], ["버튼을 눌러 어느 쪽이 더 좋은 칸인지 맞혀 보게 합니다. \"하기\"가 아니라 \"됐다\".", "듣고 싶은 의견은 고를 수 있는 질문으로 적게 합니다. 라운드 3에서 바로 씁니다."], ["집에서 해도 되는 장입니다. 룩 개수와 길이를 바꿔 한 컷이 몇 초가 되는지 보여 줍니다. 세 룩에 15초면 경고가 뜹니다."], ["시간이 모자라면 \"짧게 하기\"를 누르고 바로 시작합니다. 한 문장, ★ 하나, 듣고 싶은 의견만.", "답은 다음 주에, 오늘은 받기만. 카드는 발표자 줄의 받은 카드 칸에 주황 스티키로."], ["듣는 사람은 확인 질문 세 개만 보며 듣게 합니다.", "발표자가 던진 질문의 답부터 쓰게 합니다."], ["\"예시로 채우기\"로 한 번 읽어 주면 문형을 쓰는 감이 생깁니다."], ["여유가 있을 때만. 스티키 한 장에 세 단어와 이름. 비슷한 것끼리 모으는 건 끝에 강사가 정리해도 됩니다.", "실제 월드 그림은 집에서 만들고, 발표 뒤 10/18(일) 23:59까지 설문."], ["체크 항목을 같이 읽고, 양식을 어디에 저장했는지 옆 사람과 확인하고 나가게 합니다.", "내는 건 발표 자료 하나라는 점을 마지막으로 한 번 더."], ["날짜를 눌러 7주차 마감 둘, 9주차 과제 4, 11주차 룩북을 짚습니다."], ["정리 한 문장: 계획은 틀려도 괜찮고, 무엇이 틀렸는지 보이게 적어 두면 된다.", "다음 주 발표 방식(조별 또는 전체)은 그날 안내한다고 말합니다."]];
+const NOTES = [["수업 전 확인: 6주차 수업 보드는 링크 권한 \"편집 가능\", 룩북 설계 양식은 \"보기 가능\". 두 링크와 이 자료를 사이버캠퍼스에 올려 둡니다.", "강의실 컴퓨터 한 자리에서 피그잼 로그인과 보드 편집이 되는지 먼저 해 봅니다.", "여는 말: \"오늘은 다음 주 발표 자료를 교실에서 절반 넘게 만들어 갑니다. 혼자 쓰고, 조원에게 보여 주고, 들은 대로 고칩니다.\""], ["\"꼭\"만 해도 다음 주 발표가 된다고 먼저 말합니다. 7번은 집에서 마무리해도 됩니다.", "라운드 3이 잘리지 않게 합니다. 6번이 끝나면 바로 8번으로 가고, 시간이 남으면 7번으로 돌아옵니다.", "과제 3-1 질문은 그 자리에서 받지 말고 보라 스티키로 적게 합니다. 라운드 2에서 조원이 아는 건 바로 풀리고, 남은 \"?\"만 모아서 한 번에 답합니다."], ["3주차 조대로 앉힙니다. 3주차 결석자는 사람이 적은 조로, 합친 조는 한 패널을 같이 씁니다.", "오늘 조는 토의용이라 수업이 끝나면 따로 모이지 않는다고 다시 말해 둡니다. 라운드 2도 수업 시간 안에서 끝납니다.", "첫 진행은 이름이 가나다순으로 가장 앞인 사람. 라운드 버튼을 눌러 역할이 시계 방향으로 넘어가는 것을 보여 줍니다.", "기록은 라운드 2의 조 튜토리얼 목록만 맡는다고 짧게 말합니다. 내 줄은 각자 씁니다."], ["오늘의 첫 관문은 세 곳을 헷갈리지 않는 것입니다. 보드는 조원에게 보여 줄 것, 양식은 내가 말할 원고, 룩북 설계 양식은 원하는 사람만 집에서.", "공용 컴퓨터라 메모장에 쓰지 말고 처음부터 메일 임시 보관함, 노션, 구글 문서에 붙여 쓰게 합니다.", "다음 주에 내는 건 발표 자료 하나이고 .md는 내지 않는다는 점을 아래 노란 칸으로 짚습니다."], ["①~③ 세 질문만 필수이고 ④ 월드는 선택, 모양은 자유, 만든 게 없어도 된다는 점을 짚습니다. 월드는 아직 둘러보기 전이라 선택으로 두었습니다.", "카드 아래 \"오늘 순서\" 번호로 오늘 어디서 무엇을 채우는지 연결합니다.", "다음 주는 반 전체 앞에서 한 사람씩, 한 사람당 3분입니다. 말하기는 2분 남짓이고 나머지는 파일 교체와 카드 쓰기라는 점을 짚습니다."], ["완성도는 11/12 룩북에서 본다는 점, 그리고 오늘 하는 일이 네 가지로 어떻게 이어지는지 오른쪽 열을 읽어 줍니다.", "\"룩마다 직접 만든 아이템 하나 이상\"을 한 번 더 강조합니다.", "AI로 받은 3D를 다듬어 얹은 것을 직접 만든 것으로 칠지 기준을 여기서 한 번 말해 줍니다. 자료에는 \"다듬었다면 직접 만든 것, 크레딧에 도구 표시\"로 적혀 있습니다."], ["수업에서는 루부탱과 랄프 로렌 공식 영상 앞부분만 틀어 줍니다. 아이템과 함께 공간을 어떻게 보여 주는지가 보이면 충분합니다.", "카드마다 \"가져올 점\"만 읽습니다. 루부탱은 한 종류, 구찌는 배경, 디올은 얼굴, 랄프 로렌은 룩 단위.", "아래 검은 칸으로 마무리합니다. 룩과 배경을 같이 정한다, 배경은 한 문장의 \"어디서\".", "몇 년 전 협업이라 앱에는 남아 있지 않을 수 있어 영상과 기사로 보여 줍니다. 구찌는 확인된 공식 영상이 없어 유튜브 검색 링크로 두었습니다."], ["레퍼런스 영상은 위쪽이 실제 패션 브랜드, 아래쪽이 제페토 공식 영상입니다. 수업에서는 위아래에서 하나씩만 틀어 줍니다.", "내 브랜드가 멋진 쪽인지 귀여운 쪽인지 먼저 고르고, 오른쪽 아래 \"보면서 세어 볼 것\"으로 한 컷 길이, 카메라, 음악, 글자를 세어 보게 합니다.", "무드 구분은 예시입니다. 섞어 써도 된다는 점, 로고와 음악은 가져오지 않는다는 점을 말합니다."], ["\"다른 예\"를 눌러 세 예시를 보여 줍니다. 누가, 어디서, 언제, 어떤 룩, 무엇으로.", "한 문장은 양식에만 적고 보드에는 아직 붙이지 않게 합니다. 라운드 1에서 맞히기를 하기 때문입니다.", "막막한 학생에게는 과제 1 상의, 과제 2 파츠, 과제 3-1 모자를 한 아바타에 입혀 보라고 권합니다."], ["오늘은 다섯 가지에서 한 장씩 다섯 장. 검색에 오래 걸리면 직접 찍은 사진이나 AI 이미지도 됩니다.", "이미지는 수업 보드 내 줄 무드보드의 회색 칸에 끌어다 놓거나 Ctrl + V. 붙인 이미지가 크게 들어오니 모서리를 끌어 칸 크기로 줄이게 합니다. 단어와 출처는 회색 스티키에.", "위 버튼으로 종류별로 보여 주면 한쪽으로 치우친 보드가 금방 보입니다."], ["핵심은 추측 스티키를 패널 밖에 써 두었다가 진행이 \"붙여 주세요\" 할 때 한꺼번에 옮기는 것입니다.", "같은 점, 다른 점은 하나씩만. 조를 돌며 길어지는 조에는 \"다음 사람\"이라고 말해 줍니다.", "차례가 끝나면 발표자가 내 줄 초록 스티키에 고친 한 문장, 뺄 것, 더할 것을 적습니다."], ["\"다음 단계\"를 눌러 한 사람 차례를 끝까지 보여 준 뒤 시작합니다.", "텐트 사진 때문에 캠핑으로 읽힌 예처럼, 틀리게 읽힌 것이 고칠 거리라는 점을 짚습니다."], ["찍는 곳이 보여 줄 수 있는 것을 정합니다. 기본·상점 아이템은 앱에서만, 아바타가 움직이는 모습은 앱이나 유니티에서 찍습니다. 블렌더는 아이템 하나씩 돌려 보는 컷에 좋습니다.", "유니티로 찍을 학생은 아이템을 유니티로 가져가 아바타에 입히는 법을 ② 배울 것에 넣게 합니다.", "\"꼭\" 칸은 심사를 기다리지 않아도 되는 방법으로 정하게 합니다.", "수업 전에 한 번 확인해 두면 좋습니다: 스튜디오 \"휴대폰에서 미리보기\" 화면을 캡처하거나 녹화해 룩북 컷으로 쓸 수 있는지. 되면 심사 없이 앱 화면을 쓸 수 있다고 안내합니다."], ["방법 넷과 ★ 하나를 짚고, 오른쪽 예시 표를 읽어 줍니다.", "블렌더가 아직 낯선 학생은 모델링을 목표 칸에 두고 꼭 칸은 템플릿으로.", "파츠 표 전체를 오늘 다 채울 필요는 없습니다. ★ 하나와 직접 만들 것만 정해도 됩니다."], ["도구와 할 일 버튼을 눌러 검색어가 만들어지는 것을 보여 줍니다.", "질문은 보라 스티키 한 장에 하나, 수업 보드 내 줄 ② 칸에. 라운드 2가 이 스티키로 시작합니다."], ["링크 네 개를 짧게 소개합니다. 공식 가이드 한국어판에 블렌더 아이템, 유니티 내보내기, 심사가 다 있습니다.", "영상은 강의실 블렌더와 버전 숫자가 가까운 것부터 고르게 합니다."], ["\"묶어 보기\"로 예시를 보여 주고 시작합니다.", "아는 자료는 그 자리에서 붙이고, 모르는 묶음은 같이 검색해서 하나씩 붙여 보게 합니다. 누가 대신 찾아 오는 식으로 수업 뒤까지 일을 나누지 않습니다.", "\"?\"가 붙은 묶음을 돌며 모아 두었다가 라운드 2가 끝날 때 반 전체에 한 번에 답합니다. 과제 3-1 질문도 여기서.", "조 튜토리얼 목록은 기록이 적습니다. 목록은 보드에 남으니 다른 조 것도 참고해도 된다고 알려 줍니다."], ["시간이 모자라면 집에서 하게 하고 바로 라운드 3으로 넘어갑니다.", "라운드 1, 2에서 들은 것으로 칸을 나눕니다. 해 본 사람이 없던 일, 심사를 기다리는 일은 목표나 여유로."], ["8~10주차 수업은 월드 작업이라 룩북은 수업 밖에서 한다는 점을 꼭 말합니다.", "과제 3-1 모자, 과제 3-2 텍스처를 룩북의 ★로 겹치면 일이 줄어듭니다.", "앱에서 찍을 학생은 늦어도 8주차 안에 심사 신청."], ["버튼을 눌러 어느 쪽이 더 좋은 칸인지 맞혀 보게 합니다. \"하기\"가 아니라 \"됐다\".", "듣고 싶은 의견은 고를 수 있는 질문으로 적게 합니다. 라운드 3에서 바로 씁니다."], ["집에서 해도 되는 장입니다. 룩 개수와 길이(30초, 1분, 2분)를 바꿔 한 컷이 몇 초가 되는지 보여 줍니다. 세 룩에 30초면 너무 짧다는 경고, 한 룩에 2분이면 한 컷이 길다는 안내가 뜹니다.", "보드의 내 줄마다 컷 순서 칸(세로 칸 여섯 개)이 있습니다. 종이에 그린 사진을 올려 칸에 맞추거나, 피그잼에서 바로 그려도 된다고 말합니다."], ["집에서 읽어 둘 장입니다. 워터마크 확인과 구글 드라이브 링크 공개 유지 두 가지만 소리 내어 짚습니다.", "영상은 룩 중심이고, 콘셉트나 기획 의도는 원하면 넣어도 되지만 짧아서 다 담기 어렵다고 말합니다. 나머지는 제출 코멘트에.", "메이킹 영상이나 짧은 과정 발표는 선택입니다."], ["시간이 모자라면 \"짧게 하기\"를 누르고 바로 시작합니다. 한 문장, ★ 하나, 듣고 싶은 의견만.", "답은 다음 주에, 오늘은 받기만. 카드는 발표자 줄의 받은 카드 칸에 주황 스티키로.", "\"다 하기\"는 다음 주 길이(2분 남짓)에 맞춰 보게 합니다. 길어지는 사람은 어느 질문에서 길어졌는지 스스로 표시해 두게 합니다."], ["듣는 사람은 확인 질문 세 개만 보며 듣게 합니다.", "발표자가 던진 질문의 답부터 쓰게 합니다."], ["\"예시로 채우기\"로 한 번 읽어 주면 문형을 쓰는 감이 생깁니다."], ["학생들이 가장 많이 물을 것: 오늘 정한 걸 바꿔도 되는지. 오늘 아이디어는 연습이고, 다음 주에도 그 뒤에도 바뀌어도 된다고 분명히 말해 줍니다.", "만들다 막히고 계획대로 안 되는 건 다 알고 있다, 그래서 꼭 · 목표 · 여유로 나눴다는 점을 연결합니다.", "바뀐 것과 이유를 11/12 제출 코멘트에 적어 두면 그것도 과정이라는 말로 닫습니다."], ["체크 항목을 같이 읽고, 양식을 어디에 저장했는지 옆 사람과 확인하고 나가게 합니다.", "내는 건 발표 자료 하나라는 점을 마지막으로 한 번 더."], ["날짜를 눌러 7주차 마감 둘(WIP 자료는 수업 시작 전, 과제 3-1은 23:59), 9주차 과제 3-2, 11주차 룩북을 짚습니다."], ["정리 한 문장: 계획은 틀려도 괜찮고, 무엇이 틀렸는지 보이게 적어 두면 된다.", "다음 주는 반 전체 앞에서 한 사람씩, 한 사람당 3분. 파일을 수업 전에 과제란에 올려 두어야 순서대로 바로 열 수 있다고 한 번 더 말합니다."]];
 const els = [...document.querySelectorAll('.slide')];
 let cur = 0;
 const bar=document.getElementById('bar'), pg=document.getElementById('pg'), ht=document.getElementById('hudtitle');
